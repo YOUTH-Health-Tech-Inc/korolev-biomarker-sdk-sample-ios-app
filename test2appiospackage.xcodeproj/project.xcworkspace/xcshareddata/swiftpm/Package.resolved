@@ -1,13 +1,13 @@
 {
-  "originHash" : "52a62617245070260ffba284d4ee4d350a23778653344e70b3e348e465fb9fb7",
+  "originHash" : "9a6dc85aeaac3a07f5a6d3b8ff7d6e47ea6a671ff5f98a3f64605b76168cc547",
   "pins" : [
     {
-      "identity" : "sdknativepack",
+      "identity" : "korolev-biomarker-sdk-swift",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/OleksandrKyslyi/SDKNativePack.git",
+      "location" : "https://github.com/YOUTH-Health-Tech-Inc/korolev-biomarker-sdk-swift.git",
       "state" : {
         "branch" : "main",
-        "revision" : "0bbb97bef9cbd87f8175573474ae6209f03b96a2"
+        "revision" : "9781e199271f52a7a82a6236d0ad6fdf924fd364"
       }
     }
   ],

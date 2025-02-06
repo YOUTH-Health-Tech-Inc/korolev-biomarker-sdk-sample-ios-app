@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7F4341E32D53E81200FAC484 /* SDKNativePack in Frameworks */ = {isa = PBXBuildFile; productRef = 7F4341E22D53E81200FAC484 /* SDKNativePack */; };
-		7F4341E52D53E90A00FAC484 /* SDKNativePack in Frameworks */ = {isa = PBXBuildFile; productRef = 7F4341E42D53E90A00FAC484 /* SDKNativePack */; };
+		7F12BC6F2D552E2E00CAA168 /* SDKNativePack in Frameworks */ = {isa = PBXBuildFile; productRef = 7F12BC6E2D552E2E00CAA168 /* SDKNativePack */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,7 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F4341E52D53E90A00FAC484 /* SDKNativePack in Frameworks */,
+				7F12BC6F2D552E2E00CAA168 /* SDKNativePack in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,7 +91,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F4341E32D53E81200FAC484 /* SDKNativePack in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,7 +151,7 @@
 			);
 			name = test2appiospackage;
 			packageProductDependencies = (
-				7F4341E42D53E90A00FAC484 /* SDKNativePack */,
+				7F12BC6E2D552E2E00CAA168 /* SDKNativePack */,
 			);
 			productName = test2appiospackage;
 			productReference = 7F506D282D4048870044DBD4 /* test2appiospackage.app */;
@@ -174,7 +172,6 @@
 			);
 			name = test2appiospackageTests;
 			packageProductDependencies = (
-				7F4341E22D53E81200FAC484 /* SDKNativePack */,
 			);
 			productName = test2appiospackageTests;
 			productReference = 7F506D382D4048880044DBD4 /* test2appiospackageTests.xctest */;
@@ -239,7 +236,7 @@
 			mainGroup = 7F506D1F2D4048870044DBD4;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				7F4341E12D53E76300FAC484 /* XCRemoteSwiftPackageReference "SDKNativePack" */,
+				7F12BC6D2D552E1800CAA168 /* XCRemoteSwiftPackageReference "korolev-biomarker-sdk-swift" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 7F506D292D4048870044DBD4 /* Products */;
@@ -635,9 +632,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		7F4341E12D53E76300FAC484 /* XCRemoteSwiftPackageReference "SDKNativePack" */ = {
+		7F12BC6D2D552E1800CAA168 /* XCRemoteSwiftPackageReference "korolev-biomarker-sdk-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/OleksandrKyslyi/SDKNativePack.git";
+			repositoryURL = "https://github.com/YOUTH-Health-Tech-Inc/korolev-biomarker-sdk-swift.git";
 			requirement = {
 				branch = main;
 				kind = branch;
@@ -646,14 +643,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		7F4341E22D53E81200FAC484 /* SDKNativePack */ = {
+		7F12BC6E2D552E2E00CAA168 /* SDKNativePack */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 7F4341E12D53E76300FAC484 /* XCRemoteSwiftPackageReference "SDKNativePack" */;
-			productName = SDKNativePack;
-		};
-		7F4341E42D53E90A00FAC484 /* SDKNativePack */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7F4341E12D53E76300FAC484 /* XCRemoteSwiftPackageReference "SDKNativePack" */;
+			package = 7F12BC6D2D552E1800CAA168 /* XCRemoteSwiftPackageReference "korolev-biomarker-sdk-swift" */;
 			productName = SDKNativePack;
 		};
 /* End XCSwiftPackageProductDependency section */
