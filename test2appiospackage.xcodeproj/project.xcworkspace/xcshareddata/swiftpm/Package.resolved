@@ -1,0 +1,15 @@
+{
+  "originHash" : "52a62617245070260ffba284d4ee4d350a23778653344e70b3e348e465fb9fb7",
+  "pins" : [
+    {
+      "identity" : "sdknativepack",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/OleksandrKyslyi/SDKNativePack.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "0bbb97bef9cbd87f8175573474ae6209f03b96a2"
+      }
+    }
+  ],
+  "version" : 3
+}
