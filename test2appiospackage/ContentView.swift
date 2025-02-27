@@ -10,24 +10,33 @@ struct FlutterViewControllerRepresentable: UIViewControllerRepresentable {
                 nibName: nil,
                 bundle: nil)
             
-            let methodChannel = FlutterMethodChannel(name: "youth.sample.app/photofacescan", binaryMessenger: flutterViewController.binaryMessenger)
+            let selfieChannel = FlutterMethodChannel(name: "youth.sample.app/photofacescan", binaryMessenger: flutterViewController.binaryMessenger)
             
-            methodChannel.setMethodCallHandler { (call, result) in
+                selfieChannel.setMethodCallHandler { (call, result) in
                 if call.method == "sendFaceData" {
                     if let arguments = call.arguments as? [String: Any], let data = arguments["faceScanData"] as? String {
-                        
-                        print("Received data from Flutter: \(data)")
-                        
-                     result("Data received on iOS: \(data)")
+                        print("Received selfie data from Flutter: \(data)")
                     } else {
-                        result(FlutterError(code: "INVALID_ARGUMENT", message: "Data not found", details: nil))
                         print("INVALID_ARGUMENT")
                     }
                 } else {
-                    result(FlutterMethodNotImplemented)
                     print("FlutterMethodNotImplemented")
                 }
             }
+        
+        let videoChannel = FlutterMethodChannel(name: "youth.sample.app/videoscan", binaryMessenger: flutterViewController.binaryMessenger)
+        
+        videoChannel.setMethodCallHandler { (call, result) in
+            if call.method == "sendVideoScanData" {
+                if let arguments = call.arguments as? [String: Any], let data = arguments["videoScanData"] as? String {
+                    print("Received video data from Flutter: \(data)")
+                } else {
+                    print("INVALID_ARGUMENT")
+                }
+            } else {
+                print("FlutterMethodNotImplemented")
+            }
+        }
             
             return flutterViewController
         }

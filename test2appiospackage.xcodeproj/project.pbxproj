@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7F12BC6F2D552E2E00CAA168 /* SDKNativePack in Frameworks */ = {isa = PBXBuildFile; productRef = 7F12BC6E2D552E2E00CAA168 /* SDKNativePack */; };
+		7F7AD6852D708E55004091A0 /* youth-sdk-swift-pack in Frameworks */ = {isa = PBXBuildFile; productRef = 7F7AD6842D708E55004091A0 /* youth-sdk-swift-pack */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,7 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F12BC6F2D552E2E00CAA168 /* SDKNativePack in Frameworks */,
+				7F7AD6852D708E55004091A0 /* youth-sdk-swift-pack in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,7 +151,7 @@
 			);
 			name = test2appiospackage;
 			packageProductDependencies = (
-				7F12BC6E2D552E2E00CAA168 /* SDKNativePack */,
+				7F7AD6842D708E55004091A0 /* youth-sdk-swift-pack */,
 			);
 			productName = test2appiospackage;
 			productReference = 7F506D282D4048870044DBD4 /* test2appiospackage.app */;
@@ -236,7 +236,7 @@
 			mainGroup = 7F506D1F2D4048870044DBD4;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				7F12BC6D2D552E1800CAA168 /* XCRemoteSwiftPackageReference "korolev-biomarker-sdk-swift" */,
+				7F7AD6832D708E49004091A0 /* XCLocalSwiftPackageReference "../youth-sdk-swift-pack" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 7F506D292D4048870044DBD4 /* Products */;
@@ -346,7 +346,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -448,7 +448,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"test2appiospackage/Preview Content\"";
-				DEVELOPMENT_TEAM = 98JRB594BG;
+				DEVELOPMENT_TEAM = ZX5242BSFC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = test2appiospackage/Info.plist;
@@ -460,7 +460,6 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "\"LaunchScreen\"";
-				INFOPLIST_KEY_UIMainStoryboardFile = "\"Main\"";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
@@ -469,7 +468,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = youth.test2appiospackage;
+				PRODUCT_BUNDLE_IDENTIFIER = com.youth.sdk.demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "test2appiospackage/test2appiospackage-Bridging-Header.h";
@@ -488,7 +487,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"test2appiospackage/Preview Content\"";
-				DEVELOPMENT_TEAM = 98JRB594BG;
+				DEVELOPMENT_TEAM = ZX5242BSFC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = test2appiospackage/Info.plist;
@@ -500,7 +499,6 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "\"LaunchScreen\"";
-				INFOPLIST_KEY_UIMainStoryboardFile = "\"Main\"";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
@@ -509,7 +507,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = youth.test2appiospackage;
+				PRODUCT_BUNDLE_IDENTIFIER = com.youth.sdk.demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "test2appiospackage/test2appiospackage-Bridging-Header.h";
@@ -631,22 +629,18 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		7F12BC6D2D552E1800CAA168 /* XCRemoteSwiftPackageReference "korolev-biomarker-sdk-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/YOUTH-Health-Tech-Inc/korolev-biomarker-sdk-swift.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
+/* Begin XCLocalSwiftPackageReference section */
+		7F7AD6832D708E49004091A0 /* XCLocalSwiftPackageReference "../youth-sdk-swift-pack" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../youth-sdk-swift-pack";
 		};
-/* End XCRemoteSwiftPackageReference section */
+/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		7F12BC6E2D552E2E00CAA168 /* SDKNativePack */ = {
+		7F7AD6842D708E55004091A0 /* youth-sdk-swift-pack */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 7F12BC6D2D552E1800CAA168 /* XCRemoteSwiftPackageReference "korolev-biomarker-sdk-swift" */;
-			productName = SDKNativePack;
+			package = 7F7AD6832D708E49004091A0 /* XCLocalSwiftPackageReference "../youth-sdk-swift-pack" */;
+			productName = "youth-sdk-swift-pack";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
