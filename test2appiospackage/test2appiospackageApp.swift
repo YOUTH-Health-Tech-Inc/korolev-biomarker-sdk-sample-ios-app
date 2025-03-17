@@ -6,7 +6,7 @@ struct test2appiospackageApp: App {
     @State var flutterDependencies = FlutterDependencies()
        var body: some Scene {
          WindowGroup {
-           ContentView()
+             ContentView()
              .environment(flutterDependencies)
          }
        }
@@ -14,10 +14,13 @@ struct test2appiospackageApp: App {
 
 @Observable
 class FlutterDependencies {
- let flutterEngine = FlutterEngine(name: "my flutter engine")
+ let flutterVideoEngine = FlutterEngine(name: "flutterVideoEngine")
+    let flutterPhotoEngine = FlutterEngine(name: "flutterPhotoEngine")
     
  init() {
-   flutterEngine.run()
-     GeneratedPluginRegistrant.register(with: self.flutterEngine);
+     flutterVideoEngine.run(withEntrypoint: "main", initialRoute: "/videoScreening")
+     flutterPhotoEngine.run(withEntrypoint: "main", initialRoute: "/selfieScreening")
+     GeneratedPluginRegistrant.register(with: self.flutterVideoEngine);
+     GeneratedPluginRegistrant.register(with: self.flutterPhotoEngine);
  }
 }
