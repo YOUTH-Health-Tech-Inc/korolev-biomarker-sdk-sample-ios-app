@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7F6A2F4E2D884B5F00468AB4 /* youth-sdk-swift-pack in Frameworks */ = {isa = PBXBuildFile; productRef = 7F6A2F4D2D884B5F00468AB4 /* youth-sdk-swift-pack */; };
+		7FD7489A2D9292A1000E430E /* youth-sdk-swift-pack in Frameworks */ = {isa = PBXBuildFile; productRef = 7FD748992D9292A1000E430E /* youth-sdk-swift-pack */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,7 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F6A2F4E2D884B5F00468AB4 /* youth-sdk-swift-pack in Frameworks */,
+				7FD7489A2D9292A1000E430E /* youth-sdk-swift-pack in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,7 +151,7 @@
 			);
 			name = test2appiospackage;
 			packageProductDependencies = (
-				7F6A2F4D2D884B5F00468AB4 /* youth-sdk-swift-pack */,
+				7FD748992D9292A1000E430E /* youth-sdk-swift-pack */,
 			);
 			productName = test2appiospackage;
 			productReference = 7F506D282D4048870044DBD4 /* test2appiospackage.app */;
@@ -236,7 +236,7 @@
 			mainGroup = 7F506D1F2D4048870044DBD4;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				7F6A2F4C2D884B5900468AB4 /* XCLocalSwiftPackageReference "../youth-sdk-swift-pack" */,
+				7FD748982D929298000E430E /* XCLocalSwiftPackageReference "../youth-sdk-swift-pack" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 7F506D292D4048870044DBD4 /* Products */;
@@ -636,16 +636,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		7F6A2F4C2D884B5900468AB4 /* XCLocalSwiftPackageReference "../youth-sdk-swift-pack" */ = {
+		7FD748982D929298000E430E /* XCLocalSwiftPackageReference "../youth-sdk-swift-pack" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = "../youth-sdk-swift-pack";
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		7F6A2F4D2D884B5F00468AB4 /* youth-sdk-swift-pack */ = {
+		7FD748992D9292A1000E430E /* youth-sdk-swift-pack */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 7F6A2F4C2D884B5900468AB4 /* XCLocalSwiftPackageReference "../youth-sdk-swift-pack" */;
+			package = 7FD748982D929298000E430E /* XCLocalSwiftPackageReference "../youth-sdk-swift-pack" */;
 			productName = "youth-sdk-swift-pack";
 		};
 /* End XCSwiftPackageProductDependency section */

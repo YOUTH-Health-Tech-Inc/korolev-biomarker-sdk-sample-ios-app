@@ -3,21 +3,15 @@ import Flutter
 
 struct FlutterViewControllerRepresentable: UIViewControllerRepresentable {
     var actionType: String
-    @Environment(FlutterDependencies.self) var flutterDependencies
     func makeUIViewController(context: Context) -> some UIViewController {
         
-        var currentEngine: FlutterEngine
-
-        if actionType == "ngVideo" {
-            currentEngine = flutterDependencies.flutterVideoEngine
-        } else if actionType == "ngPhoto" {
-            currentEngine = flutterDependencies.flutterPhotoEngine
-        } else {
-            currentEngine = flutterDependencies.flutterPhotoEngine
-        }
+        let flutterEngine = FlutterEngine(name: UUID().uuidString) // Создаём новый движок
+                flutterEngine.run(withEntrypoint: "main", initialRoute: getRoute())
+                GeneratedPluginRegistrant.register(with: flutterEngine)
+        
         
         let flutterViewController = FlutterViewControllerWrapper(
-            engine: currentEngine,
+            engine: flutterEngine,
             nibName: nil,
             bundle: nil)
         
@@ -30,15 +24,20 @@ struct FlutterViewControllerRepresentable: UIViewControllerRepresentable {
             if call.method == "sendFaceData" {
                 if let arguments = call.arguments as? [String: Any], let data = arguments["faceScanData"] as? String {
                     print("Received selfie data from Flutter: \(data)")
+                    flutterViewController.engine.destroyContext()
                 } else {
                     print("INVALID_ARGUMENT")
                 }
-            } else {
-                print("FlutterMethodNotImplemented")
+            } else if call.method == "processingOfFaceData" {
+                //here should be implementation of a loader on ios side
+                print("EVENT: ---------------- photo data processing")
+                if let navigationController = flutterViewController.navigationController {
+                    navigationController.popToRootViewController(animated: true)
+                    //self.flutterDependencies.flutterVideoEngine.viewController = nil
+                }
             }
-            if let navigationController = flutterViewController.navigationController {
-                navigationController.popViewController(animated: true)
-                self.flutterDependencies.flutterVideoEngine.viewController = nil
+            else {
+                print("FlutterMethodNotImplemented")
             }
         }
         
@@ -49,17 +48,18 @@ struct FlutterViewControllerRepresentable: UIViewControllerRepresentable {
             if call.method == "sendVideoScanData" {
                 if let arguments = call.arguments as? [String: Any], let data = arguments["videoScanData"] as? String {
                     print("Received video data from Flutter: \(data)")
+                    flutterViewController.engine.destroyContext()
                 } else {
                     print("INVALID_ARGUMENT")
                 }
-            } else {
-                print("FlutterMethodNotImplemented")
+            } else if call.method == "processingOfVideoData" {
+                print("EVENT: ---------------- video data processing")
+                if let navigationController = flutterViewController.navigationController {
+                    navigationController.popToRootViewController(animated: true)
+                }
             }
-            
-            
-            if let navigationController = flutterViewController.navigationController {
-                navigationController.popViewController(animated: true)
-                self.flutterDependencies.flutterPhotoEngine.viewController = nil
+            else {
+                print("FlutterMethodNotImplemented")
             }
         }
         
@@ -67,6 +67,10 @@ struct FlutterViewControllerRepresentable: UIViewControllerRepresentable {
     }
     
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
+    
+    private func getRoute() -> String {
+        return actionType == "ngVideo" ? "/videoScreening" : "/selfieScreening"
+    }
 }
 
 class FlutterViewControllerWrapper: FlutterViewController {
@@ -74,7 +78,6 @@ class FlutterViewControllerWrapper: FlutterViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
             super.viewWillDisappear(animated)
-        //TODO: reset
         }
 
     override func viewDidAppear(_ animated: Bool) {
