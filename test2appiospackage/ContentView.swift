@@ -5,7 +5,7 @@ struct FlutterViewControllerRepresentable: UIViewControllerRepresentable {
     var actionType: String
     func makeUIViewController(context: Context) -> some UIViewController {
         
-        let flutterEngine = FlutterEngine(name: UUID().uuidString) // Создаём новый движок
+        let flutterEngine = FlutterEngine(name: UUID().uuidString)
                 flutterEngine.run(withEntrypoint: "main", initialRoute: getRoute())
                 GeneratedPluginRegistrant.register(with: flutterEngine)
         
@@ -17,51 +17,56 @@ struct FlutterViewControllerRepresentable: UIViewControllerRepresentable {
         
               flutterViewController.actionType = actionType
         
-        // receive selfie data
+        // SELFIE --------------------- start
         let selfieChannel = FlutterMethodChannel(name: "youth.sample.app/photofacescan", binaryMessenger: flutterViewController.binaryMessenger)
         
         selfieChannel.setMethodCallHandler { (call, result) in
             if call.method == "sendFaceData" {
                 if let arguments = call.arguments as? [String: Any], let data = arguments["faceScanData"] as? String {
-                    print("Received selfie data from Flutter: \(data)")
-                    flutterViewController.engine.destroyContext()
+                    print("SELFIE data from Flutter: \(data)")
                 } else {
-                    print("INVALID_ARGUMENT")
+                    print("invalid argument")
                 }
+                flutterViewController.isDataProcessing = false
+                flutterViewController.engine.destroyContext()
             } else if call.method == "processingOfFaceData" {
-                //here should be implementation of a loader on ios side
-                print("EVENT: ---------------- photo data processing")
+                print("photo data processing")  //here should be implementation of a loader on ios side
+                flutterViewController.isDataProcessing = true
                 if let navigationController = flutterViewController.navigationController {
                     navigationController.popToRootViewController(animated: true)
-                    //self.flutterDependencies.flutterVideoEngine.viewController = nil
                 }
             }
             else {
                 print("FlutterMethodNotImplemented")
             }
         }
+        // SELFIE --------------------- end
         
-        // receive video data
+        
+        // VIDEO --------------------- start
         let videoChannel = FlutterMethodChannel(name: "youth.sample.app/videoscan", binaryMessenger: flutterViewController.binaryMessenger)
         
         videoChannel.setMethodCallHandler { (call, result) in
             if call.method == "sendVideoScanData" {
                 if let arguments = call.arguments as? [String: Any], let data = arguments["videoScanData"] as? String {
-                    print("Received video data from Flutter: \(data)")
-                    flutterViewController.engine.destroyContext()
+                    print("VIDEO data from Flutter: \(data)")
                 } else {
                     print("INVALID_ARGUMENT")
                 }
+                flutterViewController.isDataProcessing = false
+                flutterViewController.engine.destroyContext()
             } else if call.method == "processingOfVideoData" {
-                print("EVENT: ---------------- video data processing")
+                flutterViewController.isDataProcessing = true
+                print("video data processing") //here should be implementation of a loader on ios side
                 if let navigationController = flutterViewController.navigationController {
-                    navigationController.popToRootViewController(animated: true)
+                    navigationController.popViewController(animated: true)
                 }
             }
             else {
                 print("FlutterMethodNotImplemented")
             }
         }
+        // VIDEO --------------------- end
         
         return flutterViewController
     }
@@ -75,14 +80,19 @@ struct FlutterViewControllerRepresentable: UIViewControllerRepresentable {
 
 class FlutterViewControllerWrapper: FlutterViewController {
     var actionType: String?
+    var isDataProcessing = false
     
     override func viewWillDisappear(_ animated: Bool) {
             super.viewWillDisappear(animated)
+        if !isDataProcessing {
+                    print("destroying Flutter engine")
+                    engine.destroyContext()
+                }
         }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //TODO: reset
+        isDataProcessing = false
     }
 }
 
