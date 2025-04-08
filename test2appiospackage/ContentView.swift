@@ -3,6 +3,7 @@ import Flutter
 
 struct FlutterViewControllerRepresentable: UIViewControllerRepresentable {
     var actionType: String
+    
     func makeUIViewController(context: Context) -> some UIViewController {
         
         let flutterEngine = FlutterEngine(name: UUID().uuidString)
@@ -29,12 +30,14 @@ struct FlutterViewControllerRepresentable: UIViewControllerRepresentable {
                 }
                 flutterViewController.isDataProcessing = false
                 flutterViewController.engine.destroyContext()
-            } else if call.method == "processingOfFaceData" {
-                print("photo data processing")  //here should be implementation of a loader on ios side
+            } else if call.method == "userTapToCloseScreen" {
+                flutterViewController.dismiss(animated: true, completion: nil)
+                
+            }
+            else if call.method == "processingOfFaceData" {
+                print("photo data processing")  //----------- here should be implementation of a loader on ios side
                 flutterViewController.isDataProcessing = true
-                if let navigationController = flutterViewController.navigationController {
-                    navigationController.popToRootViewController(animated: true)
-                }
+                flutterViewController.dismiss(animated: true, completion: nil)
             }
             else {
                 print("FlutterMethodNotImplemented")
@@ -55,13 +58,17 @@ struct FlutterViewControllerRepresentable: UIViewControllerRepresentable {
                 }
                 flutterViewController.isDataProcessing = false
                 flutterViewController.engine.destroyContext()
+                
+            } else if call.method == "userTapToCloseScreen" {
+                flutterViewController.dismiss(animated: true, completion: nil)
+                flutterViewController.engine.destroyContext()
+                
             } else if call.method == "processingOfVideoData" {
                 flutterViewController.isDataProcessing = true
-                print("video data processing") //here should be implementation of a loader on ios side
-                if let navigationController = flutterViewController.navigationController {
-                    navigationController.popViewController(animated: true)
-                }
+                print("video data processing")  //----------- here should be implementation of a loader on ios side
+                flutterViewController.dismiss(animated: true, completion: nil)
             }
+            
             else {
                 print("FlutterMethodNotImplemented")
             }
@@ -97,22 +104,23 @@ class FlutterViewControllerWrapper: FlutterViewController {
 }
 
 struct ContentView: View {
+    @State private var selectedActionType: String = ""
+
     var body: some View {
-        NavigationStack {
-            VStack(spacing: 100) {
-                NavigationLink("Run video screening service") {
-                    FlutterViewControllerRepresentable(actionType: "ngVideo").id(UUID())
-                }
-                NavigationLink("Run photo screening service") {
-                    FlutterViewControllerRepresentable(actionType: "ngPhoto").id(UUID())
-                }
+        VStack(spacing: 100) {
+            Button("Run video screening service") {
+                selectedActionType = "ngVideo"
             }
-        }
+
+            Button("Run photo screening service") {
+                selectedActionType = "ngPhoto"
+            }
+        }
+        .fullScreenCover(isPresented: .constant(!selectedActionType.isEmpty), onDismiss: {
+                selectedActionType = ""
+            }) {
+                FlutterViewControllerRepresentable(actionType: selectedActionType)
+                    .id(UUID())
+            }
     }
-}
-
-
-
-#Preview {
-    ContentView()
 }
