@@ -88,6 +88,9 @@ struct FlutterViewControllerRepresentable: UIViewControllerRepresentable {
 class FlutterViewControllerWrapper: FlutterViewController {
     var actionType: String?
     var isDataProcessing = false
+    var didSendStyles = false
+    var didSendStylesVideo = false
+   
     
     override func viewWillDisappear(_ animated: Bool) {
             super.viewWillDisappear(animated)
@@ -100,27 +103,108 @@ class FlutterViewControllerWrapper: FlutterViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         isDataProcessing = false
+        
+        if actionType == "ngPhoto" && !didSendStyles {
+                sendSelfieStyles()
+                didSendStyles = true
+            }
+        if actionType == "ngVideo" && !didSendStylesVideo {
+            sendVideoStyles()
+                didSendStylesVideo = true
+            }
     }
+    
+    private func sendSelfieStyles() {
+            let selfieChannel = FlutterMethodChannel(
+                name: "youth.sample.app/photofacescan",
+                binaryMessenger: binaryMessenger
+            )
+
+            let styles: [String: String] = [
+                "selfie-bg-color": "#F6A5C0",
+                "selfie-btn-left-text-color": "#4D9A1D",
+                "selfie-btn-left-color": "#8E44AD",
+                "selfie-btn-left-border-color": "#F39C12",
+                "selfie-btn-left-corner-radius": "20px",
+                "selfie-btn-right-text-color": "#16A085",
+                "selfie-btn-right-color": "#D35400",
+                "selfie-btn-right-border-color": "#2ECC71",
+                "selfie-btn-right-corner-radius": "20px"
+            ]
+
+            selfieChannel.invokeMethod("updateSelfieStyles", arguments: styles) { result in
+                if let error = result as? FlutterError {
+                    print("FlutterError: \(error.message ?? "")")
+                } else if FlutterMethodNotImplemented.isEqual(result) {
+                    print("Method not implemented in Flutter.")
+                } else {
+                    print("Selfie styles sent successfully.")
+                }
+            }
+        }
+    
+    private func sendVideoStyles() {
+            let videoChannel = FlutterMethodChannel(
+                name: "youth.sample.app/videoscan",
+                binaryMessenger: binaryMessenger
+            )
+
+            let styles: [String: String] = [
+                "video-top-info-bg-color": "#FFFFFF",
+                "video-bottom-info-bg-color": "#FFFFFF",
+                "video-top-info-text-color": "#7eca4d",
+                "video-bottom-info-text-color": "#ca4d4d",
+                "video-loading-screen-bg-color": "#a84dca",
+                "video-loading-screen-text-color": "#ffb3e2",
+                "video-loading-screen-text": "custom text!!!",
+                "video-loading-screen-text-size": "31",
+                "video-loading-screen-text-font": "Roboto",   // only goole fonts names for now, without "-Medium" "-Small" types
+            ]
+
+            videoChannel.invokeMethod("updateVideoStyles", arguments: styles) { result in
+                if let error = result as? FlutterError {
+                    print("FlutterError: \(error.message ?? "")")
+                } else if FlutterMethodNotImplemented.isEqual(result) {
+                    print("Method not implemented in Flutter.")
+                } else {
+                    print("Video styles sent successfully.")
+                }
+            }
+        }
 }
 
 struct ContentView: View {
     @State private var selectedActionType: String = ""
+    @State private var showVoiceScreening = false
 
     var body: some View {
-        VStack(spacing: 100) {
-            Button("Run video screening service") {
-                selectedActionType = "ngVideo"
-            }
+           NavigationStack {
+               VStack(spacing: 120) {
+                   Button("Run VIDEO screening service") {
+                       selectedActionType = "ngVideo"
+                   }
+                   .font(.system(size: 24))
 
-            Button("Run photo screening service") {
-                selectedActionType = "ngPhoto"
-            }
-        }
+                   Button("Run PHOTO screening service") {
+                       selectedActionType = "ngPhoto"
+                   }
+                   .font(.system(size: 24))
+
+                   Button("Run VOICE screening service") {
+                       showVoiceScreening = true
+                   }
+                   .font(.system(size: 24))
+               }
+               .padding()
+           }
         .fullScreenCover(isPresented: .constant(!selectedActionType.isEmpty), onDismiss: {
-                selectedActionType = ""
-            }) {
-                FlutterViewControllerRepresentable(actionType: selectedActionType)
-                    .id(UUID())
-            }
+            selectedActionType = ""
+        }) {
+            FlutterViewControllerRepresentable(actionType: selectedActionType)
+                .id(UUID())
+        }
+        .fullScreenCover(isPresented: $showVoiceScreening) {
+                VoiceView()
+        }
     }
 }

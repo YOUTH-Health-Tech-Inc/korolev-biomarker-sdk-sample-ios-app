@@ -1,0 +1,19 @@
+version: "v3.2.4"
+name: 'elck'
+display_name: 'Sonde ELCK Library' 
+omni_config_version:
+  - v1
+
+vad: true
+ahh: true
+energy_meter: true
+f0: true
+
+user_config:
+  - pre_emphasis_factor:  0.97
+  - sonde_framesize: 25
+  - sonde_framestep: 10
+  - vad_blocksize: 1024
+  - vad_decimate: 1
+  - vad_filterlength: 3
+  - vad_overlap: 4

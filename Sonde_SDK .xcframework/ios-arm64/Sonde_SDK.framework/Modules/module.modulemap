@@ -1,0 +1,11 @@
+framework module Sonde_SDK {
+  umbrella header "Sonde_SDK.h"
+  export *
+
+  module * { export * }
+}
+
+module Sonde_SDK.Swift {
+  header "Sonde_SDK-Swift.h"
+  requires objc
+}

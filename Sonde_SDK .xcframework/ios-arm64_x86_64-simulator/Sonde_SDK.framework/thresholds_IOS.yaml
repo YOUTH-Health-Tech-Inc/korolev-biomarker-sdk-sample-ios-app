@@ -1,0 +1,12 @@
+elck_user_config:
+  - vad_threshold1: 30 
+  - vad_threshold2: 50 
+  - lmk_threshold: 0
+  - ahh_threshold1: 0.0001
+  - ahh_threshold2: 0.5 
+  - em_threshold1: 25
+  - em_threshold2: 32
+  - fsd_threshold1: 10
+  - fsd_qos_threshold2: 1
+  - f0_threshold: 1
+  

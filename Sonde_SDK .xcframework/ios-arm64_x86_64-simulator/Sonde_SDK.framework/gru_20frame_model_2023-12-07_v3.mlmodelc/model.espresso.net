@@ -1,0 +1,5545 @@
+{
+  "layers" : [
+    {
+      "top" : "model\/gru_1\/PartitionedCall\/TensorArrayV2_1",
+      "w" : 64,
+      "h" : 1,
+      "weights" : {
+
+      },
+      "nd_rank" : 3,
+      "type" : "load_constant",
+      "k" : 1,
+      "attributes" : {
+        "basic_block_head" : 1
+      },
+      "bottom" : "",
+      "debug_info" : "model\/gru_1\/PartitionedCall\/TensorArrayV2_1",
+      "n" : 1,
+      "name" : "model\/gru_1\/PartitionedCall\/TensorArrayV2_1",
+      "constant_blob" : 1
+    },
+    {
+      "name" : "model\/dense\/Tensordot\/Reshape",
+      "weights" : {
+
+      },
+      "dst_w" : 14,
+      "version" : 1,
+      "dst_n" : 1,
+      "dst_nd_rank" : 2,
+      "type" : "reshape",
+      "dst_h" : -1,
+      "mode" : 0,
+      "dynamic_shape" : false,
+      "bottom" : "input_1",
+      "debug_info" : "model\/dense\/Tensordot\/Reshape",
+      "dst_seq" : 1,
+      "dst_k" : 1,
+      "top" : "model\/dense\/Tensordot\/Reshape"
+    },
+    {
+      "nB" : 14,
+      "top" : "model\/dense\/Tensordot\/MatMul",
+      "has_biases" : 0,
+      "weights" : {
+
+      },
+      "nC" : 64,
+      "blob_weights" : 3,
+      "type" : "inner_product",
+      "has_relu" : 0,
+      "bottom" : "model\/dense\/Tensordot\/Reshape",
+      "debug_info" : "model\/dense\/Tensordot\/MatMul",
+      "has_tanh" : 0,
+      "nd_mode" : true,
+      "name" : "model\/dense\/Tensordot\/MatMul",
+      "has_prelu" : 0
+    },
+    {
+      "name" : "model\/dense\/Tensordot",
+      "weights" : {
+
+      },
+      "dst_w" : 64,
+      "version" : 1,
+      "dst_n" : 1,
+      "dst_nd_rank" : 3,
+      "type" : "reshape",
+      "dst_h" : 20,
+      "mode" : 0,
+      "dynamic_shape" : false,
+      "bottom" : "model\/dense\/Tensordot\/MatMul",
+      "debug_info" : "model\/dense\/Tensordot",
+      "dst_seq" : 1,
+      "dst_k" : -1,
+      "top" : "model\/dense\/Tensordot"
+    },
+    {
+      "top" : "model\/dense\/BiasAdd\/ReadVariableOp",
+      "w" : 64,
+      "h" : 1,
+      "name" : "model\/dense\/BiasAdd\/ReadVariableOp",
+      "nd_rank" : 1,
+      "type" : "load_constant",
+      "k" : 1,
+      "bottom" : "",
+      "debug_info" : "model\/dense\/BiasAdd\/ReadVariableOp",
+      "n" : 1,
+      "weights" : {
+
+      },
+      "constant_blob" : 5
+    },
+    {
+      "bottom" : "model\/dense\/Tensordot,model\/dense\/BiasAdd\/ReadVariableOp",
+      "alpha" : 1,
+      "operation" : 0,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/dense\/BiasAdd",
+      "nd_mode" : true,
+      "top" : "model\/dense\/BiasAdd",
+      "type" : "elementwise",
+      "name" : "model\/dense\/BiasAdd",
+      "beta" : 0
+    },
+    {
+      "bottom" : "model\/dense\/BiasAdd",
+      "weights" : {
+
+      },
+      "mode" : 1,
+      "debug_info" : "model\/dense\/Tanh",
+      "top" : "model\/dense\/Tanh",
+      "type" : "activation",
+      "name" : "model\/dense\/Tanh"
+    },
+    {
+      "top" : "model\/batch_normalization\/batchnorm\/mul",
+      "w" : 64,
+      "h" : 1,
+      "name" : "model\/batch_normalization\/batchnorm\/mul",
+      "nd_rank" : 1,
+      "type" : "load_constant",
+      "k" : 1,
+      "bottom" : "",
+      "debug_info" : "model\/batch_normalization\/batchnorm\/mul",
+      "n" : 1,
+      "weights" : {
+
+      },
+      "constant_blob" : 7
+    },
+    {
+      "bottom" : "model\/dense\/Tanh,model\/batch_normalization\/batchnorm\/mul",
+      "alpha" : 1,
+      "operation" : 1,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/batch_normalization\/batchnorm\/mul_1",
+      "nd_mode" : true,
+      "top" : "model\/batch_normalization\/batchnorm\/mul_1",
+      "type" : "elementwise",
+      "name" : "model\/batch_normalization\/batchnorm\/mul_1",
+      "beta" : 0
+    },
+    {
+      "top" : "model\/batch_normalization\/batchnorm\/sub",
+      "w" : 64,
+      "h" : 1,
+      "name" : "model\/batch_normalization\/batchnorm\/sub",
+      "nd_rank" : 1,
+      "type" : "load_constant",
+      "k" : 1,
+      "bottom" : "",
+      "debug_info" : "model\/batch_normalization\/batchnorm\/sub",
+      "n" : 1,
+      "weights" : {
+
+      },
+      "constant_blob" : 9
+    },
+    {
+      "bottom" : "model\/batch_normalization\/batchnorm\/mul_1,model\/batch_normalization\/batchnorm\/sub",
+      "alpha" : 1,
+      "operation" : 0,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/batch_normalization\/batchnorm\/add_1",
+      "nd_mode" : true,
+      "top" : "model\/batch_normalization\/batchnorm\/add_1",
+      "type" : "elementwise",
+      "name" : "model\/batch_normalization\/batchnorm\/add_1",
+      "beta" : 0
+    },
+    {
+      "bottom" : "model\/batch_normalization\/batchnorm\/add_1",
+      "weights" : {
+
+      },
+      "nd_mode" : 1,
+      "axis" : -1,
+      "debug_info" : "model\/gru\/Shape",
+      "top" : "model\/gru\/Shape",
+      "type" : "get_shape",
+      "name" : "model\/gru\/Shape"
+    },
+    {
+      "begin_n" : 0,
+      "static_sizes_k" : 0,
+      "end_mask_h" : false,
+      "end_w" : 1,
+      "end_h" : 1,
+      "begin_h" : 0,
+      "stride_n" : 1,
+      "end_seq" : 1,
+      "begin_mask_seq" : false,
+      "begin_mask_h" : false,
+      "squeeze_mask_h" : false,
+      "stride_k" : 1,
+      "type" : "general_slice",
+      "begin_mask_k" : false,
+      "static_sizes_w" : 0,
+      "begin_w" : 0,
+      "end_mask_k" : false,
+      "use_static_sizes" : false,
+      "stride_h" : 1,
+      "static_sizes_n" : 0,
+      "begin_mask_n" : false,
+      "weights" : {
+
+      },
+      "name" : "model\/gru\/strided_slice",
+      "stride_seq" : 1,
+      "end_k" : 1,
+      "static_sizes_seq" : 0,
+      "top" : "model\/gru\/strided_slice",
+      "begin_seq" : 0,
+      "squeeze_mask_k" : false,
+      "begin_k" : 0,
+      "end_mask_w" : false,
+      "end_mask_seq" : false,
+      "end_mask_n" : false,
+      "debug_info" : "model\/gru\/strided_slice",
+      "stride_w" : 2147483647,
+      "squeeze_mask_seq" : false,
+      "static_sizes_h" : 0,
+      "begin_mask_w" : false,
+      "bottom" : "model\/gru\/Shape",
+      "end_n" : 1,
+      "squeeze_mask_w" : true,
+      "squeeze_mask_n" : false
+    },
+    {
+      "top" : "tf_make_list_0",
+      "w" : 64,
+      "h" : 1,
+      "name" : "tf_make_list_0",
+      "nd_rank" : 3,
+      "type" : "load_constant",
+      "k" : 20,
+      "bottom" : "",
+      "debug_info" : "tf_make_list_0",
+      "n" : 1,
+      "weights" : {
+
+      },
+      "constant_blob" : 11
+    },
+    {
+      "axis_h" : 2,
+      "axis_w" : 0,
+      "bottom" : "model\/batch_normalization\/batchnorm\/add_1",
+      "axis_k" : 1,
+      "axis_n" : 3,
+      "axis_seq" : 4,
+      "weights" : {
+
+      },
+      "debug_info" : "transpose_7",
+      "top" : "transpose_7",
+      "type" : "transpose",
+      "name" : "transpose_7"
+    },
+    {
+      "top" : "range_1d_0",
+      "w" : 20,
+      "h" : 1,
+      "name" : "range_1d_0",
+      "nd_rank" : 1,
+      "type" : "load_constant",
+      "k" : 1,
+      "bottom" : "",
+      "debug_info" : "range_1d_0",
+      "n" : 1,
+      "weights" : {
+
+      },
+      "constant_blob" : 13
+    },
+    {
+      "axis_mode" : 1,
+      "bottom" : "range_1d_0",
+      "weights" : {
+
+      },
+      "mode" : 9,
+      "nd_axis" : 0,
+      "nd_mode" : true,
+      "debug_info" : "range_1d_0_max",
+      "use_version" : 1,
+      "top" : "range_1d_0_max_presqueeze",
+      "type" : "reduce",
+      "name" : "range_1d_0_max_presqueeze"
+    },
+    {
+      "size_of_axes" : 1,
+      "bottom" : "range_1d_0_max_presqueeze",
+      "axes_0" : 0,
+      "weights" : {
+
+      },
+      "nd_axis" : 0,
+      "debug_info" : "range_1d_0_max",
+      "version" : 1,
+      "top" : "range_1d_0_max",
+      "type" : "squeeze",
+      "name" : "range_1d_0_max"
+    },
+    {
+      "bottom" : "tf_make_list_0",
+      "weights" : {
+
+      },
+      "nd_mode" : 1,
+      "axis" : -1,
+      "debug_info" : "tf_make_list_0_full_shape",
+      "top" : "tf_make_list_0_full_shape",
+      "type" : "get_shape",
+      "name" : "tf_make_list_0_full_shape"
+    },
+    {
+      "begin_n" : 0,
+      "static_sizes_k" : 0,
+      "end_mask_h" : false,
+      "end_w" : 1,
+      "end_h" : 1,
+      "begin_h" : 0,
+      "stride_n" : 1,
+      "end_seq" : 1,
+      "begin_mask_seq" : false,
+      "begin_mask_h" : false,
+      "squeeze_mask_h" : false,
+      "stride_k" : 1,
+      "type" : "general_slice",
+      "begin_mask_k" : false,
+      "static_sizes_w" : 0,
+      "begin_w" : 0,
+      "end_mask_k" : false,
+      "use_static_sizes" : false,
+      "stride_h" : 1,
+      "static_sizes_n" : 0,
+      "begin_mask_n" : false,
+      "weights" : {
+
+      },
+      "name" : "tf_make_list_0_length",
+      "stride_seq" : 1,
+      "end_k" : 1,
+      "static_sizes_seq" : 0,
+      "top" : "tf_make_list_0_length",
+      "begin_seq" : 0,
+      "squeeze_mask_k" : false,
+      "begin_k" : 0,
+      "end_mask_w" : false,
+      "end_mask_seq" : false,
+      "end_mask_n" : false,
+      "debug_info" : "tf_make_list_0_length",
+      "stride_w" : 1,
+      "squeeze_mask_seq" : false,
+      "static_sizes_h" : 0,
+      "begin_mask_w" : false,
+      "bottom" : "tf_make_list_0_full_shape",
+      "end_n" : 1,
+      "squeeze_mask_w" : false,
+      "squeeze_mask_n" : false
+    },
+    {
+      "bottom" : "transpose_7",
+      "weights" : {
+
+      },
+      "nd_mode" : 1,
+      "axis" : -1,
+      "debug_info" : "tf_make_list_0_raw_value_elem_shape",
+      "top" : "tf_make_list_0_raw_value_elem_shape",
+      "type" : "get_shape",
+      "name" : "tf_make_list_0_raw_value_elem_shape"
+    },
+    {
+      "begin_n" : 0,
+      "static_sizes_k" : 0,
+      "end_mask_h" : false,
+      "end_w" : -1,
+      "end_h" : 1,
+      "begin_h" : 0,
+      "stride_n" : 1,
+      "end_seq" : 1,
+      "begin_mask_seq" : false,
+      "begin_mask_h" : false,
+      "squeeze_mask_h" : false,
+      "stride_k" : 1,
+      "type" : "general_slice",
+      "begin_mask_k" : false,
+      "static_sizes_w" : 0,
+      "begin_w" : 1,
+      "end_mask_k" : false,
+      "use_static_sizes" : false,
+      "stride_h" : 1,
+      "static_sizes_n" : 0,
+      "begin_mask_n" : false,
+      "weights" : {
+
+      },
+      "name" : "tf_make_list_0_value_elem_shape",
+      "stride_seq" : 1,
+      "end_k" : 1,
+      "static_sizes_seq" : 0,
+      "top" : "tf_make_list_0_value_elem_shape",
+      "begin_seq" : 0,
+      "squeeze_mask_k" : false,
+      "begin_k" : 0,
+      "end_mask_w" : true,
+      "end_mask_seq" : false,
+      "end_mask_n" : false,
+      "debug_info" : "tf_make_list_0_value_elem_shape",
+      "stride_w" : 1,
+      "squeeze_mask_seq" : false,
+      "static_sizes_h" : 0,
+      "begin_mask_w" : false,
+      "bottom" : "tf_make_list_0_raw_value_elem_shape",
+      "end_n" : 1,
+      "squeeze_mask_w" : false,
+      "squeeze_mask_n" : false
+    },
+    {
+      "begin_n" : 0,
+      "static_sizes_k" : 0,
+      "end_mask_h" : false,
+      "end_w" : -1,
+      "end_h" : 1,
+      "begin_h" : 0,
+      "stride_n" : 1,
+      "end_seq" : 1,
+      "begin_mask_seq" : false,
+      "begin_mask_h" : false,
+      "squeeze_mask_h" : false,
+      "stride_k" : 1,
+      "type" : "general_slice",
+      "begin_mask_k" : false,
+      "static_sizes_w" : 0,
+      "begin_w" : 1,
+      "end_mask_k" : false,
+      "use_static_sizes" : false,
+      "stride_h" : 1,
+      "static_sizes_n" : 0,
+      "begin_mask_n" : false,
+      "weights" : {
+
+      },
+      "name" : "tf_make_list_0_ls_elem_shape",
+      "stride_seq" : 1,
+      "end_k" : 1,
+      "static_sizes_seq" : 0,
+      "top" : "tf_make_list_0_ls_elem_shape",
+      "begin_seq" : 0,
+      "squeeze_mask_k" : false,
+      "begin_k" : 0,
+      "end_mask_w" : true,
+      "end_mask_seq" : false,
+      "end_mask_n" : false,
+      "debug_info" : "tf_make_list_0_ls_elem_shape",
+      "stride_w" : 1,
+      "squeeze_mask_seq" : false,
+      "static_sizes_h" : 0,
+      "begin_mask_w" : false,
+      "bottom" : "tf_make_list_0_full_shape",
+      "end_n" : 1,
+      "squeeze_mask_w" : false,
+      "squeeze_mask_n" : false
+    },
+    {
+      "bottom" : "tf_make_list_0_ls_elem_shape,tf_make_list_0_value_elem_shape",
+      "alpha" : 1,
+      "operation" : 107,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "tf_make_list_0_elem_shape_not_equal",
+      "top" : "tf_make_list_0_elem_shape_not_equal",
+      "type" : "elementwise",
+      "name" : "tf_make_list_0_elem_shape_not_equal",
+      "beta" : 0
+    },
+    {
+      "axis_mode" : 31,
+      "bottom" : "tf_make_list_0_elem_shape_not_equal",
+      "weights" : {
+
+      },
+      "mode" : 0,
+      "debug_info" : "tf_make_list_0_reduce_any",
+      "use_version" : 1,
+      "top" : "tf_make_list_0_reduce_any_presqueeze",
+      "type" : "reduce",
+      "name" : "tf_make_list_0_reduce_any_presqueeze"
+    },
+    {
+      "size_of_axes" : 1,
+      "bottom" : "tf_make_list_0_reduce_any_presqueeze",
+      "axes_0" : 0,
+      "weights" : {
+
+      },
+      "nd_axis" : 0,
+      "debug_info" : "tf_make_list_0_reduce_any",
+      "version" : 1,
+      "top" : "tf_make_list_0_reduce_any",
+      "type" : "squeeze",
+      "name" : "tf_make_list_0_reduce_any",
+      "squeeze_all" : true
+    },
+    {
+      "weights" : {
+
+      },
+      "debug_info" : "tf_make_list_0_condition_re_initialize",
+      "top" : "",
+      "type" : "cf_if",
+      "name" : "tf_make_list_0_condition_re_initialize_if",
+      "bottom" : "tf_make_list_0_reduce_any"
+    },
+    {
+      "bottom" : "tf_make_list_0_length,tf_make_list_0_value_elem_shape",
+      "weights" : {
+
+      },
+      "nd_mode" : true,
+      "debug_info" : "tf_make_list_0_re_initialize_shape",
+      "axis" : 0,
+      "top" : "tf_make_list_0_re_initialize_shape",
+      "type" : "general_concat",
+      "name" : "tf_make_list_0_re_initialize_shape",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "bottom" : "tf_make_list_0_re_initialize_shape",
+      "weights" : {
+
+      },
+      "nd_mode" : 1,
+      "debug_info" : "tf_make_list_0_re_initialize",
+      "value" : 0,
+      "top" : "tf_make_list_0_re_initialize",
+      "type" : "fill",
+      "name" : "tf_make_list_0_re_initialize"
+    },
+    {
+      "bottom" : "tf_make_list_0_re_initialize",
+      "weights" : {
+
+      },
+      "debug_info" : "tf_make_list_0_re_initialize_assign",
+      "top" : "tf_make_list_0_@ssa_version_1",
+      "type" : "copy",
+      "name" : "tf_make_list_0_re_initialize_assign",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "bottom" : "",
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "",
+      "type" : "cf_end",
+      "name" : "tf_make_list_0_condition_re_initialize_end",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "bottom" : "range_1d_0_max,tf_make_list_0_length",
+      "alpha" : 1,
+      "operation" : 106,
+      "beta" : 0,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "tf_make_list_0_is_growing",
+      "top" : "tf_make_list_0_is_growing",
+      "type" : "elementwise",
+      "name" : "tf_make_list_0_is_growing",
+      "attributes" : {
+        "constant_if_condition" : 30,
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "bottom" : "tf_make_list_0_is_growing",
+      "weights" : {
+
+      },
+      "debug_info" : "tf_make_list_0_condition",
+      "top" : "",
+      "type" : "cf_if",
+      "name" : "tf_make_list_0_condition_if",
+      "attributes" : {
+        "constant_if_condition" : 30
+      }
+    },
+    {
+      "name" : "tf_make_list_0_extra_length0",
+      "fused_relu" : 0,
+      "beta" : 0,
+      "operation" : 33,
+      "type" : "elementwise",
+      "alpha" : 1,
+      "attributes" : {
+        "basic_block_head" : 1
+      },
+      "bottom" : "range_1d_0_max,tf_make_list_0_length",
+      "debug_info" : "tf_make_list_0_extra_length0",
+      "nd_mode" : true,
+      "weights" : {
+
+      },
+      "top" : "tf_make_list_0_extra_length0"
+    },
+    {
+      "bottom" : "tf_make_list_0_extra_length0",
+      "alpha" : 1,
+      "operation" : 0,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "tf_make_list_0_extra_length1",
+      "top" : "tf_make_list_0_extra_length1",
+      "type" : "elementwise",
+      "name" : "tf_make_list_0_extra_length1",
+      "beta" : 0
+    },
+    {
+      "bottom" : "tf_make_list_0_extra_length1,tf_make_list_0_value_elem_shape",
+      "weights" : {
+
+      },
+      "nd_mode" : true,
+      "axis" : 0,
+      "debug_info" : "tf_make_list_0_alloc_shape",
+      "top" : "tf_make_list_0_alloc_shape",
+      "type" : "general_concat",
+      "name" : "tf_make_list_0_alloc_shape"
+    },
+    {
+      "bottom" : "tf_make_list_0_alloc_shape",
+      "weights" : {
+
+      },
+      "nd_mode" : 1,
+      "debug_info" : "tf_make_list_0_alloc",
+      "value" : 0,
+      "top" : "tf_make_list_0_alloc",
+      "type" : "fill",
+      "name" : "tf_make_list_0_alloc"
+    },
+    {
+      "bottom" : "tf_make_list_0,tf_make_list_0_@ssa_version_1",
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "tf_make_list_0_@ssa_version_3",
+      "type" : "phi_virtual",
+      "name" : "phi_tf_make_list_0_@ssa_version_3",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "bottom" : "tf_make_list_0_@ssa_version_3,tf_make_list_0_alloc",
+      "weights" : {
+
+      },
+      "nd_mode" : true,
+      "axis" : 0,
+      "debug_info" : "tf_make_list_0_new",
+      "top" : "tf_make_list_0_new",
+      "type" : "general_concat",
+      "name" : "tf_make_list_0_new"
+    },
+    {
+      "weights" : {
+
+      },
+      "debug_info" : "tf_make_list_0_assign",
+      "top" : "tf_make_list_0_@ssa_version_2",
+      "type" : "copy",
+      "name" : "tf_make_list_0_assign",
+      "bottom" : "tf_make_list_0_new"
+    },
+    {
+      "bottom" : "",
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "",
+      "type" : "cf_end",
+      "name" : "tf_make_list_0_condition_end",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "bottom" : "tf_make_list_0,tf_make_list_0_@ssa_version_2,tf_make_list_0_@ssa_version_1",
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "tf_make_list_0_@ssa_version_4",
+      "type" : "phi_virtual",
+      "name" : "phi_tf_make_list_0_@ssa_version_4",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "bottom" : "tf_make_list_0_@ssa_version_4,range_1d_0,transpose_7",
+      "validate_indices" : true,
+      "allow_negative_indices" : true,
+      "mode" : 0,
+      "weights" : {
+
+      },
+      "debug_info" : "model\/gru\/PartitionedCall\/TensorArrayUnstack\/TensorListFromTensor",
+      "axis" : 0,
+      "top" : "model\/gru\/PartitionedCall\/TensorArrayUnstack\/TensorListFromTensor",
+      "type" : "scatter_nd",
+      "name" : "model\/gru\/PartitionedCall\/TensorArrayUnstack\/TensorListFromTensor",
+      "accumulation_mode" : 0
+    },
+    {
+      "top" : "model\/gru\/zeros\/packed\/1",
+      "w" : 1,
+      "h" : 1,
+      "name" : "model\/gru\/zeros\/packed\/1",
+      "nd_rank" : 1,
+      "type" : "load_constant",
+      "k" : 1,
+      "bottom" : "",
+      "debug_info" : "model\/gru\/zeros\/packed\/1",
+      "n" : 1,
+      "weights" : {
+
+      },
+      "constant_blob" : 15
+    },
+    {
+      "bottom" : "model\/gru\/strided_slice,model\/gru\/zeros\/packed\/1",
+      "weights" : {
+
+      },
+      "nd_mode" : true,
+      "axis" : 0,
+      "debug_info" : "model\/gru\/zeros\/packed",
+      "top" : "model\/gru\/zeros\/packed",
+      "type" : "general_concat",
+      "name" : "model\/gru\/zeros\/packed"
+    },
+    {
+      "bottom" : "model\/gru\/zeros\/packed",
+      "weights" : {
+
+      },
+      "nd_mode" : 1,
+      "debug_info" : "model\/gru\/zeros",
+      "value" : 0,
+      "top" : "model\/gru\/zeros",
+      "type" : "fill",
+      "name" : "model\/gru\/zeros"
+    },
+    {
+      "top" : "model\/gru\/PartitionedCall\/TensorArrayV2_1",
+      "w" : 32,
+      "h" : 1,
+      "weights" : {
+
+      },
+      "nd_rank" : 3,
+      "type" : "load_constant",
+      "k" : 20,
+      "attributes" : {
+        "basic_block_head" : 1
+      },
+      "bottom" : "",
+      "debug_info" : "model\/gru\/PartitionedCall\/TensorArrayV2_1",
+      "n" : 1,
+      "name" : "model\/gru\/PartitionedCall\/TensorArrayV2_1",
+      "constant_blob" : 17
+    },
+    {
+      "top" : "model\/gru\/PartitionedCall\/time",
+      "w" : 1,
+      "h" : 1,
+      "name" : "model\/gru\/PartitionedCall\/time",
+      "nd_rank" : 1,
+      "type" : "load_constant",
+      "k" : 1,
+      "bottom" : "",
+      "debug_info" : "model\/gru\/PartitionedCall\/time",
+      "n" : 1,
+      "weights" : {
+
+      },
+      "constant_blob" : 19
+    },
+    {
+      "weights" : {
+
+      },
+      "debug_info" : "model\/gru\/PartitionedCall\/while_0_input_copy",
+      "top" : "model\/gru\/PartitionedCall\/while_0",
+      "type" : "copy",
+      "name" : "model\/gru\/PartitionedCall\/while_0_input_copy",
+      "bottom" : "model\/gru\/PartitionedCall\/time"
+    },
+    {
+      "weights" : {
+
+      },
+      "debug_info" : "model\/gru\/PartitionedCall\/while_1_input_copy",
+      "top" : "model\/gru\/PartitionedCall\/while_1",
+      "type" : "copy",
+      "name" : "model\/gru\/PartitionedCall\/while_1_input_copy",
+      "bottom" : "model\/gru\/PartitionedCall\/TensorArrayV2_1"
+    },
+    {
+      "weights" : {
+
+      },
+      "debug_info" : "model\/gru\/PartitionedCall\/while_2_input_copy",
+      "top" : "model\/gru\/PartitionedCall\/while_2",
+      "type" : "copy",
+      "name" : "model\/gru\/PartitionedCall\/while_2_input_copy",
+      "bottom" : "model\/gru\/zeros"
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while_0,model\/gru\/PartitionedCall\/while_0_@ssa_version_1,model\/gru\/PartitionedCall\/while_0_@ssa_version_5,model\/gru\/PartitionedCall\/while_0_@ssa_version_3,model\/gru\/PartitionedCall\/while_0_@ssa_version_4",
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "model\/gru\/PartitionedCall\/while_0_@ssa_version_2",
+      "type" : "phi_virtual",
+      "name" : "phi_model\/gru\/PartitionedCall\/while_0_@ssa_version_2",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "weights" : {
+
+      },
+      "debug_info" : "model\/gru\/PartitionedCall\/while_renamed",
+      "top" : "",
+      "type" : "cf_loop",
+      "name" : "model\/gru\/PartitionedCall\/while_renamed_loop_start",
+      "bottom" : ""
+    },
+    {
+      "top" : "model\/gru\/PartitionedCall\/while\/while_cond_674146\/while\/Less_load_constant_47",
+      "w" : 1,
+      "h" : 1,
+      "name" : "model\/gru\/PartitionedCall\/while\/while_cond_674146\/while\/Less_load_constant_47",
+      "type" : "load_constant",
+      "k" : 1,
+      "attributes" : {
+        "constant_if_condition" : 10
+      },
+      "bottom" : "",
+      "debug_info" : "model\/gru\/PartitionedCall\/while\/while_cond_674146\/while\/Less",
+      "n" : 1,
+      "weights" : {
+
+      },
+      "constant_blob" : 21
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while_0_@ssa_version_2,model\/gru\/PartitionedCall\/while\/while_cond_674146\/while\/Less_load_constant_47",
+      "alpha" : 1,
+      "operation" : 103,
+      "beta" : 0,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/gru\/PartitionedCall\/while\/while_cond_674146\/while\/Less",
+      "top" : "model\/gru\/PartitionedCall\/while\/while_cond_674146\/while\/Less",
+      "type" : "elementwise",
+      "name" : "model\/gru\/PartitionedCall\/while\/while_cond_674146\/while\/Less",
+      "attributes" : {
+        "constant_if_condition" : 10
+      }
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while\/while_cond_674146\/while\/Less",
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "",
+      "type" : "cf_if",
+      "name" : "model\/gru\/PartitionedCall\/while_renamed_if",
+      "attributes" : {
+        "constant_if_condition" : 10
+      }
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while_1,model\/gru\/PartitionedCall\/while_1_@ssa_version_3,model\/gru\/PartitionedCall\/while_1_@ssa_version_2,model\/gru\/PartitionedCall\/while_1_@ssa_version_1",
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "model\/gru\/PartitionedCall\/while_1_@ssa_version_4",
+      "type" : "phi_virtual",
+      "name" : "phi_model\/gru\/PartitionedCall\/while_1_@ssa_version_4",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "model\/gru\/PartitionedCall\/while_2_@ssa_version_2",
+      "type" : "phi_virtual",
+      "name" : "phi_model\/gru\/PartitionedCall\/while_2_@ssa_version_2",
+      "bottom" : "model\/gru\/PartitionedCall\/while_2,model\/gru\/PartitionedCall\/while_2_@ssa_version_1"
+    },
+    {
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "model\/gru\/PartitionedCall\/while_0_@ssa_version_3",
+      "type" : "phi_virtual",
+      "name" : "phi_model\/gru\/PartitionedCall\/while_0_@ssa_version_3",
+      "bottom" : "model\/gru\/PartitionedCall\/while_0,model\/gru\/PartitionedCall\/while_0_@ssa_version_1,model\/gru\/PartitionedCall\/while_0_@ssa_version_5,model\/gru\/PartitionedCall\/while_0_@ssa_version_4,model\/gru\/PartitionedCall\/while_0_@ssa_version_2"
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while_0_@ssa_version_3",
+      "alpha" : 1,
+      "operation" : 0,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add_4",
+      "top" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add_4",
+      "type" : "elementwise",
+      "name" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add_4",
+      "beta" : 0
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/TensorArrayUnstack\/TensorListFromTensor,model\/gru\/PartitionedCall\/while_0_@ssa_version_3",
+      "validate_indices" : true,
+      "allow_negative_indices" : true,
+      "mode" : 0,
+      "weights" : {
+
+      },
+      "debug_info" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/TensorArrayV2Read\/TensorListGetItem",
+      "axis" : 0,
+      "top" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/TensorArrayV2Read\/TensorListGetItem_gathered",
+      "type" : "gather_nd",
+      "name" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/TensorArrayV2Read\/TensorListGetItem",
+      "batch_dims" : 0
+    },
+    {
+      "size_of_axes" : 1,
+      "bottom" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/TensorArrayV2Read\/TensorListGetItem_gathered",
+      "axes_0" : 0,
+      "weights" : {
+
+      },
+      "nd_axis" : 0,
+      "debug_info" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/TensorArrayV2Read\/TensorListGetItem_squeezed",
+      "version" : 1,
+      "top" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/TensorArrayV2Read\/TensorListGetItem",
+      "type" : "squeeze",
+      "name" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/TensorArrayV2Read\/TensorListGetItem_squeezed"
+    },
+    {
+      "nB" : 32,
+      "top" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/BiasAdd_1",
+      "has_biases" : 1,
+      "weights" : {
+
+      },
+      "nC" : 96,
+      "blob_weights" : 25,
+      "type" : "inner_product",
+      "has_relu" : 0,
+      "bottom" : "model\/gru\/PartitionedCall\/while_2_@ssa_version_2",
+      "blob_biases" : 23,
+      "has_tanh" : 0,
+      "debug_info" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/BiasAdd_1",
+      "name" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/BiasAdd_1",
+      "has_prelu" : 0
+    },
+    {
+      "nB" : 64,
+      "top" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/BiasAdd",
+      "has_biases" : 1,
+      "weights" : {
+
+      },
+      "nC" : 96,
+      "blob_weights" : 29,
+      "type" : "inner_product",
+      "has_relu" : 0,
+      "bottom" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/TensorArrayV2Read\/TensorListGetItem",
+      "blob_biases" : 27,
+      "has_tanh" : 0,
+      "debug_info" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/BiasAdd",
+      "name" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/BiasAdd",
+      "has_prelu" : 0
+    },
+    {
+      "begin_104" : 0,
+      "begin_63" : 0,
+      "begin_59" : 0,
+      "begin_64" : 0,
+      "begin_105" : 0,
+      "begin_65" : 0,
+      "begin_0" : 0,
+      "begin_70" : 0,
+      "begin_66" : 0,
+      "begin_106" : 0,
+      "begin_110" : 0,
+      "begin_2" : 0,
+      "begin_71" : 0,
+      "begin_67" : 0,
+      "begin_68" : 0,
+      "begin_107" : 0,
+      "begin_111" : 0,
+      "begin_4" : 0,
+      "begin_72" : 0,
+      "begin_73" : 0,
+      "begin_69" : 0,
+      "begin_6" : 0,
+      "begin_74" : 0,
+      "begin_108" : 0,
+      "type" : "split_nd",
+      "begin_8" : 0,
+      "begin_112" : 0,
+      "begin_75" : 0,
+      "begin_10" : 0,
+      "begin_80" : 0,
+      "begin_76" : 0,
+      "begin_109" : 0,
+      "begin_113" : 0,
+      "begin_11" : 0,
+      "nd_axis" : 1,
+      "begin_81" : 0,
+      "begin_77" : 0,
+      "begin_114" : 0,
+      "begin_12" : 0,
+      "begin_78" : 0,
+      "begin_82" : 0,
+      "begin_13" : 0,
+      "begin_83" : 0,
+      "begin_79" : 0,
+      "begin_115" : 0,
+      "begin_14" : 0,
+      "begin_84" : 0,
+      "begin_15" : 0,
+      "begin_85" : 0,
+      "num_splits" : 3,
+      "begin_116" : 0,
+      "begin_120" : 0,
+      "begin_20" : 0,
+      "begin_86" : 0,
+      "begin_16" : 0,
+      "begin_90" : 0,
+      "begin_21" : 0,
+      "begin_91" : 0,
+      "begin_87" : 0,
+      "begin_17" : 0,
+      "begin_117" : 0,
+      "begin_121" : 0,
+      "begin_18" : 0,
+      "begin_92" : 0,
+      "begin_88" : 0,
+      "begin_22" : 0,
+      "begin_23" : 0,
+      "begin_89" : 0,
+      "begin_19" : 0,
+      "begin_93" : 0,
+      "begin_118" : 0,
+      "begin_122" : 0,
+      "begin_24" : 0,
+      "begin_94" : 0,
+      "begin_25" : 0,
+      "begin_95" : 0,
+      "begin_119" : 0,
+      "begin_123" : 0,
+      "begin_30" : 0,
+      "begin_26" : 0,
+      "begin_96" : 0,
+      "begin_124" : 0,
+      "begin_31" : 0,
+      "begin_97" : 0,
+      "begin_27" : 0,
+      "begin_28" : 0,
+      "begin_98" : 0,
+      "begin_32" : 0,
+      "begin_125" : 0,
+      "begin_33" : 0,
+      "begin_29" : 0,
+      "begin_99" : 0,
+      "begin_1" : 0,
+      "weights" : {
+
+      },
+      "begin_34" : 0,
+      "bottom" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/BiasAdd_1",
+      "begin_3" : 0,
+      "begin_126" : 0,
+      "begin_35" : 0,
+      "begin_5" : 0,
+      "begin_36" : 0,
+      "begin_40" : 0,
+      "begin_127" : 0,
+      "name" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/split_1",
+      "begin_41" : 0,
+      "begin_37" : 0,
+      "begin_7" : 0,
+      "begin_42" : 0,
+      "begin_38" : 0,
+      "begin_9" : 0,
+      "begin_39" : 0,
+      "begin_43" : 0,
+      "begin_44" : 0,
+      "begin_45" : 0,
+      "begin_50" : 0,
+      "begin_46" : 0,
+      "begin_51" : 0,
+      "begin_47" : 0,
+      "begin_100" : 0,
+      "begin_52" : 0,
+      "debug_info" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/split_1",
+      "begin_48" : 0,
+      "top" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/split_1_0,model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/split_1_1,model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/split_1_2",
+      "begin_101" : 0,
+      "begin_53" : 0,
+      "begin_49" : 0,
+      "begin_54" : 0,
+      "begin_55" : 0,
+      "begin_102" : 0,
+      "begin_60" : 0,
+      "begin_56" : 0,
+      "begin_103" : 0,
+      "begin_57" : 0,
+      "begin_61" : 0,
+      "begin_62" : 0,
+      "begin_58" : 0
+    },
+    {
+      "begin_104" : 0,
+      "begin_63" : 0,
+      "begin_59" : 0,
+      "begin_64" : 0,
+      "begin_105" : 0,
+      "begin_65" : 0,
+      "begin_0" : 0,
+      "begin_70" : 0,
+      "begin_66" : 0,
+      "begin_106" : 0,
+      "begin_110" : 0,
+      "begin_2" : 0,
+      "begin_71" : 0,
+      "begin_67" : 0,
+      "begin_68" : 0,
+      "begin_107" : 0,
+      "begin_111" : 0,
+      "begin_4" : 0,
+      "begin_72" : 0,
+      "begin_73" : 0,
+      "begin_69" : 0,
+      "begin_6" : 0,
+      "begin_74" : 0,
+      "begin_108" : 0,
+      "type" : "split_nd",
+      "begin_8" : 0,
+      "begin_112" : 0,
+      "begin_75" : 0,
+      "begin_10" : 0,
+      "begin_80" : 0,
+      "begin_76" : 0,
+      "begin_109" : 0,
+      "begin_113" : 0,
+      "begin_11" : 0,
+      "nd_axis" : 1,
+      "begin_81" : 0,
+      "begin_77" : 0,
+      "begin_114" : 0,
+      "begin_12" : 0,
+      "begin_78" : 0,
+      "begin_82" : 0,
+      "begin_13" : 0,
+      "begin_83" : 0,
+      "begin_79" : 0,
+      "begin_115" : 0,
+      "begin_14" : 0,
+      "begin_84" : 0,
+      "begin_15" : 0,
+      "begin_85" : 0,
+      "num_splits" : 3,
+      "begin_116" : 0,
+      "begin_120" : 0,
+      "begin_20" : 0,
+      "begin_86" : 0,
+      "begin_16" : 0,
+      "begin_90" : 0,
+      "begin_21" : 0,
+      "begin_91" : 0,
+      "begin_87" : 0,
+      "begin_17" : 0,
+      "begin_117" : 0,
+      "begin_121" : 0,
+      "begin_18" : 0,
+      "begin_92" : 0,
+      "begin_88" : 0,
+      "begin_22" : 0,
+      "begin_23" : 0,
+      "begin_89" : 0,
+      "begin_19" : 0,
+      "begin_93" : 0,
+      "begin_118" : 0,
+      "begin_122" : 0,
+      "begin_24" : 0,
+      "begin_94" : 0,
+      "begin_25" : 0,
+      "begin_95" : 0,
+      "begin_119" : 0,
+      "begin_123" : 0,
+      "begin_30" : 0,
+      "begin_26" : 0,
+      "begin_96" : 0,
+      "begin_124" : 0,
+      "begin_31" : 0,
+      "begin_97" : 0,
+      "begin_27" : 0,
+      "begin_28" : 0,
+      "begin_98" : 0,
+      "begin_32" : 0,
+      "begin_125" : 0,
+      "begin_33" : 0,
+      "begin_29" : 0,
+      "begin_99" : 0,
+      "begin_1" : 0,
+      "weights" : {
+
+      },
+      "begin_34" : 0,
+      "bottom" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/BiasAdd",
+      "begin_3" : 0,
+      "begin_126" : 0,
+      "begin_35" : 0,
+      "begin_5" : 0,
+      "begin_36" : 0,
+      "begin_40" : 0,
+      "begin_127" : 0,
+      "name" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/split",
+      "begin_41" : 0,
+      "begin_37" : 0,
+      "begin_7" : 0,
+      "begin_42" : 0,
+      "begin_38" : 0,
+      "begin_9" : 0,
+      "begin_39" : 0,
+      "begin_43" : 0,
+      "begin_44" : 0,
+      "begin_45" : 0,
+      "begin_50" : 0,
+      "begin_46" : 0,
+      "begin_51" : 0,
+      "begin_47" : 0,
+      "begin_100" : 0,
+      "begin_52" : 0,
+      "debug_info" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/split",
+      "begin_48" : 0,
+      "top" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/split_0,model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/split_1,model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/split_2",
+      "begin_101" : 0,
+      "begin_53" : 0,
+      "begin_49" : 0,
+      "begin_54" : 0,
+      "begin_55" : 0,
+      "begin_102" : 0,
+      "begin_60" : 0,
+      "begin_56" : 0,
+      "begin_103" : 0,
+      "begin_57" : 0,
+      "begin_61" : 0,
+      "begin_62" : 0,
+      "begin_58" : 0
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/split_0,model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/split_1_0",
+      "alpha" : 1,
+      "operation" : 0,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add",
+      "top" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add",
+      "type" : "elementwise",
+      "name" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add",
+      "beta" : 0
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/split_1,model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/split_1_1",
+      "alpha" : 1,
+      "operation" : 0,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add_1",
+      "top" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add_1",
+      "type" : "elementwise",
+      "name" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add_1",
+      "beta" : 0
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add",
+      "weights" : {
+
+      },
+      "mode" : 3,
+      "debug_info" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/Sigmoid",
+      "top" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/Sigmoid",
+      "type" : "activation",
+      "name" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/Sigmoid"
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add_1",
+      "weights" : {
+
+      },
+      "mode" : 3,
+      "debug_info" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/Sigmoid_1",
+      "top" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/Sigmoid_1",
+      "type" : "activation",
+      "name" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/Sigmoid_1"
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/Sigmoid,model\/gru\/PartitionedCall\/while_2_@ssa_version_2",
+      "alpha" : 1,
+      "operation" : 1,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/mul_1",
+      "top" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/mul_1",
+      "type" : "elementwise",
+      "name" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/mul_1",
+      "beta" : 0
+    },
+    {
+      "top" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/sub\/x",
+      "w" : 1,
+      "h" : 1,
+      "name" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/sub\/x",
+      "nd_rank" : 1,
+      "type" : "load_constant",
+      "k" : 1,
+      "bottom" : "",
+      "debug_info" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/sub\/x",
+      "n" : 1,
+      "weights" : {
+
+      },
+      "constant_blob" : 31
+    },
+    {
+      "alpha" : -1,
+      "bottom" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/Sigmoid",
+      "weights" : {
+
+      },
+      "mode" : 6,
+      "debug_info" : "_neg_y_model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/sub",
+      "top" : "_neg_y_model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/sub",
+      "type" : "activation",
+      "name" : "_neg_y_model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/sub",
+      "beta" : 0
+    },
+    {
+      "bottom" : "_neg_y_model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/sub,model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/sub\/x",
+      "alpha" : 1,
+      "operation" : 0,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/sub",
+      "top" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/sub",
+      "type" : "elementwise",
+      "name" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/sub",
+      "beta" : 0
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/Sigmoid_1,model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/split_1_2",
+      "alpha" : 1,
+      "operation" : 1,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/mul",
+      "top" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/mul",
+      "type" : "elementwise",
+      "name" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/mul",
+      "beta" : 0
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/split_2,model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/mul",
+      "alpha" : 1,
+      "operation" : 0,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add_2",
+      "top" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add_2",
+      "type" : "elementwise",
+      "name" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add_2",
+      "beta" : 0
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add_2",
+      "weights" : {
+
+      },
+      "mode" : 1,
+      "debug_info" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/Tanh",
+      "top" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/Tanh",
+      "type" : "activation",
+      "name" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/Tanh"
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/sub,model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/Tanh",
+      "alpha" : 1,
+      "operation" : 1,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/mul_2",
+      "top" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/mul_2",
+      "type" : "elementwise",
+      "name" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/mul_2",
+      "beta" : 0
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/mul_1,model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/mul_2",
+      "alpha" : 1,
+      "operation" : 0,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add_3",
+      "top" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add_3",
+      "type" : "elementwise",
+      "name" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add_3",
+      "beta" : 0
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while_1_@ssa_version_4",
+      "weights" : {
+
+      },
+      "nd_mode" : 1,
+      "axis" : -1,
+      "debug_info" : "model\/gru\/PartitionedCall\/while_1_full_shape",
+      "top" : "model\/gru\/PartitionedCall\/while_1_full_shape",
+      "type" : "get_shape",
+      "name" : "model\/gru\/PartitionedCall\/while_1_full_shape"
+    },
+    {
+      "begin_n" : 0,
+      "static_sizes_k" : 0,
+      "end_mask_h" : false,
+      "end_w" : 1,
+      "end_h" : 1,
+      "begin_h" : 0,
+      "stride_n" : 1,
+      "end_seq" : 1,
+      "begin_mask_seq" : false,
+      "begin_mask_h" : false,
+      "squeeze_mask_h" : false,
+      "stride_k" : 1,
+      "type" : "general_slice",
+      "begin_mask_k" : false,
+      "static_sizes_w" : 0,
+      "begin_w" : 0,
+      "end_mask_k" : false,
+      "use_static_sizes" : false,
+      "stride_h" : 1,
+      "static_sizes_n" : 0,
+      "begin_mask_n" : false,
+      "weights" : {
+
+      },
+      "name" : "model\/gru\/PartitionedCall\/while_1_length",
+      "stride_seq" : 1,
+      "end_k" : 1,
+      "static_sizes_seq" : 0,
+      "top" : "model\/gru\/PartitionedCall\/while_1_length",
+      "begin_seq" : 0,
+      "squeeze_mask_k" : false,
+      "begin_k" : 0,
+      "end_mask_w" : false,
+      "end_mask_seq" : false,
+      "end_mask_n" : false,
+      "debug_info" : "model\/gru\/PartitionedCall\/while_1_length",
+      "stride_w" : 1,
+      "squeeze_mask_seq" : false,
+      "static_sizes_h" : 0,
+      "begin_mask_w" : false,
+      "bottom" : "model\/gru\/PartitionedCall\/while_1_full_shape",
+      "end_n" : 1,
+      "squeeze_mask_w" : false,
+      "squeeze_mask_n" : false
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add_3",
+      "weights" : {
+
+      },
+      "nd_mode" : 1,
+      "axis" : -1,
+      "debug_info" : "model\/gru\/PartitionedCall\/while_1_value_elem_shape",
+      "top" : "model\/gru\/PartitionedCall\/while_1_value_elem_shape",
+      "type" : "get_shape",
+      "name" : "model\/gru\/PartitionedCall\/while_1_value_elem_shape"
+    },
+    {
+      "begin_n" : 0,
+      "static_sizes_k" : 0,
+      "end_mask_h" : false,
+      "end_w" : -1,
+      "end_h" : 1,
+      "begin_h" : 0,
+      "stride_n" : 1,
+      "end_seq" : 1,
+      "begin_mask_seq" : false,
+      "begin_mask_h" : false,
+      "squeeze_mask_h" : false,
+      "stride_k" : 1,
+      "type" : "general_slice",
+      "begin_mask_k" : false,
+      "static_sizes_w" : 0,
+      "begin_w" : 1,
+      "end_mask_k" : false,
+      "use_static_sizes" : false,
+      "stride_h" : 1,
+      "static_sizes_n" : 0,
+      "begin_mask_n" : false,
+      "weights" : {
+
+      },
+      "name" : "model\/gru\/PartitionedCall\/while_1_ls_elem_shape",
+      "stride_seq" : 1,
+      "end_k" : 1,
+      "static_sizes_seq" : 0,
+      "top" : "model\/gru\/PartitionedCall\/while_1_ls_elem_shape",
+      "begin_seq" : 0,
+      "squeeze_mask_k" : false,
+      "begin_k" : 0,
+      "end_mask_w" : true,
+      "end_mask_seq" : false,
+      "end_mask_n" : false,
+      "debug_info" : "model\/gru\/PartitionedCall\/while_1_ls_elem_shape",
+      "stride_w" : 1,
+      "squeeze_mask_seq" : false,
+      "static_sizes_h" : 0,
+      "begin_mask_w" : false,
+      "bottom" : "model\/gru\/PartitionedCall\/while_1_full_shape",
+      "end_n" : 1,
+      "squeeze_mask_w" : false,
+      "squeeze_mask_n" : false
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while_1_ls_elem_shape,model\/gru\/PartitionedCall\/while_1_value_elem_shape",
+      "alpha" : 1,
+      "operation" : 107,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/gru\/PartitionedCall\/while_1_elem_shape_not_equal",
+      "top" : "model\/gru\/PartitionedCall\/while_1_elem_shape_not_equal",
+      "type" : "elementwise",
+      "name" : "model\/gru\/PartitionedCall\/while_1_elem_shape_not_equal",
+      "beta" : 0
+    },
+    {
+      "axis_mode" : 31,
+      "bottom" : "model\/gru\/PartitionedCall\/while_1_elem_shape_not_equal",
+      "weights" : {
+
+      },
+      "mode" : 0,
+      "debug_info" : "model\/gru\/PartitionedCall\/while_1_reduce_any",
+      "use_version" : 1,
+      "top" : "model\/gru\/PartitionedCall\/while_1_reduce_any_presqueeze",
+      "type" : "reduce",
+      "name" : "model\/gru\/PartitionedCall\/while_1_reduce_any_presqueeze"
+    },
+    {
+      "size_of_axes" : 1,
+      "bottom" : "model\/gru\/PartitionedCall\/while_1_reduce_any_presqueeze",
+      "axes_0" : 0,
+      "weights" : {
+
+      },
+      "nd_axis" : 0,
+      "debug_info" : "model\/gru\/PartitionedCall\/while_1_reduce_any",
+      "version" : 1,
+      "top" : "model\/gru\/PartitionedCall\/while_1_reduce_any",
+      "type" : "squeeze",
+      "name" : "model\/gru\/PartitionedCall\/while_1_reduce_any",
+      "squeeze_all" : true
+    },
+    {
+      "weights" : {
+
+      },
+      "debug_info" : "model\/gru\/PartitionedCall\/while_1_condition_re_initialize",
+      "top" : "",
+      "type" : "cf_if",
+      "name" : "model\/gru\/PartitionedCall\/while_1_condition_re_initialize_if",
+      "bottom" : "model\/gru\/PartitionedCall\/while_1_reduce_any"
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while_1_length,model\/gru\/PartitionedCall\/while_1_value_elem_shape",
+      "weights" : {
+
+      },
+      "nd_mode" : true,
+      "debug_info" : "model\/gru\/PartitionedCall\/while_1_re_initialize_shape",
+      "axis" : 0,
+      "top" : "model\/gru\/PartitionedCall\/while_1_re_initialize_shape",
+      "type" : "general_concat",
+      "name" : "model\/gru\/PartitionedCall\/while_1_re_initialize_shape",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while_1_re_initialize_shape",
+      "weights" : {
+
+      },
+      "nd_mode" : 1,
+      "debug_info" : "model\/gru\/PartitionedCall\/while_1_re_initialize",
+      "value" : 0,
+      "top" : "model\/gru\/PartitionedCall\/while_1_re_initialize",
+      "type" : "fill",
+      "name" : "model\/gru\/PartitionedCall\/while_1_re_initialize"
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while_1_re_initialize",
+      "weights" : {
+
+      },
+      "debug_info" : "model\/gru\/PartitionedCall\/while_1_re_initialize_assign",
+      "top" : "model\/gru\/PartitionedCall\/while_1_@ssa_version_1",
+      "type" : "copy",
+      "name" : "model\/gru\/PartitionedCall\/while_1_re_initialize_assign",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "bottom" : "",
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "",
+      "type" : "cf_end",
+      "name" : "model\/gru\/PartitionedCall\/while_1_condition_re_initialize_end",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while_0,model\/gru\/PartitionedCall\/while_0_@ssa_version_1,model\/gru\/PartitionedCall\/while_0_@ssa_version_5,model\/gru\/PartitionedCall\/while_0_@ssa_version_3,model\/gru\/PartitionedCall\/while_0_@ssa_version_2",
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "model\/gru\/PartitionedCall\/while_0_@ssa_version_4",
+      "type" : "phi_virtual",
+      "name" : "phi_model\/gru\/PartitionedCall\/while_0_@ssa_version_4",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while_0_@ssa_version_4,model\/gru\/PartitionedCall\/while_1_length",
+      "alpha" : 1,
+      "operation" : 106,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/gru\/PartitionedCall\/while_1_is_growing",
+      "top" : "model\/gru\/PartitionedCall\/while_1_is_growing",
+      "type" : "elementwise",
+      "name" : "model\/gru\/PartitionedCall\/while_1_is_growing",
+      "beta" : 0
+    },
+    {
+      "weights" : {
+
+      },
+      "debug_info" : "model\/gru\/PartitionedCall\/while_1_condition",
+      "top" : "",
+      "type" : "cf_if",
+      "name" : "model\/gru\/PartitionedCall\/while_1_condition_if",
+      "bottom" : "model\/gru\/PartitionedCall\/while_1_is_growing"
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while_0,model\/gru\/PartitionedCall\/while_0_@ssa_version_1,model\/gru\/PartitionedCall\/while_0_@ssa_version_3,model\/gru\/PartitionedCall\/while_0_@ssa_version_4,model\/gru\/PartitionedCall\/while_0_@ssa_version_2",
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "model\/gru\/PartitionedCall\/while_0_@ssa_version_5",
+      "type" : "phi_virtual",
+      "name" : "phi_model\/gru\/PartitionedCall\/while_0_@ssa_version_5",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while_0_@ssa_version_5,model\/gru\/PartitionedCall\/while_1_length",
+      "alpha" : 1,
+      "operation" : 33,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/gru\/PartitionedCall\/while_1_extra_length0",
+      "nd_mode" : true,
+      "top" : "model\/gru\/PartitionedCall\/while_1_extra_length0",
+      "type" : "elementwise",
+      "name" : "model\/gru\/PartitionedCall\/while_1_extra_length0",
+      "beta" : 0
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while_1_extra_length0",
+      "alpha" : 1,
+      "operation" : 0,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/gru\/PartitionedCall\/while_1_extra_length1",
+      "top" : "model\/gru\/PartitionedCall\/while_1_extra_length1",
+      "type" : "elementwise",
+      "name" : "model\/gru\/PartitionedCall\/while_1_extra_length1",
+      "beta" : 0
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while_1_extra_length1,model\/gru\/PartitionedCall\/while_1_value_elem_shape",
+      "weights" : {
+
+      },
+      "nd_mode" : true,
+      "axis" : 0,
+      "debug_info" : "model\/gru\/PartitionedCall\/while_1_alloc_shape",
+      "top" : "model\/gru\/PartitionedCall\/while_1_alloc_shape",
+      "type" : "general_concat",
+      "name" : "model\/gru\/PartitionedCall\/while_1_alloc_shape"
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while_1_alloc_shape",
+      "weights" : {
+
+      },
+      "nd_mode" : 1,
+      "debug_info" : "model\/gru\/PartitionedCall\/while_1_alloc",
+      "value" : 0,
+      "top" : "model\/gru\/PartitionedCall\/while_1_alloc",
+      "type" : "fill",
+      "name" : "model\/gru\/PartitionedCall\/while_1_alloc"
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while_1,model\/gru\/PartitionedCall\/while_1_@ssa_version_3,model\/gru\/PartitionedCall\/while_1_@ssa_version_2,model\/gru\/PartitionedCall\/while_1_@ssa_version_1,model\/gru\/PartitionedCall\/while_1_@ssa_version_4",
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "model\/gru\/PartitionedCall\/while_1_@ssa_version_5",
+      "type" : "phi_virtual",
+      "name" : "phi_model\/gru\/PartitionedCall\/while_1_@ssa_version_5",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while_1_@ssa_version_5,model\/gru\/PartitionedCall\/while_1_alloc",
+      "weights" : {
+
+      },
+      "nd_mode" : true,
+      "axis" : 0,
+      "debug_info" : "model\/gru\/PartitionedCall\/while_1_new",
+      "top" : "model\/gru\/PartitionedCall\/while_1_new",
+      "type" : "general_concat",
+      "name" : "model\/gru\/PartitionedCall\/while_1_new"
+    },
+    {
+      "weights" : {
+
+      },
+      "debug_info" : "model\/gru\/PartitionedCall\/while_1_assign",
+      "top" : "model\/gru\/PartitionedCall\/while_1_@ssa_version_2",
+      "type" : "copy",
+      "name" : "model\/gru\/PartitionedCall\/while_1_assign",
+      "bottom" : "model\/gru\/PartitionedCall\/while_1_new"
+    },
+    {
+      "bottom" : "",
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "",
+      "type" : "cf_end",
+      "name" : "model\/gru\/PartitionedCall\/while_1_condition_end",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while_0,model\/gru\/PartitionedCall\/while_0_@ssa_version_1,model\/gru\/PartitionedCall\/while_0_@ssa_version_5,model\/gru\/PartitionedCall\/while_0_@ssa_version_3,model\/gru\/PartitionedCall\/while_0_@ssa_version_4,model\/gru\/PartitionedCall\/while_0_@ssa_version_2",
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "model\/gru\/PartitionedCall\/while_0_@ssa_version_6",
+      "type" : "phi_virtual",
+      "name" : "phi_model\/gru\/PartitionedCall\/while_0_@ssa_version_6",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "model\/gru\/PartitionedCall\/while_1_@ssa_version_6",
+      "type" : "phi_virtual",
+      "name" : "phi_model\/gru\/PartitionedCall\/while_1_@ssa_version_6",
+      "bottom" : "model\/gru\/PartitionedCall\/while_1,model\/gru\/PartitionedCall\/while_1_@ssa_version_3,model\/gru\/PartitionedCall\/while_1_@ssa_version_2,model\/gru\/PartitionedCall\/while_1_@ssa_version_1,model\/gru\/PartitionedCall\/while_1_@ssa_version_4"
+    },
+    {
+      "size_of_axes" : 1,
+      "bottom" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add_3",
+      "axes_0" : 0,
+      "weights" : {
+
+      },
+      "nd_axis" : 0,
+      "debug_info" : "model\/gru\/PartitionedCall\/while_1_model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add_3_expanded",
+      "top" : "model\/gru\/PartitionedCall\/while_1_model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add_3_expanded",
+      "type" : "expand_dims",
+      "name" : "model\/gru\/PartitionedCall\/while_1_model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add_3_expanded"
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while_1_@ssa_version_6,model\/gru\/PartitionedCall\/while_0_@ssa_version_6,model\/gru\/PartitionedCall\/while_1_model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add_3_expanded",
+      "validate_indices" : true,
+      "allow_negative_indices" : true,
+      "mode" : 0,
+      "weights" : {
+
+      },
+      "debug_info" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/TensorArrayV2Write\/TensorListSetItem",
+      "axis" : 0,
+      "top" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/TensorArrayV2Write\/TensorListSetItem",
+      "type" : "scatter_nd",
+      "name" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/TensorArrayV2Write\/TensorListSetItem",
+      "accumulation_mode" : 0
+    },
+    {
+      "weights" : {
+
+      },
+      "debug_info" : "model\/gru\/PartitionedCall\/while_0_ret_copy",
+      "top" : "model\/gru\/PartitionedCall\/while_0_@ssa_version_1",
+      "type" : "copy",
+      "name" : "model\/gru\/PartitionedCall\/while_0_ret_copy",
+      "bottom" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add_4"
+    },
+    {
+      "weights" : {
+
+      },
+      "debug_info" : "model\/gru\/PartitionedCall\/while_1_ret_copy",
+      "top" : "model\/gru\/PartitionedCall\/while_1_@ssa_version_3",
+      "type" : "copy",
+      "name" : "model\/gru\/PartitionedCall\/while_1_ret_copy",
+      "bottom" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/TensorArrayV2Write\/TensorListSetItem"
+    },
+    {
+      "weights" : {
+
+      },
+      "debug_info" : "model\/gru\/PartitionedCall\/while_2_ret_copy",
+      "top" : "model\/gru\/PartitionedCall\/while_2_@ssa_version_1",
+      "type" : "copy",
+      "name" : "model\/gru\/PartitionedCall\/while_2_ret_copy",
+      "bottom" : "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add_3"
+    },
+    {
+      "bottom" : "",
+      "weights" : {
+
+      },
+      "cf_stack_depth" : 1,
+      "debug_info" : "",
+      "top" : "",
+      "type" : "cf_jump",
+      "name" : "model\/gru\/PartitionedCall\/while_renamed_jump"
+    },
+    {
+      "bottom" : "",
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "",
+      "type" : "cf_end",
+      "name" : "model\/gru\/PartitionedCall\/while_renamed_end_loop_if",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "bottom" : "",
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "",
+      "type" : "cf_end",
+      "name" : "model\/gru\/PartitionedCall\/while_renamed_end_loop",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while_1,model\/gru\/PartitionedCall\/while_1_@ssa_version_3,model\/gru\/PartitionedCall\/while_1_@ssa_version_2,model\/gru\/PartitionedCall\/while_1_@ssa_version_1,model\/gru\/PartitionedCall\/while_1_@ssa_version_4",
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "model\/gru\/PartitionedCall\/while_1_@ssa_version_7",
+      "type" : "phi_virtual",
+      "name" : "phi_model\/gru\/PartitionedCall\/while_1_@ssa_version_7",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "top" : "range_1d_1",
+      "w" : 20,
+      "h" : 1,
+      "name" : "range_1d_1",
+      "nd_rank" : 1,
+      "type" : "load_constant",
+      "k" : 1,
+      "bottom" : "",
+      "debug_info" : "range_1d_1",
+      "n" : 1,
+      "weights" : {
+
+      },
+      "constant_blob" : 33
+    },
+    {
+      "bottom" : "model\/gru\/PartitionedCall\/while_1_@ssa_version_7,range_1d_1",
+      "validate_indices" : true,
+      "allow_negative_indices" : true,
+      "mode" : 0,
+      "weights" : {
+
+      },
+      "debug_info" : "model\/gru\/PartitionedCall\/TensorArrayV2Stack\/TensorListStack",
+      "axis" : 0,
+      "top" : "model\/gru\/PartitionedCall\/TensorArrayV2Stack\/TensorListStack",
+      "type" : "gather_nd",
+      "name" : "model\/gru\/PartitionedCall\/TensorArrayV2Stack\/TensorListStack",
+      "batch_dims" : 0
+    },
+    {
+      "axis_h" : 2,
+      "axis_w" : 0,
+      "bottom" : "model\/gru\/PartitionedCall\/TensorArrayV2Stack\/TensorListStack",
+      "axis_k" : 1,
+      "axis_n" : 3,
+      "axis_seq" : 4,
+      "weights" : {
+
+      },
+      "debug_info" : "transpose_6",
+      "top" : "transpose_6",
+      "type" : "transpose",
+      "name" : "transpose_6"
+    },
+    {
+      "top" : "model\/batch_normalization_1\/batchnorm\/mul",
+      "w" : 32,
+      "h" : 1,
+      "name" : "model\/batch_normalization_1\/batchnorm\/mul",
+      "nd_rank" : 1,
+      "type" : "load_constant",
+      "k" : 1,
+      "bottom" : "",
+      "debug_info" : "model\/batch_normalization_1\/batchnorm\/mul",
+      "n" : 1,
+      "weights" : {
+
+      },
+      "constant_blob" : 35
+    },
+    {
+      "bottom" : "transpose_6,model\/batch_normalization_1\/batchnorm\/mul",
+      "alpha" : 1,
+      "operation" : 1,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/batch_normalization_1\/batchnorm\/mul_1",
+      "nd_mode" : true,
+      "top" : "model\/batch_normalization_1\/batchnorm\/mul_1",
+      "type" : "elementwise",
+      "name" : "model\/batch_normalization_1\/batchnorm\/mul_1",
+      "beta" : 0
+    },
+    {
+      "top" : "model\/batch_normalization_1\/batchnorm\/sub",
+      "w" : 32,
+      "h" : 1,
+      "name" : "model\/batch_normalization_1\/batchnorm\/sub",
+      "nd_rank" : 1,
+      "type" : "load_constant",
+      "k" : 1,
+      "bottom" : "",
+      "debug_info" : "model\/batch_normalization_1\/batchnorm\/sub",
+      "n" : 1,
+      "weights" : {
+
+      },
+      "constant_blob" : 37
+    },
+    {
+      "bottom" : "model\/batch_normalization_1\/batchnorm\/mul_1,model\/batch_normalization_1\/batchnorm\/sub",
+      "alpha" : 1,
+      "operation" : 0,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/batch_normalization_1\/batchnorm\/add_1",
+      "nd_mode" : true,
+      "top" : "model\/batch_normalization_1\/batchnorm\/add_1",
+      "type" : "elementwise",
+      "name" : "model\/batch_normalization_1\/batchnorm\/add_1",
+      "beta" : 0
+    },
+    {
+      "bottom" : "model\/batch_normalization_1\/batchnorm\/add_1",
+      "weights" : {
+
+      },
+      "nd_mode" : 1,
+      "axis" : -1,
+      "debug_info" : "model\/gru_1\/Shape",
+      "top" : "model\/gru_1\/Shape",
+      "type" : "get_shape",
+      "name" : "model\/gru_1\/Shape"
+    },
+    {
+      "begin_n" : 0,
+      "static_sizes_k" : 0,
+      "end_mask_h" : false,
+      "end_w" : 1,
+      "end_h" : 1,
+      "begin_h" : 0,
+      "stride_n" : 1,
+      "end_seq" : 1,
+      "begin_mask_seq" : false,
+      "begin_mask_h" : false,
+      "squeeze_mask_h" : false,
+      "stride_k" : 1,
+      "type" : "general_slice",
+      "begin_mask_k" : false,
+      "static_sizes_w" : 0,
+      "begin_w" : 0,
+      "end_mask_k" : false,
+      "use_static_sizes" : false,
+      "stride_h" : 1,
+      "static_sizes_n" : 0,
+      "begin_mask_n" : false,
+      "weights" : {
+
+      },
+      "name" : "model\/gru_1\/strided_slice",
+      "stride_seq" : 1,
+      "end_k" : 1,
+      "static_sizes_seq" : 0,
+      "top" : "model\/gru_1\/strided_slice",
+      "begin_seq" : 0,
+      "squeeze_mask_k" : false,
+      "begin_k" : 0,
+      "end_mask_w" : false,
+      "end_mask_seq" : false,
+      "end_mask_n" : false,
+      "debug_info" : "model\/gru_1\/strided_slice",
+      "stride_w" : 2147483647,
+      "squeeze_mask_seq" : false,
+      "static_sizes_h" : 0,
+      "begin_mask_w" : false,
+      "bottom" : "model\/gru_1\/Shape",
+      "end_n" : 1,
+      "squeeze_mask_w" : true,
+      "squeeze_mask_n" : false
+    },
+    {
+      "top" : "tf_make_list_1",
+      "w" : 32,
+      "h" : 1,
+      "name" : "tf_make_list_1",
+      "nd_rank" : 3,
+      "type" : "load_constant",
+      "k" : 20,
+      "bottom" : "",
+      "debug_info" : "tf_make_list_1",
+      "n" : 1,
+      "weights" : {
+
+      },
+      "constant_blob" : 39
+    },
+    {
+      "axis_h" : 2,
+      "axis_w" : 0,
+      "bottom" : "model\/batch_normalization_1\/batchnorm\/add_1",
+      "axis_k" : 1,
+      "axis_n" : 3,
+      "axis_seq" : 4,
+      "weights" : {
+
+      },
+      "debug_info" : "transpose_5",
+      "top" : "transpose_5",
+      "type" : "transpose",
+      "name" : "transpose_5"
+    },
+    {
+      "top" : "range_1d_2",
+      "w" : 20,
+      "h" : 1,
+      "name" : "range_1d_2",
+      "nd_rank" : 1,
+      "type" : "load_constant",
+      "k" : 1,
+      "bottom" : "",
+      "debug_info" : "range_1d_2",
+      "n" : 1,
+      "weights" : {
+
+      },
+      "constant_blob" : 41
+    },
+    {
+      "axis_mode" : 1,
+      "bottom" : "range_1d_2",
+      "weights" : {
+
+      },
+      "mode" : 9,
+      "nd_axis" : 0,
+      "nd_mode" : true,
+      "debug_info" : "range_1d_2_max",
+      "use_version" : 1,
+      "top" : "range_1d_2_max_presqueeze",
+      "type" : "reduce",
+      "name" : "range_1d_2_max_presqueeze"
+    },
+    {
+      "size_of_axes" : 1,
+      "bottom" : "range_1d_2_max_presqueeze",
+      "axes_0" : 0,
+      "weights" : {
+
+      },
+      "nd_axis" : 0,
+      "debug_info" : "range_1d_2_max",
+      "version" : 1,
+      "top" : "range_1d_2_max",
+      "type" : "squeeze",
+      "name" : "range_1d_2_max"
+    },
+    {
+      "bottom" : "tf_make_list_1",
+      "weights" : {
+
+      },
+      "nd_mode" : 1,
+      "axis" : -1,
+      "debug_info" : "tf_make_list_1_full_shape",
+      "top" : "tf_make_list_1_full_shape",
+      "type" : "get_shape",
+      "name" : "tf_make_list_1_full_shape"
+    },
+    {
+      "begin_n" : 0,
+      "static_sizes_k" : 0,
+      "end_mask_h" : false,
+      "end_w" : 1,
+      "end_h" : 1,
+      "begin_h" : 0,
+      "stride_n" : 1,
+      "end_seq" : 1,
+      "begin_mask_seq" : false,
+      "begin_mask_h" : false,
+      "squeeze_mask_h" : false,
+      "stride_k" : 1,
+      "type" : "general_slice",
+      "begin_mask_k" : false,
+      "static_sizes_w" : 0,
+      "begin_w" : 0,
+      "end_mask_k" : false,
+      "use_static_sizes" : false,
+      "stride_h" : 1,
+      "static_sizes_n" : 0,
+      "begin_mask_n" : false,
+      "weights" : {
+
+      },
+      "name" : "tf_make_list_1_length",
+      "stride_seq" : 1,
+      "end_k" : 1,
+      "static_sizes_seq" : 0,
+      "top" : "tf_make_list_1_length",
+      "begin_seq" : 0,
+      "squeeze_mask_k" : false,
+      "begin_k" : 0,
+      "end_mask_w" : false,
+      "end_mask_seq" : false,
+      "end_mask_n" : false,
+      "debug_info" : "tf_make_list_1_length",
+      "stride_w" : 1,
+      "squeeze_mask_seq" : false,
+      "static_sizes_h" : 0,
+      "begin_mask_w" : false,
+      "bottom" : "tf_make_list_1_full_shape",
+      "end_n" : 1,
+      "squeeze_mask_w" : false,
+      "squeeze_mask_n" : false
+    },
+    {
+      "bottom" : "transpose_5",
+      "weights" : {
+
+      },
+      "nd_mode" : 1,
+      "axis" : -1,
+      "debug_info" : "tf_make_list_1_raw_value_elem_shape",
+      "top" : "tf_make_list_1_raw_value_elem_shape",
+      "type" : "get_shape",
+      "name" : "tf_make_list_1_raw_value_elem_shape"
+    },
+    {
+      "begin_n" : 0,
+      "static_sizes_k" : 0,
+      "end_mask_h" : false,
+      "end_w" : -1,
+      "end_h" : 1,
+      "begin_h" : 0,
+      "stride_n" : 1,
+      "end_seq" : 1,
+      "begin_mask_seq" : false,
+      "begin_mask_h" : false,
+      "squeeze_mask_h" : false,
+      "stride_k" : 1,
+      "type" : "general_slice",
+      "begin_mask_k" : false,
+      "static_sizes_w" : 0,
+      "begin_w" : 1,
+      "end_mask_k" : false,
+      "use_static_sizes" : false,
+      "stride_h" : 1,
+      "static_sizes_n" : 0,
+      "begin_mask_n" : false,
+      "weights" : {
+
+      },
+      "name" : "tf_make_list_1_value_elem_shape",
+      "stride_seq" : 1,
+      "end_k" : 1,
+      "static_sizes_seq" : 0,
+      "top" : "tf_make_list_1_value_elem_shape",
+      "begin_seq" : 0,
+      "squeeze_mask_k" : false,
+      "begin_k" : 0,
+      "end_mask_w" : true,
+      "end_mask_seq" : false,
+      "end_mask_n" : false,
+      "debug_info" : "tf_make_list_1_value_elem_shape",
+      "stride_w" : 1,
+      "squeeze_mask_seq" : false,
+      "static_sizes_h" : 0,
+      "begin_mask_w" : false,
+      "bottom" : "tf_make_list_1_raw_value_elem_shape",
+      "end_n" : 1,
+      "squeeze_mask_w" : false,
+      "squeeze_mask_n" : false
+    },
+    {
+      "begin_n" : 0,
+      "static_sizes_k" : 0,
+      "end_mask_h" : false,
+      "end_w" : -1,
+      "end_h" : 1,
+      "begin_h" : 0,
+      "stride_n" : 1,
+      "end_seq" : 1,
+      "begin_mask_seq" : false,
+      "begin_mask_h" : false,
+      "squeeze_mask_h" : false,
+      "stride_k" : 1,
+      "type" : "general_slice",
+      "begin_mask_k" : false,
+      "static_sizes_w" : 0,
+      "begin_w" : 1,
+      "end_mask_k" : false,
+      "use_static_sizes" : false,
+      "stride_h" : 1,
+      "static_sizes_n" : 0,
+      "begin_mask_n" : false,
+      "weights" : {
+
+      },
+      "name" : "tf_make_list_1_ls_elem_shape",
+      "stride_seq" : 1,
+      "end_k" : 1,
+      "static_sizes_seq" : 0,
+      "top" : "tf_make_list_1_ls_elem_shape",
+      "begin_seq" : 0,
+      "squeeze_mask_k" : false,
+      "begin_k" : 0,
+      "end_mask_w" : true,
+      "end_mask_seq" : false,
+      "end_mask_n" : false,
+      "debug_info" : "tf_make_list_1_ls_elem_shape",
+      "stride_w" : 1,
+      "squeeze_mask_seq" : false,
+      "static_sizes_h" : 0,
+      "begin_mask_w" : false,
+      "bottom" : "tf_make_list_1_full_shape",
+      "end_n" : 1,
+      "squeeze_mask_w" : false,
+      "squeeze_mask_n" : false
+    },
+    {
+      "bottom" : "tf_make_list_1_ls_elem_shape,tf_make_list_1_value_elem_shape",
+      "alpha" : 1,
+      "operation" : 107,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "tf_make_list_1_elem_shape_not_equal",
+      "top" : "tf_make_list_1_elem_shape_not_equal",
+      "type" : "elementwise",
+      "name" : "tf_make_list_1_elem_shape_not_equal",
+      "beta" : 0
+    },
+    {
+      "axis_mode" : 31,
+      "bottom" : "tf_make_list_1_elem_shape_not_equal",
+      "weights" : {
+
+      },
+      "mode" : 0,
+      "debug_info" : "tf_make_list_1_reduce_any",
+      "use_version" : 1,
+      "top" : "tf_make_list_1_reduce_any_presqueeze",
+      "type" : "reduce",
+      "name" : "tf_make_list_1_reduce_any_presqueeze"
+    },
+    {
+      "size_of_axes" : 1,
+      "bottom" : "tf_make_list_1_reduce_any_presqueeze",
+      "axes_0" : 0,
+      "weights" : {
+
+      },
+      "nd_axis" : 0,
+      "debug_info" : "tf_make_list_1_reduce_any",
+      "version" : 1,
+      "top" : "tf_make_list_1_reduce_any",
+      "type" : "squeeze",
+      "name" : "tf_make_list_1_reduce_any",
+      "squeeze_all" : true
+    },
+    {
+      "weights" : {
+
+      },
+      "debug_info" : "tf_make_list_1_condition_re_initialize",
+      "top" : "",
+      "type" : "cf_if",
+      "name" : "tf_make_list_1_condition_re_initialize_if",
+      "bottom" : "tf_make_list_1_reduce_any"
+    },
+    {
+      "bottom" : "tf_make_list_1_length,tf_make_list_1_value_elem_shape",
+      "weights" : {
+
+      },
+      "nd_mode" : true,
+      "debug_info" : "tf_make_list_1_re_initialize_shape",
+      "axis" : 0,
+      "top" : "tf_make_list_1_re_initialize_shape",
+      "type" : "general_concat",
+      "name" : "tf_make_list_1_re_initialize_shape",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "bottom" : "tf_make_list_1_re_initialize_shape",
+      "weights" : {
+
+      },
+      "nd_mode" : 1,
+      "debug_info" : "tf_make_list_1_re_initialize",
+      "value" : 0,
+      "top" : "tf_make_list_1_re_initialize",
+      "type" : "fill",
+      "name" : "tf_make_list_1_re_initialize"
+    },
+    {
+      "bottom" : "tf_make_list_1_re_initialize",
+      "weights" : {
+
+      },
+      "debug_info" : "tf_make_list_1_re_initialize_assign",
+      "top" : "tf_make_list_1_@ssa_version_1",
+      "type" : "copy",
+      "name" : "tf_make_list_1_re_initialize_assign",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "bottom" : "",
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "",
+      "type" : "cf_end",
+      "name" : "tf_make_list_1_condition_re_initialize_end",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "bottom" : "range_1d_2_max,tf_make_list_1_length",
+      "alpha" : 1,
+      "operation" : 106,
+      "beta" : 0,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "tf_make_list_1_is_growing",
+      "top" : "tf_make_list_1_is_growing",
+      "type" : "elementwise",
+      "name" : "tf_make_list_1_is_growing",
+      "attributes" : {
+        "constant_if_condition" : 30,
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "bottom" : "tf_make_list_1_is_growing",
+      "weights" : {
+
+      },
+      "debug_info" : "tf_make_list_1_condition",
+      "top" : "",
+      "type" : "cf_if",
+      "name" : "tf_make_list_1_condition_if",
+      "attributes" : {
+        "constant_if_condition" : 30
+      }
+    },
+    {
+      "name" : "tf_make_list_1_extra_length0",
+      "fused_relu" : 0,
+      "beta" : 0,
+      "operation" : 33,
+      "type" : "elementwise",
+      "alpha" : 1,
+      "attributes" : {
+        "basic_block_head" : 1
+      },
+      "bottom" : "range_1d_2_max,tf_make_list_1_length",
+      "debug_info" : "tf_make_list_1_extra_length0",
+      "nd_mode" : true,
+      "weights" : {
+
+      },
+      "top" : "tf_make_list_1_extra_length0"
+    },
+    {
+      "bottom" : "tf_make_list_1_extra_length0",
+      "alpha" : 1,
+      "operation" : 0,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "tf_make_list_1_extra_length1",
+      "top" : "tf_make_list_1_extra_length1",
+      "type" : "elementwise",
+      "name" : "tf_make_list_1_extra_length1",
+      "beta" : 0
+    },
+    {
+      "bottom" : "tf_make_list_1_extra_length1,tf_make_list_1_value_elem_shape",
+      "weights" : {
+
+      },
+      "nd_mode" : true,
+      "axis" : 0,
+      "debug_info" : "tf_make_list_1_alloc_shape",
+      "top" : "tf_make_list_1_alloc_shape",
+      "type" : "general_concat",
+      "name" : "tf_make_list_1_alloc_shape"
+    },
+    {
+      "bottom" : "tf_make_list_1_alloc_shape",
+      "weights" : {
+
+      },
+      "nd_mode" : 1,
+      "debug_info" : "tf_make_list_1_alloc",
+      "value" : 0,
+      "top" : "tf_make_list_1_alloc",
+      "type" : "fill",
+      "name" : "tf_make_list_1_alloc"
+    },
+    {
+      "bottom" : "tf_make_list_1,tf_make_list_1_@ssa_version_1",
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "tf_make_list_1_@ssa_version_3",
+      "type" : "phi_virtual",
+      "name" : "phi_tf_make_list_1_@ssa_version_3",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "bottom" : "tf_make_list_1_@ssa_version_3,tf_make_list_1_alloc",
+      "weights" : {
+
+      },
+      "nd_mode" : true,
+      "axis" : 0,
+      "debug_info" : "tf_make_list_1_new",
+      "top" : "tf_make_list_1_new",
+      "type" : "general_concat",
+      "name" : "tf_make_list_1_new"
+    },
+    {
+      "weights" : {
+
+      },
+      "debug_info" : "tf_make_list_1_assign",
+      "top" : "tf_make_list_1_@ssa_version_2",
+      "type" : "copy",
+      "name" : "tf_make_list_1_assign",
+      "bottom" : "tf_make_list_1_new"
+    },
+    {
+      "bottom" : "",
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "",
+      "type" : "cf_end",
+      "name" : "tf_make_list_1_condition_end",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "bottom" : "tf_make_list_1,tf_make_list_1_@ssa_version_2,tf_make_list_1_@ssa_version_1",
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "tf_make_list_1_@ssa_version_4",
+      "type" : "phi_virtual",
+      "name" : "phi_tf_make_list_1_@ssa_version_4",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "bottom" : "tf_make_list_1_@ssa_version_4,range_1d_2,transpose_5",
+      "validate_indices" : true,
+      "allow_negative_indices" : true,
+      "mode" : 0,
+      "weights" : {
+
+      },
+      "debug_info" : "model\/gru_1\/PartitionedCall\/TensorArrayUnstack\/TensorListFromTensor",
+      "axis" : 0,
+      "top" : "model\/gru_1\/PartitionedCall\/TensorArrayUnstack\/TensorListFromTensor",
+      "type" : "scatter_nd",
+      "name" : "model\/gru_1\/PartitionedCall\/TensorArrayUnstack\/TensorListFromTensor",
+      "accumulation_mode" : 0
+    },
+    {
+      "top" : "model\/gru_1\/zeros\/packed\/1",
+      "w" : 1,
+      "h" : 1,
+      "name" : "model\/gru_1\/zeros\/packed\/1",
+      "nd_rank" : 1,
+      "type" : "load_constant",
+      "k" : 1,
+      "bottom" : "",
+      "debug_info" : "model\/gru_1\/zeros\/packed\/1",
+      "n" : 1,
+      "weights" : {
+
+      },
+      "constant_blob" : 43
+    },
+    {
+      "bottom" : "model\/gru_1\/strided_slice,model\/gru_1\/zeros\/packed\/1",
+      "weights" : {
+
+      },
+      "nd_mode" : true,
+      "axis" : 0,
+      "debug_info" : "model\/gru_1\/zeros\/packed",
+      "top" : "model\/gru_1\/zeros\/packed",
+      "type" : "general_concat",
+      "name" : "model\/gru_1\/zeros\/packed"
+    },
+    {
+      "bottom" : "model\/gru_1\/zeros\/packed",
+      "weights" : {
+
+      },
+      "nd_mode" : 1,
+      "debug_info" : "model\/gru_1\/zeros",
+      "value" : 0,
+      "top" : "model\/gru_1\/zeros",
+      "type" : "fill",
+      "name" : "model\/gru_1\/zeros"
+    },
+    {
+      "top" : "model\/gru_1\/PartitionedCall\/time",
+      "w" : 1,
+      "h" : 1,
+      "weights" : {
+
+      },
+      "nd_rank" : 1,
+      "type" : "load_constant",
+      "k" : 1,
+      "attributes" : {
+        "basic_block_head" : 1
+      },
+      "bottom" : "",
+      "debug_info" : "model\/gru_1\/PartitionedCall\/time",
+      "n" : 1,
+      "name" : "model\/gru_1\/PartitionedCall\/time",
+      "constant_blob" : 45
+    },
+    {
+      "weights" : {
+
+      },
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while_0_input_copy",
+      "top" : "model\/gru_1\/PartitionedCall\/while_0",
+      "type" : "copy",
+      "name" : "model\/gru_1\/PartitionedCall\/while_0_input_copy",
+      "bottom" : "model\/gru_1\/PartitionedCall\/time"
+    },
+    {
+      "weights" : {
+
+      },
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while_1_input_copy",
+      "top" : "model\/gru_1\/PartitionedCall\/while_1",
+      "type" : "copy",
+      "name" : "model\/gru_1\/PartitionedCall\/while_1_input_copy",
+      "bottom" : "model\/gru_1\/PartitionedCall\/TensorArrayV2_1"
+    },
+    {
+      "weights" : {
+
+      },
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while_2_input_copy",
+      "top" : "model\/gru_1\/PartitionedCall\/while_2",
+      "type" : "copy",
+      "name" : "model\/gru_1\/PartitionedCall\/while_2_input_copy",
+      "bottom" : "model\/gru_1\/zeros"
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/while_0,model\/gru_1\/PartitionedCall\/while_0_@ssa_version_1,model\/gru_1\/PartitionedCall\/while_0_@ssa_version_3",
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "model\/gru_1\/PartitionedCall\/while_0_@ssa_version_2",
+      "type" : "phi_virtual",
+      "name" : "phi_model\/gru_1\/PartitionedCall\/while_0_@ssa_version_2",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "weights" : {
+
+      },
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while_renamed",
+      "top" : "",
+      "type" : "cf_loop",
+      "name" : "model\/gru_1\/PartitionedCall\/while_renamed_loop_start",
+      "bottom" : ""
+    },
+    {
+      "top" : "model\/gru_1\/PartitionedCall\/while\/while_cond_674536\/while\/Less_load_constant_132",
+      "w" : 1,
+      "h" : 1,
+      "name" : "model\/gru_1\/PartitionedCall\/while\/while_cond_674536\/while\/Less_load_constant_132",
+      "type" : "load_constant",
+      "k" : 1,
+      "attributes" : {
+        "constant_if_condition" : 10
+      },
+      "bottom" : "",
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while\/while_cond_674536\/while\/Less",
+      "n" : 1,
+      "weights" : {
+
+      },
+      "constant_blob" : 47
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/while_0_@ssa_version_2,model\/gru_1\/PartitionedCall\/while\/while_cond_674536\/while\/Less_load_constant_132",
+      "alpha" : 1,
+      "operation" : 103,
+      "beta" : 0,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while\/while_cond_674536\/while\/Less",
+      "top" : "model\/gru_1\/PartitionedCall\/while\/while_cond_674536\/while\/Less",
+      "type" : "elementwise",
+      "name" : "model\/gru_1\/PartitionedCall\/while\/while_cond_674536\/while\/Less",
+      "attributes" : {
+        "constant_if_condition" : 10
+      }
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/while\/while_cond_674536\/while\/Less",
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "",
+      "type" : "cf_if",
+      "name" : "model\/gru_1\/PartitionedCall\/while_renamed_if",
+      "attributes" : {
+        "constant_if_condition" : 10
+      }
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/while_1,model\/gru_1\/PartitionedCall\/while_1_@ssa_version_3,model\/gru_1\/PartitionedCall\/while_1_@ssa_version_2,model\/gru_1\/PartitionedCall\/while_1_@ssa_version_1",
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "model\/gru_1\/PartitionedCall\/while_1_@ssa_version_4",
+      "type" : "phi_virtual",
+      "name" : "phi_model\/gru_1\/PartitionedCall\/while_1_@ssa_version_4",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "model\/gru_1\/PartitionedCall\/while_2_@ssa_version_2",
+      "type" : "phi_virtual",
+      "name" : "phi_model\/gru_1\/PartitionedCall\/while_2_@ssa_version_2",
+      "bottom" : "model\/gru_1\/PartitionedCall\/while_2,model\/gru_1\/PartitionedCall\/while_2_@ssa_version_1"
+    },
+    {
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "model\/gru_1\/PartitionedCall\/while_0_@ssa_version_3",
+      "type" : "phi_virtual",
+      "name" : "phi_model\/gru_1\/PartitionedCall\/while_0_@ssa_version_3",
+      "bottom" : "model\/gru_1\/PartitionedCall\/while_0,model\/gru_1\/PartitionedCall\/while_0_@ssa_version_1,model\/gru_1\/PartitionedCall\/while_0_@ssa_version_2"
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/while_0_@ssa_version_3",
+      "alpha" : 1,
+      "operation" : 0,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add_4",
+      "top" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add_4",
+      "type" : "elementwise",
+      "name" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add_4",
+      "beta" : 0
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/TensorArrayUnstack\/TensorListFromTensor,model\/gru_1\/PartitionedCall\/while_0_@ssa_version_3",
+      "validate_indices" : true,
+      "allow_negative_indices" : true,
+      "mode" : 0,
+      "weights" : {
+
+      },
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/TensorArrayV2Read\/TensorListGetItem",
+      "axis" : 0,
+      "top" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/TensorArrayV2Read\/TensorListGetItem_gathered",
+      "type" : "gather_nd",
+      "name" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/TensorArrayV2Read\/TensorListGetItem",
+      "batch_dims" : 0
+    },
+    {
+      "size_of_axes" : 1,
+      "bottom" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/TensorArrayV2Read\/TensorListGetItem_gathered",
+      "axes_0" : 0,
+      "weights" : {
+
+      },
+      "nd_axis" : 0,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/TensorArrayV2Read\/TensorListGetItem_squeezed",
+      "version" : 1,
+      "top" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/TensorArrayV2Read\/TensorListGetItem",
+      "type" : "squeeze",
+      "name" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/TensorArrayV2Read\/TensorListGetItem_squeezed"
+    },
+    {
+      "nB" : 64,
+      "top" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/BiasAdd_1",
+      "has_biases" : 1,
+      "weights" : {
+
+      },
+      "nC" : 192,
+      "blob_weights" : 51,
+      "type" : "inner_product",
+      "has_relu" : 0,
+      "bottom" : "model\/gru_1\/PartitionedCall\/while_2_@ssa_version_2",
+      "blob_biases" : 49,
+      "has_tanh" : 0,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/BiasAdd_1",
+      "name" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/BiasAdd_1",
+      "has_prelu" : 0
+    },
+    {
+      "nB" : 32,
+      "top" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/BiasAdd",
+      "has_biases" : 1,
+      "weights" : {
+
+      },
+      "nC" : 192,
+      "blob_weights" : 55,
+      "type" : "inner_product",
+      "has_relu" : 0,
+      "bottom" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/TensorArrayV2Read\/TensorListGetItem",
+      "blob_biases" : 53,
+      "has_tanh" : 0,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/BiasAdd",
+      "name" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/BiasAdd",
+      "has_prelu" : 0
+    },
+    {
+      "begin_104" : 0,
+      "begin_63" : 0,
+      "begin_59" : 0,
+      "begin_64" : 0,
+      "begin_105" : 0,
+      "begin_65" : 0,
+      "begin_0" : 0,
+      "begin_70" : 0,
+      "begin_66" : 0,
+      "begin_106" : 0,
+      "begin_110" : 0,
+      "begin_2" : 0,
+      "begin_71" : 0,
+      "begin_67" : 0,
+      "begin_68" : 0,
+      "begin_107" : 0,
+      "begin_111" : 0,
+      "begin_4" : 0,
+      "begin_72" : 0,
+      "begin_73" : 0,
+      "begin_69" : 0,
+      "begin_6" : 0,
+      "begin_74" : 0,
+      "begin_108" : 0,
+      "type" : "split_nd",
+      "begin_8" : 0,
+      "begin_112" : 0,
+      "begin_75" : 0,
+      "begin_10" : 0,
+      "begin_80" : 0,
+      "begin_76" : 0,
+      "begin_109" : 0,
+      "begin_113" : 0,
+      "begin_11" : 0,
+      "nd_axis" : 1,
+      "begin_81" : 0,
+      "begin_77" : 0,
+      "begin_114" : 0,
+      "begin_12" : 0,
+      "begin_78" : 0,
+      "begin_82" : 0,
+      "begin_13" : 0,
+      "begin_83" : 0,
+      "begin_79" : 0,
+      "begin_115" : 0,
+      "begin_14" : 0,
+      "begin_84" : 0,
+      "begin_15" : 0,
+      "begin_85" : 0,
+      "num_splits" : 3,
+      "begin_116" : 0,
+      "begin_120" : 0,
+      "begin_20" : 0,
+      "begin_86" : 0,
+      "begin_16" : 0,
+      "begin_90" : 0,
+      "begin_21" : 0,
+      "begin_91" : 0,
+      "begin_87" : 0,
+      "begin_17" : 0,
+      "begin_117" : 0,
+      "begin_121" : 0,
+      "begin_18" : 0,
+      "begin_92" : 0,
+      "begin_88" : 0,
+      "begin_22" : 0,
+      "begin_23" : 0,
+      "begin_89" : 0,
+      "begin_19" : 0,
+      "begin_93" : 0,
+      "begin_118" : 0,
+      "begin_122" : 0,
+      "begin_24" : 0,
+      "begin_94" : 0,
+      "begin_25" : 0,
+      "begin_95" : 0,
+      "begin_119" : 0,
+      "begin_123" : 0,
+      "begin_30" : 0,
+      "begin_26" : 0,
+      "begin_96" : 0,
+      "begin_124" : 0,
+      "begin_31" : 0,
+      "begin_97" : 0,
+      "begin_27" : 0,
+      "begin_28" : 0,
+      "begin_98" : 0,
+      "begin_32" : 0,
+      "begin_125" : 0,
+      "begin_33" : 0,
+      "begin_29" : 0,
+      "begin_99" : 0,
+      "begin_1" : 0,
+      "weights" : {
+
+      },
+      "begin_34" : 0,
+      "bottom" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/BiasAdd_1",
+      "begin_3" : 0,
+      "begin_126" : 0,
+      "begin_35" : 0,
+      "begin_5" : 0,
+      "begin_36" : 0,
+      "begin_40" : 0,
+      "begin_127" : 0,
+      "name" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/split_1",
+      "begin_41" : 0,
+      "begin_37" : 0,
+      "begin_7" : 0,
+      "begin_42" : 0,
+      "begin_38" : 0,
+      "begin_9" : 0,
+      "begin_39" : 0,
+      "begin_43" : 0,
+      "begin_44" : 0,
+      "begin_45" : 0,
+      "begin_50" : 0,
+      "begin_46" : 0,
+      "begin_51" : 0,
+      "begin_47" : 0,
+      "begin_100" : 0,
+      "begin_52" : 0,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/split_1",
+      "begin_48" : 0,
+      "top" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/split_1_0,model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/split_1_1,model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/split_1_2",
+      "begin_101" : 0,
+      "begin_53" : 0,
+      "begin_49" : 0,
+      "begin_54" : 0,
+      "begin_55" : 0,
+      "begin_102" : 0,
+      "begin_60" : 0,
+      "begin_56" : 0,
+      "begin_103" : 0,
+      "begin_57" : 0,
+      "begin_61" : 0,
+      "begin_62" : 0,
+      "begin_58" : 0
+    },
+    {
+      "begin_104" : 0,
+      "begin_63" : 0,
+      "begin_59" : 0,
+      "begin_64" : 0,
+      "begin_105" : 0,
+      "begin_65" : 0,
+      "begin_0" : 0,
+      "begin_70" : 0,
+      "begin_66" : 0,
+      "begin_106" : 0,
+      "begin_110" : 0,
+      "begin_2" : 0,
+      "begin_71" : 0,
+      "begin_67" : 0,
+      "begin_68" : 0,
+      "begin_107" : 0,
+      "begin_111" : 0,
+      "begin_4" : 0,
+      "begin_72" : 0,
+      "begin_73" : 0,
+      "begin_69" : 0,
+      "begin_6" : 0,
+      "begin_74" : 0,
+      "begin_108" : 0,
+      "type" : "split_nd",
+      "begin_8" : 0,
+      "begin_112" : 0,
+      "begin_75" : 0,
+      "begin_10" : 0,
+      "begin_80" : 0,
+      "begin_76" : 0,
+      "begin_109" : 0,
+      "begin_113" : 0,
+      "begin_11" : 0,
+      "nd_axis" : 1,
+      "begin_81" : 0,
+      "begin_77" : 0,
+      "begin_114" : 0,
+      "begin_12" : 0,
+      "begin_78" : 0,
+      "begin_82" : 0,
+      "begin_13" : 0,
+      "begin_83" : 0,
+      "begin_79" : 0,
+      "begin_115" : 0,
+      "begin_14" : 0,
+      "begin_84" : 0,
+      "begin_15" : 0,
+      "begin_85" : 0,
+      "num_splits" : 3,
+      "begin_116" : 0,
+      "begin_120" : 0,
+      "begin_20" : 0,
+      "begin_86" : 0,
+      "begin_16" : 0,
+      "begin_90" : 0,
+      "begin_21" : 0,
+      "begin_91" : 0,
+      "begin_87" : 0,
+      "begin_17" : 0,
+      "begin_117" : 0,
+      "begin_121" : 0,
+      "begin_18" : 0,
+      "begin_92" : 0,
+      "begin_88" : 0,
+      "begin_22" : 0,
+      "begin_23" : 0,
+      "begin_89" : 0,
+      "begin_19" : 0,
+      "begin_93" : 0,
+      "begin_118" : 0,
+      "begin_122" : 0,
+      "begin_24" : 0,
+      "begin_94" : 0,
+      "begin_25" : 0,
+      "begin_95" : 0,
+      "begin_119" : 0,
+      "begin_123" : 0,
+      "begin_30" : 0,
+      "begin_26" : 0,
+      "begin_96" : 0,
+      "begin_124" : 0,
+      "begin_31" : 0,
+      "begin_97" : 0,
+      "begin_27" : 0,
+      "begin_28" : 0,
+      "begin_98" : 0,
+      "begin_32" : 0,
+      "begin_125" : 0,
+      "begin_33" : 0,
+      "begin_29" : 0,
+      "begin_99" : 0,
+      "begin_1" : 0,
+      "weights" : {
+
+      },
+      "begin_34" : 0,
+      "bottom" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/BiasAdd",
+      "begin_3" : 0,
+      "begin_126" : 0,
+      "begin_35" : 0,
+      "begin_5" : 0,
+      "begin_36" : 0,
+      "begin_40" : 0,
+      "begin_127" : 0,
+      "name" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/split",
+      "begin_41" : 0,
+      "begin_37" : 0,
+      "begin_7" : 0,
+      "begin_42" : 0,
+      "begin_38" : 0,
+      "begin_9" : 0,
+      "begin_39" : 0,
+      "begin_43" : 0,
+      "begin_44" : 0,
+      "begin_45" : 0,
+      "begin_50" : 0,
+      "begin_46" : 0,
+      "begin_51" : 0,
+      "begin_47" : 0,
+      "begin_100" : 0,
+      "begin_52" : 0,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/split",
+      "begin_48" : 0,
+      "top" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/split_0,model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/split_1,model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/split_2",
+      "begin_101" : 0,
+      "begin_53" : 0,
+      "begin_49" : 0,
+      "begin_54" : 0,
+      "begin_55" : 0,
+      "begin_102" : 0,
+      "begin_60" : 0,
+      "begin_56" : 0,
+      "begin_103" : 0,
+      "begin_57" : 0,
+      "begin_61" : 0,
+      "begin_62" : 0,
+      "begin_58" : 0
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/split_0,model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/split_1_0",
+      "alpha" : 1,
+      "operation" : 0,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add",
+      "top" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add",
+      "type" : "elementwise",
+      "name" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add",
+      "beta" : 0
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/split_1,model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/split_1_1",
+      "alpha" : 1,
+      "operation" : 0,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add_1",
+      "top" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add_1",
+      "type" : "elementwise",
+      "name" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add_1",
+      "beta" : 0
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add",
+      "weights" : {
+
+      },
+      "mode" : 3,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/Sigmoid",
+      "top" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/Sigmoid",
+      "type" : "activation",
+      "name" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/Sigmoid"
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add_1",
+      "weights" : {
+
+      },
+      "mode" : 3,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/Sigmoid_1",
+      "top" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/Sigmoid_1",
+      "type" : "activation",
+      "name" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/Sigmoid_1"
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/Sigmoid,model\/gru_1\/PartitionedCall\/while_2_@ssa_version_2",
+      "alpha" : 1,
+      "operation" : 1,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/mul_1",
+      "top" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/mul_1",
+      "type" : "elementwise",
+      "name" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/mul_1",
+      "beta" : 0
+    },
+    {
+      "top" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/sub\/x",
+      "w" : 1,
+      "h" : 1,
+      "name" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/sub\/x",
+      "nd_rank" : 1,
+      "type" : "load_constant",
+      "k" : 1,
+      "bottom" : "",
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/sub\/x",
+      "n" : 1,
+      "weights" : {
+
+      },
+      "constant_blob" : 57
+    },
+    {
+      "alpha" : -1,
+      "bottom" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/Sigmoid",
+      "weights" : {
+
+      },
+      "mode" : 6,
+      "debug_info" : "_neg_y_model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/sub",
+      "top" : "_neg_y_model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/sub",
+      "type" : "activation",
+      "name" : "_neg_y_model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/sub",
+      "beta" : 0
+    },
+    {
+      "bottom" : "_neg_y_model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/sub,model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/sub\/x",
+      "alpha" : 1,
+      "operation" : 0,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/sub",
+      "top" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/sub",
+      "type" : "elementwise",
+      "name" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/sub",
+      "beta" : 0
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/Sigmoid_1,model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/split_1_2",
+      "alpha" : 1,
+      "operation" : 1,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/mul",
+      "top" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/mul",
+      "type" : "elementwise",
+      "name" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/mul",
+      "beta" : 0
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/split_2,model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/mul",
+      "alpha" : 1,
+      "operation" : 0,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add_2",
+      "top" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add_2",
+      "type" : "elementwise",
+      "name" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add_2",
+      "beta" : 0
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add_2",
+      "weights" : {
+
+      },
+      "mode" : 1,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/Tanh",
+      "top" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/Tanh",
+      "type" : "activation",
+      "name" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/Tanh"
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/sub,model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/Tanh",
+      "alpha" : 1,
+      "operation" : 1,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/mul_2",
+      "top" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/mul_2",
+      "type" : "elementwise",
+      "name" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/mul_2",
+      "beta" : 0
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/mul_1,model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/mul_2",
+      "alpha" : 1,
+      "operation" : 0,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add_3",
+      "top" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add_3",
+      "type" : "elementwise",
+      "name" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add_3",
+      "beta" : 0
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/while_1_@ssa_version_4",
+      "weights" : {
+
+      },
+      "nd_mode" : 1,
+      "axis" : -1,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while_1_full_shape",
+      "top" : "model\/gru_1\/PartitionedCall\/while_1_full_shape",
+      "type" : "get_shape",
+      "name" : "model\/gru_1\/PartitionedCall\/while_1_full_shape"
+    },
+    {
+      "begin_n" : 0,
+      "static_sizes_k" : 0,
+      "end_mask_h" : false,
+      "end_w" : 1,
+      "end_h" : 1,
+      "begin_h" : 0,
+      "stride_n" : 1,
+      "end_seq" : 1,
+      "begin_mask_seq" : false,
+      "begin_mask_h" : false,
+      "squeeze_mask_h" : false,
+      "stride_k" : 1,
+      "type" : "general_slice",
+      "begin_mask_k" : false,
+      "static_sizes_w" : 0,
+      "begin_w" : 0,
+      "end_mask_k" : false,
+      "use_static_sizes" : false,
+      "stride_h" : 1,
+      "static_sizes_n" : 0,
+      "begin_mask_n" : false,
+      "weights" : {
+
+      },
+      "name" : "model\/gru_1\/PartitionedCall\/while_1_length",
+      "stride_seq" : 1,
+      "end_k" : 1,
+      "static_sizes_seq" : 0,
+      "top" : "model\/gru_1\/PartitionedCall\/while_1_length",
+      "begin_seq" : 0,
+      "squeeze_mask_k" : false,
+      "begin_k" : 0,
+      "end_mask_w" : false,
+      "end_mask_seq" : false,
+      "end_mask_n" : false,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while_1_length",
+      "stride_w" : 1,
+      "squeeze_mask_seq" : false,
+      "static_sizes_h" : 0,
+      "begin_mask_w" : false,
+      "bottom" : "model\/gru_1\/PartitionedCall\/while_1_full_shape",
+      "end_n" : 1,
+      "squeeze_mask_w" : false,
+      "squeeze_mask_n" : false
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add_3",
+      "weights" : {
+
+      },
+      "nd_mode" : 1,
+      "axis" : -1,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while_1_value_elem_shape",
+      "top" : "model\/gru_1\/PartitionedCall\/while_1_value_elem_shape",
+      "type" : "get_shape",
+      "name" : "model\/gru_1\/PartitionedCall\/while_1_value_elem_shape"
+    },
+    {
+      "begin_n" : 0,
+      "static_sizes_k" : 0,
+      "end_mask_h" : false,
+      "end_w" : -1,
+      "end_h" : 1,
+      "begin_h" : 0,
+      "stride_n" : 1,
+      "end_seq" : 1,
+      "begin_mask_seq" : false,
+      "begin_mask_h" : false,
+      "squeeze_mask_h" : false,
+      "stride_k" : 1,
+      "type" : "general_slice",
+      "begin_mask_k" : false,
+      "static_sizes_w" : 0,
+      "begin_w" : 1,
+      "end_mask_k" : false,
+      "use_static_sizes" : false,
+      "stride_h" : 1,
+      "static_sizes_n" : 0,
+      "begin_mask_n" : false,
+      "weights" : {
+
+      },
+      "name" : "model\/gru_1\/PartitionedCall\/while_1_ls_elem_shape",
+      "stride_seq" : 1,
+      "end_k" : 1,
+      "static_sizes_seq" : 0,
+      "top" : "model\/gru_1\/PartitionedCall\/while_1_ls_elem_shape",
+      "begin_seq" : 0,
+      "squeeze_mask_k" : false,
+      "begin_k" : 0,
+      "end_mask_w" : true,
+      "end_mask_seq" : false,
+      "end_mask_n" : false,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while_1_ls_elem_shape",
+      "stride_w" : 1,
+      "squeeze_mask_seq" : false,
+      "static_sizes_h" : 0,
+      "begin_mask_w" : false,
+      "bottom" : "model\/gru_1\/PartitionedCall\/while_1_full_shape",
+      "end_n" : 1,
+      "squeeze_mask_w" : false,
+      "squeeze_mask_n" : false
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/while_1_ls_elem_shape,model\/gru_1\/PartitionedCall\/while_1_value_elem_shape",
+      "alpha" : 1,
+      "operation" : 107,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while_1_elem_shape_not_equal",
+      "top" : "model\/gru_1\/PartitionedCall\/while_1_elem_shape_not_equal",
+      "type" : "elementwise",
+      "name" : "model\/gru_1\/PartitionedCall\/while_1_elem_shape_not_equal",
+      "beta" : 0
+    },
+    {
+      "axis_mode" : 31,
+      "bottom" : "model\/gru_1\/PartitionedCall\/while_1_elem_shape_not_equal",
+      "weights" : {
+
+      },
+      "mode" : 0,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while_1_reduce_any",
+      "use_version" : 1,
+      "top" : "model\/gru_1\/PartitionedCall\/while_1_reduce_any_presqueeze",
+      "type" : "reduce",
+      "name" : "model\/gru_1\/PartitionedCall\/while_1_reduce_any_presqueeze"
+    },
+    {
+      "size_of_axes" : 1,
+      "bottom" : "model\/gru_1\/PartitionedCall\/while_1_reduce_any_presqueeze",
+      "axes_0" : 0,
+      "weights" : {
+
+      },
+      "nd_axis" : 0,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while_1_reduce_any",
+      "version" : 1,
+      "top" : "model\/gru_1\/PartitionedCall\/while_1_reduce_any",
+      "type" : "squeeze",
+      "name" : "model\/gru_1\/PartitionedCall\/while_1_reduce_any",
+      "squeeze_all" : true
+    },
+    {
+      "weights" : {
+
+      },
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while_1_condition_re_initialize",
+      "top" : "",
+      "type" : "cf_if",
+      "name" : "model\/gru_1\/PartitionedCall\/while_1_condition_re_initialize_if",
+      "bottom" : "model\/gru_1\/PartitionedCall\/while_1_reduce_any"
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/while_1_length,model\/gru_1\/PartitionedCall\/while_1_value_elem_shape",
+      "weights" : {
+
+      },
+      "nd_mode" : true,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while_1_re_initialize_shape",
+      "axis" : 0,
+      "top" : "model\/gru_1\/PartitionedCall\/while_1_re_initialize_shape",
+      "type" : "general_concat",
+      "name" : "model\/gru_1\/PartitionedCall\/while_1_re_initialize_shape",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/while_1_re_initialize_shape",
+      "weights" : {
+
+      },
+      "nd_mode" : 1,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while_1_re_initialize",
+      "value" : 0,
+      "top" : "model\/gru_1\/PartitionedCall\/while_1_re_initialize",
+      "type" : "fill",
+      "name" : "model\/gru_1\/PartitionedCall\/while_1_re_initialize"
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/while_1_re_initialize",
+      "weights" : {
+
+      },
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while_1_re_initialize_assign",
+      "top" : "model\/gru_1\/PartitionedCall\/while_1_@ssa_version_1",
+      "type" : "copy",
+      "name" : "model\/gru_1\/PartitionedCall\/while_1_re_initialize_assign",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "bottom" : "",
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "",
+      "type" : "cf_end",
+      "name" : "model\/gru_1\/PartitionedCall\/while_1_condition_re_initialize_end",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "top" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/TensorArrayV2Write\/TensorListSetItem\/index",
+      "w" : 1,
+      "h" : 1,
+      "weights" : {
+
+      },
+      "nd_rank" : 1,
+      "type" : "load_constant",
+      "k" : 1,
+      "attributes" : {
+        "basic_block_head" : 1
+      },
+      "bottom" : "",
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/TensorArrayV2Write\/TensorListSetItem\/index",
+      "n" : 1,
+      "name" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/TensorArrayV2Write\/TensorListSetItem\/index",
+      "constant_blob" : 59
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/TensorArrayV2Write\/TensorListSetItem\/index,model\/gru_1\/PartitionedCall\/while_1_length",
+      "alpha" : 1,
+      "operation" : 106,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while_1_is_growing",
+      "top" : "model\/gru_1\/PartitionedCall\/while_1_is_growing",
+      "type" : "elementwise",
+      "name" : "model\/gru_1\/PartitionedCall\/while_1_is_growing",
+      "beta" : 0
+    },
+    {
+      "weights" : {
+
+      },
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while_1_condition",
+      "top" : "",
+      "type" : "cf_if",
+      "name" : "model\/gru_1\/PartitionedCall\/while_1_condition_if",
+      "bottom" : "model\/gru_1\/PartitionedCall\/while_1_is_growing"
+    },
+    {
+      "name" : "model\/gru_1\/PartitionedCall\/while_1_extra_length0",
+      "fused_relu" : 0,
+      "beta" : 0,
+      "operation" : 33,
+      "type" : "elementwise",
+      "alpha" : 1,
+      "attributes" : {
+        "basic_block_head" : 1
+      },
+      "bottom" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/TensorArrayV2Write\/TensorListSetItem\/index,model\/gru_1\/PartitionedCall\/while_1_length",
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while_1_extra_length0",
+      "nd_mode" : true,
+      "weights" : {
+
+      },
+      "top" : "model\/gru_1\/PartitionedCall\/while_1_extra_length0"
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/while_1_extra_length0",
+      "alpha" : 1,
+      "operation" : 0,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while_1_extra_length1",
+      "top" : "model\/gru_1\/PartitionedCall\/while_1_extra_length1",
+      "type" : "elementwise",
+      "name" : "model\/gru_1\/PartitionedCall\/while_1_extra_length1",
+      "beta" : 0
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/while_1_extra_length1,model\/gru_1\/PartitionedCall\/while_1_value_elem_shape",
+      "weights" : {
+
+      },
+      "nd_mode" : true,
+      "axis" : 0,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while_1_alloc_shape",
+      "top" : "model\/gru_1\/PartitionedCall\/while_1_alloc_shape",
+      "type" : "general_concat",
+      "name" : "model\/gru_1\/PartitionedCall\/while_1_alloc_shape"
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/while_1_alloc_shape",
+      "weights" : {
+
+      },
+      "nd_mode" : 1,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while_1_alloc",
+      "value" : 0,
+      "top" : "model\/gru_1\/PartitionedCall\/while_1_alloc",
+      "type" : "fill",
+      "name" : "model\/gru_1\/PartitionedCall\/while_1_alloc"
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/while_1,model\/gru_1\/PartitionedCall\/while_1_@ssa_version_3,model\/gru_1\/PartitionedCall\/while_1_@ssa_version_2,model\/gru_1\/PartitionedCall\/while_1_@ssa_version_1,model\/gru_1\/PartitionedCall\/while_1_@ssa_version_4",
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "model\/gru_1\/PartitionedCall\/while_1_@ssa_version_5",
+      "type" : "phi_virtual",
+      "name" : "phi_model\/gru_1\/PartitionedCall\/while_1_@ssa_version_5",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/while_1_@ssa_version_5,model\/gru_1\/PartitionedCall\/while_1_alloc",
+      "weights" : {
+
+      },
+      "nd_mode" : true,
+      "axis" : 0,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while_1_new",
+      "top" : "model\/gru_1\/PartitionedCall\/while_1_new",
+      "type" : "general_concat",
+      "name" : "model\/gru_1\/PartitionedCall\/while_1_new"
+    },
+    {
+      "weights" : {
+
+      },
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while_1_assign",
+      "top" : "model\/gru_1\/PartitionedCall\/while_1_@ssa_version_2",
+      "type" : "copy",
+      "name" : "model\/gru_1\/PartitionedCall\/while_1_assign",
+      "bottom" : "model\/gru_1\/PartitionedCall\/while_1_new"
+    },
+    {
+      "bottom" : "",
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "",
+      "type" : "cf_end",
+      "name" : "model\/gru_1\/PartitionedCall\/while_1_condition_end",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/while_1,model\/gru_1\/PartitionedCall\/while_1_@ssa_version_3,model\/gru_1\/PartitionedCall\/while_1_@ssa_version_2,model\/gru_1\/PartitionedCall\/while_1_@ssa_version_1,model\/gru_1\/PartitionedCall\/while_1_@ssa_version_4",
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "model\/gru_1\/PartitionedCall\/while_1_@ssa_version_6",
+      "type" : "phi_virtual",
+      "name" : "phi_model\/gru_1\/PartitionedCall\/while_1_@ssa_version_6",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "size_of_axes" : 1,
+      "bottom" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add_3",
+      "axes_0" : 0,
+      "weights" : {
+
+      },
+      "nd_axis" : 0,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while_1_model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add_3_expanded",
+      "top" : "model\/gru_1\/PartitionedCall\/while_1_model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add_3_expanded",
+      "type" : "expand_dims",
+      "name" : "model\/gru_1\/PartitionedCall\/while_1_model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add_3_expanded"
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/while_1_@ssa_version_6,model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/TensorArrayV2Write\/TensorListSetItem\/index,model\/gru_1\/PartitionedCall\/while_1_model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add_3_expanded",
+      "validate_indices" : true,
+      "allow_negative_indices" : true,
+      "mode" : 0,
+      "weights" : {
+
+      },
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/TensorArrayV2Write\/TensorListSetItem",
+      "axis" : 0,
+      "top" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/TensorArrayV2Write\/TensorListSetItem",
+      "type" : "scatter_nd",
+      "name" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/TensorArrayV2Write\/TensorListSetItem",
+      "accumulation_mode" : 0
+    },
+    {
+      "weights" : {
+
+      },
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while_0_ret_copy",
+      "top" : "model\/gru_1\/PartitionedCall\/while_0_@ssa_version_1",
+      "type" : "copy",
+      "name" : "model\/gru_1\/PartitionedCall\/while_0_ret_copy",
+      "bottom" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add_4"
+    },
+    {
+      "weights" : {
+
+      },
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while_1_ret_copy",
+      "top" : "model\/gru_1\/PartitionedCall\/while_1_@ssa_version_3",
+      "type" : "copy",
+      "name" : "model\/gru_1\/PartitionedCall\/while_1_ret_copy",
+      "bottom" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/TensorArrayV2Write\/TensorListSetItem"
+    },
+    {
+      "weights" : {
+
+      },
+      "debug_info" : "model\/gru_1\/PartitionedCall\/while_2_ret_copy",
+      "top" : "model\/gru_1\/PartitionedCall\/while_2_@ssa_version_1",
+      "type" : "copy",
+      "name" : "model\/gru_1\/PartitionedCall\/while_2_ret_copy",
+      "bottom" : "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add_3"
+    },
+    {
+      "bottom" : "",
+      "weights" : {
+
+      },
+      "cf_stack_depth" : 1,
+      "debug_info" : "",
+      "top" : "",
+      "type" : "cf_jump",
+      "name" : "model\/gru_1\/PartitionedCall\/while_renamed_jump"
+    },
+    {
+      "bottom" : "",
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "",
+      "type" : "cf_end",
+      "name" : "model\/gru_1\/PartitionedCall\/while_renamed_end_loop_if",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "bottom" : "",
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "",
+      "type" : "cf_end",
+      "name" : "model\/gru_1\/PartitionedCall\/while_renamed_end_loop",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/while_1,model\/gru_1\/PartitionedCall\/while_1_@ssa_version_3,model\/gru_1\/PartitionedCall\/while_1_@ssa_version_2,model\/gru_1\/PartitionedCall\/while_1_@ssa_version_1,model\/gru_1\/PartitionedCall\/while_1_@ssa_version_4",
+      "weights" : {
+
+      },
+      "debug_info" : "",
+      "top" : "model\/gru_1\/PartitionedCall\/while_1_@ssa_version_7",
+      "type" : "phi_virtual",
+      "name" : "phi_model\/gru_1\/PartitionedCall\/while_1_@ssa_version_7",
+      "attributes" : {
+        "basic_block_head" : 1
+      }
+    },
+    {
+      "top" : "range_1d_3",
+      "w" : 1,
+      "h" : 1,
+      "name" : "range_1d_3",
+      "nd_rank" : 1,
+      "type" : "load_constant",
+      "k" : 1,
+      "bottom" : "",
+      "debug_info" : "range_1d_3",
+      "n" : 1,
+      "weights" : {
+
+      },
+      "constant_blob" : 61
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/while_1_@ssa_version_7,range_1d_3",
+      "validate_indices" : true,
+      "allow_negative_indices" : true,
+      "mode" : 0,
+      "weights" : {
+
+      },
+      "debug_info" : "model\/gru_1\/PartitionedCall\/TensorArrayV2Stack\/TensorListStack",
+      "axis" : 0,
+      "top" : "model\/gru_1\/PartitionedCall\/TensorArrayV2Stack\/TensorListStack",
+      "type" : "gather_nd",
+      "name" : "model\/gru_1\/PartitionedCall\/TensorArrayV2Stack\/TensorListStack",
+      "batch_dims" : 0
+    },
+    {
+      "begin_n" : 0,
+      "static_sizes_k" : 0,
+      "end_mask_h" : true,
+      "end_w" : 0,
+      "end_h" : 0,
+      "begin_h" : 0,
+      "stride_n" : 1,
+      "end_seq" : 1,
+      "begin_mask_seq" : false,
+      "begin_mask_h" : true,
+      "squeeze_mask_h" : false,
+      "stride_k" : 1,
+      "type" : "general_slice",
+      "begin_mask_k" : true,
+      "static_sizes_w" : 0,
+      "begin_w" : -1,
+      "end_mask_k" : true,
+      "use_static_sizes" : false,
+      "stride_h" : 1,
+      "static_sizes_n" : 0,
+      "begin_mask_n" : false,
+      "weights" : {
+
+      },
+      "name" : "model\/gru_1\/PartitionedCall\/strided_slice_2",
+      "stride_seq" : 1,
+      "end_k" : 0,
+      "static_sizes_seq" : 0,
+      "top" : "model\/gru_1\/PartitionedCall\/strided_slice_2",
+      "begin_seq" : 0,
+      "squeeze_mask_k" : false,
+      "begin_k" : 0,
+      "end_mask_w" : false,
+      "end_mask_seq" : false,
+      "end_mask_n" : false,
+      "debug_info" : "model\/gru_1\/PartitionedCall\/strided_slice_2",
+      "stride_w" : 1,
+      "squeeze_mask_seq" : false,
+      "static_sizes_h" : 0,
+      "begin_mask_w" : false,
+      "bottom" : "model\/gru_1\/PartitionedCall\/TensorArrayV2Stack\/TensorListStack",
+      "end_n" : 1,
+      "squeeze_mask_w" : true,
+      "squeeze_mask_n" : false
+    },
+    {
+      "top" : "model\/batch_normalization_2\/batchnorm\/mul",
+      "w" : 64,
+      "h" : 1,
+      "name" : "model\/batch_normalization_2\/batchnorm\/mul",
+      "nd_rank" : 1,
+      "type" : "load_constant",
+      "k" : 1,
+      "bottom" : "",
+      "debug_info" : "model\/batch_normalization_2\/batchnorm\/mul",
+      "n" : 1,
+      "weights" : {
+
+      },
+      "constant_blob" : 63
+    },
+    {
+      "bottom" : "model\/gru_1\/PartitionedCall\/strided_slice_2,model\/batch_normalization_2\/batchnorm\/mul",
+      "alpha" : 1,
+      "operation" : 1,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/batch_normalization_2\/batchnorm\/mul_1",
+      "nd_mode" : true,
+      "top" : "model\/batch_normalization_2\/batchnorm\/mul_1",
+      "type" : "elementwise",
+      "name" : "model\/batch_normalization_2\/batchnorm\/mul_1",
+      "beta" : 0
+    },
+    {
+      "top" : "model\/batch_normalization_2\/batchnorm\/sub",
+      "w" : 64,
+      "h" : 1,
+      "name" : "model\/batch_normalization_2\/batchnorm\/sub",
+      "nd_rank" : 1,
+      "type" : "load_constant",
+      "k" : 1,
+      "bottom" : "",
+      "debug_info" : "model\/batch_normalization_2\/batchnorm\/sub",
+      "n" : 1,
+      "weights" : {
+
+      },
+      "constant_blob" : 65
+    },
+    {
+      "bottom" : "model\/batch_normalization_2\/batchnorm\/mul_1,model\/batch_normalization_2\/batchnorm\/sub",
+      "alpha" : 1,
+      "operation" : 0,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "model\/batch_normalization_2\/batchnorm\/add_1",
+      "nd_mode" : true,
+      "top" : "model\/batch_normalization_2\/batchnorm\/add_1",
+      "type" : "elementwise",
+      "name" : "model\/batch_normalization_2\/batchnorm\/add_1",
+      "beta" : 0
+    },
+    {
+      "nB" : 64,
+      "top" : "model\/dense_1\/BiasAdd",
+      "has_biases" : 1,
+      "weights" : {
+
+      },
+      "nC" : 1,
+      "blob_weights" : 69,
+      "type" : "inner_product",
+      "has_relu" : 0,
+      "bottom" : "model\/batch_normalization_2\/batchnorm\/add_1",
+      "blob_biases" : 67,
+      "has_tanh" : 0,
+      "debug_info" : "model\/dense_1\/BiasAdd",
+      "name" : "model\/dense_1\/BiasAdd",
+      "has_prelu" : 0
+    },
+    {
+      "bottom" : "model\/dense_1\/BiasAdd",
+      "weights" : {
+
+      },
+      "mode" : 3,
+      "debug_info" : "model\/dense_1\/Sigmoid",
+      "top" : "Identity",
+      "type" : "activation",
+      "name" : "model\/dense_1\/Sigmoid",
+      "attributes" : {
+        "is_output" : 1
+      }
+    }
+  ],
+  "storage" : "model.espresso.weights",
+  "metadata_in_weights" : [
+
+  ],
+  "analyses" : {
+    "N8Espresso34pass_constant_if_conditions_resultE" : {
+      "constant_blobs" : {
+        "model\/gru\/PartitionedCall\/while\/while_cond_674146\/while\/Less" : 10,
+        "model\/gru\/PartitionedCall\/while\/while_cond_674146\/while\/Less_load_constant_47" : 10,
+        "tf_make_list_0_is_growing" : 30,
+        "tf_make_list_1_is_growing" : 30,
+        "model\/gru_1\/PartitionedCall\/while\/while_cond_674536\/while\/Less" : 10,
+        "model\/gru_1\/PartitionedCall\/while\/while_cond_674536\/while\/Less_load_constant_132" : 10
+      }
+    }
+  },
+  "properties" : {
+
+  },
+  "format_version" : 300,
+  "shape" : {
+    "layer_shapes" : {
+      "model\/batch_normalization_2\/batchnorm\/mul" : {
+        "k" : 1,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "tf_make_list_0_value_elem_shape" : {
+        "k" : 1,
+        "w" : 2,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "tf_make_list_1_extra_length0" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/sub" : {
+        "k" : 32,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while_0" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/strided_slice_2" : {
+        "k" : 1,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 2,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_0_@ssa_version_3" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "tf_make_list_1_@ssa_version_1" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_1_extra_length1" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/dense\/BiasAdd\/ReadVariableOp" : {
+        "k" : 1,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while\/while_cond_674146\/while\/Less_load_constant_47" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while_1" : {
+        "k" : 1,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "tf_make_list_0_raw_value_elem_shape" : {
+        "k" : 1,
+        "w" : 3,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while_2_@ssa_version_1" : {
+        "k" : 64,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_1_re_initialize" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add" : {
+        "k" : 64,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while_2" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while_1_@ssa_version_3" : {
+        "k" : 1,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "model\/dense\/Tensordot" : {
+        "k" : 1,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 20
+      },
+      "model\/gru\/PartitionedCall\/while\/while_cond_674146\/while\/Less" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "tf_make_list_0_@ssa_version_3" : {
+        "k" : 20,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "model\/batch_normalization_2\/batchnorm\/mul_1" : {
+        "k" : 1,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 2,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/TensorArrayV2Read\/TensorListGetItem" : {
+        "k" : 1,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 2,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_1_@ssa_version_5" : {
+        "k" : 20,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/sub\/x" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while_1_reduce_any_presqueeze" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "h" : 1
+      },
+      "tf_make_list_1_re_initialize_shape" : {
+        "k" : 1,
+        "w" : 3,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/mul" : {
+        "k" : 32,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/TensorArrayV2_1" : {
+        "k" : 1,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while_0_@ssa_version_2" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "tf_make_list_1_value_elem_shape" : {
+        "k" : 1,
+        "w" : 2,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "tf_make_list_0_is_growing" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/TensorArrayV2Read\/TensorListGetItem_gathered" : {
+        "k" : 1,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while_1_value_elem_shape" : {
+        "k" : 1,
+        "w" : 4,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add_4" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/dense_1\/BiasAdd" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 2,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_0_@ssa_version_4" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add_3" : {
+        "k" : 32,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/Sigmoid" : {
+        "k" : 64,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/TensorArrayV2Write\/TensorListSetItem" : {
+        "k" : 1,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while_1_@ssa_version_1" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "h" : 1
+      },
+      "model\/gru\/zeros\/packed" : {
+        "k" : 1,
+        "w" : 2,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/TensorArrayV2Write\/TensorListSetItem\/index" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/sub" : {
+        "k" : 64,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "model\/batch_normalization\/batchnorm\/mul" : {
+        "k" : 1,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/TensorArrayV2Read\/TensorListGetItem_gathered" : {
+        "k" : 1,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_1_@ssa_version_6" : {
+        "k" : 20,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add_3" : {
+        "k" : 64,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while\/while_cond_674536\/while\/Less" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "tf_make_list_1_@ssa_version_4" : {
+        "k" : 20,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "tf_make_list_1_new" : {
+        "k" : 21,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/TensorArrayUnstack\/TensorListFromTensor" : {
+        "k" : 20,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "transpose_5" : {
+        "k" : 20,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_0_@ssa_version_5" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/BiasAdd_1" : {
+        "k" : 96,
+        "w" : 1,
+        "n" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/TensorArrayUnstack\/TensorListFromTensor" : {
+        "k" : 20,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "tf_make_list_0_reduce_any_presqueeze" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_1_alloc_shape" : {
+        "k" : 1,
+        "w" : 5,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while_1_full_shape" : {
+        "k" : 1,
+        "w" : 3,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while_1_re_initialize" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "h" : 1
+      },
+      "tf_make_list_1_reduce_any_presqueeze" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while\/while_cond_674536\/while\/Less_load_constant_132" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "h" : 1
+      },
+      "range_1d_0" : {
+        "k" : 1,
+        "w" : 20,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "tf_make_list_0_ls_elem_shape" : {
+        "k" : 1,
+        "w" : 2,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/BiasAdd" : {
+        "k" : 1,
+        "w" : 192,
+        "n" : 1,
+        "_rank" : 2,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/TensorArrayV2Read\/TensorListGetItem" : {
+        "k" : 1,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 2,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add_2" : {
+        "k" : 64,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/sub\/x" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "tf_make_list_0_re_initialize_shape" : {
+        "k" : 1,
+        "w" : 3,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/time" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while_1_length" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while_1_elem_shape_not_equal" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_1_@ssa_version_7" : {
+        "k" : 20,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/TensorArrayV2_1" : {
+        "k" : 20,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add" : {
+        "k" : 32,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while_1_re_initialize_shape" : {
+        "k" : 1,
+        "w" : 5,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "range_1d_3" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "tf_make_list_0_@ssa_version_2" : {
+        "k" : 21,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while_1_reduce_any" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/BiasAdd" : {
+        "k" : 1,
+        "w" : 96,
+        "n" : 1,
+        "_rank" : 2,
+        "h" : 1
+      },
+      "model\/gru_1\/zeros\/packed\/1" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_0_@ssa_version_6" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add_1" : {
+        "k" : 64,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/time" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "tf_make_list_0_new" : {
+        "k" : 21,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "Identity" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 2,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/TensorArrayV2Write\/TensorListSetItem" : {
+        "k" : 20,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/Tanh" : {
+        "k" : 32,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/mul_2" : {
+        "k" : 64,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while_1_@ssa_version_6" : {
+        "k" : 1,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add_2" : {
+        "k" : 32,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "model\/batch_normalization\/batchnorm\/sub" : {
+        "k" : 1,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_1_reduce_any_presqueeze" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while_1_alloc_shape" : {
+        "k" : 1,
+        "w" : 5,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru\/zeros" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_1_length" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_2_@ssa_version_1" : {
+        "k" : 32,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_1_alloc" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_1_extra_length0" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "tf_make_list_1_raw_value_elem_shape" : {
+        "k" : 1,
+        "w" : 3,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "tf_make_list_0_reduce_any" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/mul_2" : {
+        "k" : 32,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "tf_make_list_1_re_initialize" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/Sigmoid_1" : {
+        "k" : 32,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "tf_make_list_1_@ssa_version_3" : {
+        "k" : 20,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "model\/batch_normalization_1\/batchnorm\/add_1" : {
+        "k" : 1,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 20
+      },
+      "model\/gru_1\/zeros" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while_2_@ssa_version_2" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/split_0" : {
+        "k" : 1,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 2,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/split_1" : {
+        "k" : 1,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 2,
+        "h" : 1
+      },
+      "model\/gru_1\/strided_slice" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 0,
+        "h" : 1
+      },
+      "tf_make_list_1_is_growing" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while_1_@ssa_version_4" : {
+        "k" : 1,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/split_1_0" : {
+        "k" : 64,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/split_2" : {
+        "k" : 1,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 2,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_1_ls_elem_shape" : {
+        "k" : 1,
+        "w" : 2,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/mul_1" : {
+        "k" : 64,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while_1_new" : {
+        "k" : 2,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "tf_make_list_0_elem_shape_not_equal" : {
+        "k" : 1,
+        "w" : 2,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/split_1_1" : {
+        "k" : 64,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_1_reduce_any" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "tf_make_list_0_extra_length1" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while_0_@ssa_version_3" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/split_1_2" : {
+        "k" : 64,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_2_@ssa_version_2" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_1_new" : {
+        "k" : 21,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "_neg_y_model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/sub" : {
+        "k" : 64,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "transpose_6" : {
+        "k" : 1,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 20
+      },
+      "tf_make_list_1_ls_elem_shape" : {
+        "k" : 1,
+        "w" : 2,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/Sigmoid_1" : {
+        "k" : 64,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "tf_make_list_0_@ssa_version_1" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while_1_@ssa_version_2" : {
+        "k" : 2,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_1_@ssa_version_1" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/mul" : {
+        "k" : 64,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "range_1d_2" : {
+        "k" : 1,
+        "w" : 20,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while_1_alloc" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while_1_model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/add_3_expanded" : {
+        "k" : 64,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 5,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while_1_extra_length0" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "range_1d_0_max_presqueeze" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while_0_@ssa_version_1" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/batch_normalization_2\/batchnorm\/add_1" : {
+        "k" : 1,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 2,
+        "h" : 1
+      },
+      "range_1d_2_max" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/TensorArrayV2Stack\/TensorListStack" : {
+        "k" : 20,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "model\/gru\/zeros\/packed\/1" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/dense\/Tensordot\/Reshape" : {
+        "k" : 1,
+        "w" : 14,
+        "n" : 1,
+        "_rank" : 2,
+        "h" : 20
+      },
+      "tf_make_list_1" : {
+        "k" : 20,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add_1" : {
+        "k" : 32,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while_1_is_growing" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "tf_make_list_1_alloc_shape" : {
+        "k" : 1,
+        "w" : 3,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "tf_make_list_0_extra_length0" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "tf_make_list_0_alloc" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "h" : 1
+      },
+      "model\/dense\/Tensordot\/MatMul" : {
+        "k" : 1,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 2,
+        "h" : 20
+      },
+      "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/Sigmoid" : {
+        "k" : 32,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_1_elem_shape_not_equal" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_1_value_elem_shape" : {
+        "k" : 1,
+        "w" : 4,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "range_1d_2_max_presqueeze" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/split_2" : {
+        "k" : 1,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 2,
+        "h" : 1
+      },
+      "model\/gru_1\/zeros\/packed" : {
+        "k" : 1,
+        "w" : 2,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/dense\/BiasAdd" : {
+        "k" : 1,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 20
+      },
+      "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/split_1_0" : {
+        "k" : 32,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_1_re_initialize_shape" : {
+        "k" : 1,
+        "w" : 5,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_1_@ssa_version_2" : {
+        "k" : 21,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/split_1_1" : {
+        "k" : 32,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/split_1_2" : {
+        "k" : 32,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "model\/gru\/Shape" : {
+        "k" : 1,
+        "w" : 3,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/mul_1" : {
+        "k" : 32,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "model\/batch_normalization\/batchnorm\/add_1" : {
+        "k" : 1,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 20
+      },
+      "tf_make_list_1_@ssa_version_2" : {
+        "k" : 21,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_1_full_shape" : {
+        "k" : 1,
+        "w" : 3,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/batch_normalization_1\/batchnorm\/sub" : {
+        "k" : 1,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "tf_make_list_0_full_shape" : {
+        "k" : 1,
+        "w" : 3,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "tf_make_list_0_length" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while_1_ls_elem_shape" : {
+        "k" : 1,
+        "w" : 2,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/Tanh" : {
+        "k" : 64,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "tf_make_list_1_full_shape" : {
+        "k" : 1,
+        "w" : 3,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_0_@ssa_version_1" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "range_1d_0_max" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "tf_make_list_0_@ssa_version_4" : {
+        "k" : 20,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "tf_make_list_0_re_initialize" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/split_1" : {
+        "k" : 1,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 2,
+        "h" : 1
+      },
+      "input_1" : {
+        "k" : 1,
+        "w" : 14,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 20
+      },
+      "model\/batch_normalization_1\/batchnorm\/mul" : {
+        "k" : 1,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/Shape" : {
+        "k" : 1,
+        "w" : 3,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_1_@ssa_version_3" : {
+        "k" : 20,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "tf_make_list_1_alloc" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while_1_@ssa_version_7" : {
+        "k" : 1,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "tf_make_list_1_extra_length1" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru\/strided_slice" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 0,
+        "h" : 1
+      },
+      "tf_make_list_1_reduce_any" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while\/while_body_674537\/while\/BiasAdd_1" : {
+        "k" : 192,
+        "w" : 1,
+        "n" : 1,
+        "h" : 1
+      },
+      "_neg_y_model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/sub" : {
+        "k" : 32,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 4,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add_4" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "tf_make_list_0_alloc_shape" : {
+        "k" : 1,
+        "w" : 3,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while_1_extra_length1" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/batch_normalization_2\/batchnorm\/sub" : {
+        "k" : 1,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/split_0" : {
+        "k" : 1,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 2,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/TensorArrayV2Stack\/TensorListStack" : {
+        "k" : 1,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "tf_make_list_1_length" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/batch_normalization_1\/batchnorm\/mul_1" : {
+        "k" : 1,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 20
+      },
+      "tf_make_list_0" : {
+        "k" : 20,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_0_@ssa_version_2" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/dense\/Tanh" : {
+        "k" : 1,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 20
+      },
+      "transpose_7" : {
+        "k" : 20,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "model\/batch_normalization\/batchnorm\/mul_1" : {
+        "k" : 1,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 20
+      },
+      "model\/gru\/PartitionedCall\/while_1_model\/gru\/PartitionedCall\/while\/while_body_674147\/while\/add_3_expanded" : {
+        "k" : 32,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 5,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_0" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "range_1d_1" : {
+        "k" : 1,
+        "w" : 20,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "tf_make_list_1_elem_shape_not_equal" : {
+        "k" : 1,
+        "w" : 2,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_1_is_growing" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "_rank" : 1,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_1" : {
+        "k" : 20,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_1_@ssa_version_4" : {
+        "k" : 20,
+        "w" : 32,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      },
+      "model\/gru\/PartitionedCall\/while_2" : {
+        "k" : 1,
+        "w" : 1,
+        "n" : 1,
+        "h" : 1
+      },
+      "model\/gru_1\/PartitionedCall\/while_1_@ssa_version_5" : {
+        "k" : 1,
+        "w" : 64,
+        "n" : 1,
+        "_rank" : 3,
+        "h" : 1
+      }
+    },
+    "global_shapes" : {
+
+    }
+  },
+  "subnetworks" : {
+
+  }
+}

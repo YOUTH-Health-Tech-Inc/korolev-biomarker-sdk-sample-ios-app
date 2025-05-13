@@ -1,0 +1,76 @@
+{
+  "storage" : "model.espresso.weights",
+  "analyses" : {
+
+  },
+  "properties" : {
+
+  },
+  "format_version" : 200,
+  "metadata_in_weights" : [
+
+  ],
+  "layers" : [
+    {
+      "bottom" : "",
+      "k" : 3,
+      "n" : 1,
+      "weights" : {
+
+      },
+      "h" : 1,
+      "debug_info" : "Mu_Mulcst",
+      "constant_blob" : 1,
+      "top" : "Mu_Mulcst",
+      "w" : 1,
+      "type" : "load_constant",
+      "name" : "Mu_Mulcst"
+    },
+    {
+      "bottom" : "float_input,Mu_Mulcst",
+      "alpha" : 1,
+      "operation" : 1,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "Mu_Mul",
+      "top" : "Mu_C0",
+      "type" : "elementwise",
+      "name" : "Mu_Mul",
+      "beta" : 0
+    },
+    {
+      "bottom" : "",
+      "k" : 3,
+      "n" : 1,
+      "weights" : {
+
+      },
+      "h" : 1,
+      "debug_info" : "Ad_Add",
+      "constant_blob" : 3,
+      "top" : "Ad_Add_constant_in",
+      "w" : 1,
+      "type" : "load_constant",
+      "name" : "Ad_Add_constant_in"
+    },
+    {
+      "bottom" : "Mu_C0,Ad_Add_constant_in",
+      "alpha" : 1,
+      "operation" : 0,
+      "beta" : 0,
+      "weights" : {
+
+      },
+      "fused_relu" : 0,
+      "debug_info" : "Ad_Add",
+      "top" : "variable",
+      "type" : "elementwise",
+      "name" : "Ad_Add",
+      "attributes" : {
+        "is_output" : 1
+      }
+    }
+  ]
+}

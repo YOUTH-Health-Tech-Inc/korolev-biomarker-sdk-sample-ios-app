@@ -1,0 +1,780 @@
+{
+    "m3questions": [
+        {
+            "header":"Over the last two weeks or more, have you noticed the following?",
+            "text": "I feel sad, down in the dumps or unhappy",
+            "options": [
+                {
+                    "text": "Not at all",
+                    "answerIndex": 0
+                },
+                {
+                    "text": "Rarely",
+                    "answerIndex": 1
+                },
+                {
+                    "text": "Sometimes",
+                    "answerIndex": 2
+                },
+                {
+                    "text": "Often",
+                    "answerIndex": 3
+                },
+                {
+                    "text": "Most of the time",
+                    "answerIndex": 4
+                }
+            ]
+        },
+        {
+            "header":"Over the last two weeks or more, have you noticed the following?",
+            "text": "I can't concentrate or focus",
+            
+            "options": [
+                {
+                    "text": "Not at all",
+                    "answerIndex": 0
+                },
+                {
+                    "text": "Rarely",
+                    "answerIndex": 1
+                },
+                {
+                    "text": "Sometimes",
+                    "answerIndex": 2
+                },
+                {
+                    "text": "Often",
+                    "answerIndex": 3
+                },
+                {
+                    "text": "Most of the time",
+                    "answerIndex": 4
+                }
+            ]
+        },
+        {
+            "header":"Over the last two weeks or more, have you noticed the following?",
+            "text": "Nothing seems to give me much pleasure",
+
+            "options": [
+                {
+                    "text": "Not at all",
+                    "answerIndex": 0
+                },
+                {
+                    "text": "Rarely",
+                    "answerIndex": 1
+                },
+                {
+                    "text": "Sometimes",
+                    "answerIndex": 2
+                },
+                {
+                    "text": "Often",
+                    "answerIndex": 3
+                },
+                {
+                    "text": "Most of the time",
+                    "answerIndex": 4
+                }
+            ]
+        },
+        {
+            "header":"Over the last two weeks or more, have you noticed the following?",
+            "text": "I feel tired; have no energy",
+
+            "options": [
+                {
+                    "text": "Not at all",
+                    "answerIndex": 0
+                },
+                {
+                    "text": "Rarely",
+                    "answerIndex": 1
+                },
+                {
+                    "text": "Sometimes",
+                    "answerIndex": 2
+                },
+                {
+                    "text": "Often",
+                    "answerIndex": 3
+                },
+                {
+                    "text": "Most of the time",
+                    "answerIndex": 4
+                }
+            ]
+        },
+        {
+            "header":"Over the last two weeks or more, have you noticed the following?",
+            "text": "I have had thoughts of suicide",
+
+            "options": [
+                {
+                    "text": "Not at all",
+                    "answerIndex": 0
+                },
+                {
+                    "text": "Rarely",
+                    "answerIndex": 1
+                },
+                {
+                    "text": "Sometimes",
+                    "answerIndex": 2
+                },
+                {
+                    "text": "Often",
+                    "answerIndex": 3
+                },
+                {
+                    "text": "Most of the time",
+                    "answerIndex": 4
+                }
+            ]
+        },
+        {
+            "header":"Over the last two weeks or more, have you noticed the following?",
+            "text": "I have difficulty sleeping",
+
+            "options": [
+                {
+                    "text": "Not at all",
+                    "answerIndex": 0
+                },
+                {
+                    "text": "Rarely",
+                    "answerIndex": 1
+                },
+                {
+                    "text": "Sometimes",
+                    "answerIndex": 2
+                },
+                {
+                    "text": "Often",
+                    "answerIndex": 3
+                },
+                {
+                    "text": "Most of the time",
+                    "answerIndex": 4
+                }
+            ]
+        },
+        {
+            "header":"Over the last two weeks or more, have you noticed the following?",
+            "text": "I sleep too much",
+
+            "options": [
+                {
+                    "text": "Not at all",
+                    "answerIndex": 0
+                },
+                {
+                    "text": "Rarely",
+                    "answerIndex": 1
+                },
+                {
+                    "text": "Sometimes",
+                    "answerIndex": 2
+                },
+                {
+                    "text": "Often",
+                    "answerIndex": 3
+                },
+                {
+                    "text": "Most of the time",
+                    "answerIndex": 4
+                }
+            ]
+        },
+        {
+            "header":"Over the last two weeks or more, have you noticed the following?",
+            "text": "I have lost some appetite",
+
+            "options": [
+                {
+                    "text": "Not at all",
+                    "answerIndex": 0
+                },
+                {
+                    "text": "Rarely",
+                    "answerIndex": 1
+                },
+                {
+                    "text": "Sometimes",
+                    "answerIndex": 2
+                },
+                {
+                    "text": "Often",
+                    "answerIndex": 3
+                },
+                {
+                    "text": "Most of the time",
+                    "answerIndex": 4
+                }
+            ]
+        },
+        {
+            "header":"Over the last two weeks or more, have you noticed the following?",
+            "text": "I am eating more",
+
+            "options": [
+                {
+                    "text": "Not at all",
+                    "answerIndex": 0
+                },
+                {
+                    "text": "Rarely",
+                    "answerIndex": 1
+                },
+                {
+                    "text": "Sometimes",
+                    "answerIndex": 2
+                },
+                {
+                    "text": "Often",
+                    "answerIndex": 3
+                },
+                {
+                    "text": "Most of the time",
+                    "answerIndex": 4
+                }
+            ]
+        },
+        {
+            "header":"Over the last two weeks or more, have you noticed the following?",
+            "text": "I feel tense, anxious or can't sit still",
+
+            "options": [
+                {
+                    "text": "Not at all",
+                    "answerIndex": 0
+                },
+                {
+                    "text": "Rarely",
+                    "answerIndex": 1
+                },
+                {
+                    "text": "Sometimes",
+                    "answerIndex": 2
+                },
+                {
+                    "text": "Often",
+                    "answerIndex": 3
+                },
+                {
+                    "text": "Most of the time",
+                    "answerIndex": 4
+                }
+            ]
+        },
+        {
+            "header":"Over the last two weeks or more, have you noticed the following?",
+            "text": "I feel worried or fearful",
+
+            "options": [
+                {
+                    "text": "Not at all",
+                    "answerIndex": 0
+                },
+                {
+                    "text": "Rarely",
+                    "answerIndex": 1
+                },
+                {
+                    "text": "Sometimes",
+                    "answerIndex": 2
+                },
+                {
+                    "text": "Often",
+                    "answerIndex": 3
+                },
+                {
+                    "text": "Most of the time",
+                    "answerIndex": 4
+                }
+            ]
+        },
+        {
+            "header":"Over the last two weeks or more, have you noticed the following?",
+            "text": "I have attacks of anxiety or panic",
+
+            "options": [
+                {
+                    "text": "Not at all",
+                    "answerIndex": 0
+                },
+                {
+                    "text": "Rarely",
+                    "answerIndex": 1
+                },
+                {
+                    "text": "Sometimes",
+                    "answerIndex": 2
+                },
+                {
+                    "text": "Often",
+                    "answerIndex": 3
+                },
+                {
+                    "text": "Most of the time",
+                    "answerIndex": 4
+                }
+            ]
+        },
+        {
+            "header":"Over the last two weeks or more, have you noticed the following?",
+            "text": "I worry about dying or losing control",
+
+            "options": [
+                {
+                    "text": "Not at all",
+                    "answerIndex": 0
+                },
+                {
+                    "text": "Rarely",
+                    "answerIndex": 1
+                },
+                {
+                    "text": "Sometimes",
+                    "answerIndex": 2
+                },
+                {
+                    "text": "Often",
+                    "answerIndex": 3
+                },
+                {
+                    "text": "Most of the time",
+                    "answerIndex": 4
+                }
+            ]
+        },
+        {
+            "header":"Over the last two weeks or more, have you noticed the following?",
+            "text": "I am nervous or shaky in social situations",
+
+            "options": [
+                {
+                    "text": "Not at all",
+                    "answerIndex": 0
+                },
+                {
+                    "text": "Rarely",
+                    "answerIndex": 1
+                },
+                {
+                    "text": "Sometimes",
+                    "answerIndex": 2
+                },
+                {
+                    "text": "Often",
+                    "answerIndex": 3
+                },
+                {
+                    "text": "Most of the time",
+                    "answerIndex": 4
+                }
+            ]
+        },
+        {
+            "header":"Over the last two weeks or more, have you noticed the following?",
+            "text": "I have nightmares or flashbacks",
+
+            "options": [
+                {
+                    "text": "Not at all",
+                    "answerIndex": 0
+                },
+                {
+                    "text": "Rarely",
+                    "answerIndex": 1
+                },
+                {
+                    "text": "Sometimes",
+                    "answerIndex": 2
+                },
+                {
+                    "text": "Often",
+                    "answerIndex": 3
+                },
+                {
+                    "text": "Most of the time",
+                    "answerIndex": 4
+                }
+            ]
+        },
+        {
+            "header":"Over the last two weeks or more, have you noticed the following?",
+            "text": "I am jumpy or feel startled easily",
+
+            "options": [
+                {
+                    "text": "Not at all",
+                    "answerIndex": 0
+                },
+                {
+                    "text": "Rarely",
+                    "answerIndex": 1
+                },
+                {
+                    "text": "Sometimes",
+                    "answerIndex": 2
+                },
+                {
+                    "text": "Often",
+                    "answerIndex": 3
+                },
+                {
+                    "text": "Most of the time",
+                    "answerIndex": 4
+                }
+            ]
+        },
+        {
+            "header":"Over the last two weeks or more, have you noticed the following?",
+            "text": "I avoid places that remind of a bad experience",
+
+            "options": [
+                {
+                    "text": "Not at all",
+                    "answerIndex": 0
+                },
+                {
+                    "text": "Rarely",
+                    "answerIndex": 1
+                },
+                {
+                    "text": "Sometimes",
+                    "answerIndex": 2
+                },
+                {
+                    "text": "Often",
+                    "answerIndex": 3
+                },
+                {
+                    "text": "Most of the time",
+                    "answerIndex": 4
+                }
+            ]
+        },
+        {
+            "header":"Over the last two weeks or more, have you noticed the following?",
+            "text": "I feel dull, numb, or detached",
+
+            "options": [
+                {
+                    "text": "Not at all",
+                    "answerIndex": 0
+                },
+                {
+                    "text": "Rarely",
+                    "answerIndex": 1
+                },
+                {
+                    "text": "Sometimes",
+                    "answerIndex": 2
+                },
+                {
+                    "text": "Often",
+                    "answerIndex": 3
+                },
+                {
+                    "text": "Most of the time",
+                    "answerIndex": 4
+                }
+            ]
+        },
+        {
+            "header":"Over the last two weeks or more, have you noticed the following?",
+            "text": "I can't get certain thoughts out of my mind",
+
+            "options": [
+                {
+                    "text": "Not at all",
+                    "answerIndex": 0
+                },
+                {
+                    "text": "Rarely",
+                    "answerIndex": 1
+                },
+                {
+                    "text": "Sometimes",
+                    "answerIndex": 2
+                },
+                {
+                    "text": "Often",
+                    "answerIndex": 3
+                },
+                {
+                    "text": "Most of the time",
+                    "answerIndex": 4
+                }
+            ]
+        },
+        {
+            "header":"Over the last two weeks or more, have you noticed the following?",
+            "text": "I feel I must repeat certain acts or rituals",
+
+            "options": [
+                {
+                    "text": "Not at all",
+                    "answerIndex": 0
+                },
+                {
+                    "text": "Rarely",
+                    "answerIndex": 1
+                },
+                {
+                    "text": "Sometimes",
+                    "answerIndex": 2
+                },
+                {
+                    "text": "Often",
+                    "answerIndex": 3
+                },
+                {
+                    "text": "Most of the time",
+                    "answerIndex": 4
+                }
+            ]
+        },
+        {
+            "header":"Have you EVER in your life (or since you last took this assessment) noticed",
+            "text": "I feel the need to check and recheck things",
+
+            "options": [
+                {
+                    "text": "Not at all",
+                    "answerIndex": 0
+                },
+                {
+                    "text": "Rarely",
+                    "answerIndex": 1
+                },
+                {
+                    "text": "Sometimes",
+                    "answerIndex": 2
+                },
+                {
+                    "text": "Often",
+                    "answerIndex": 3
+                },
+                {
+                    "text": "Most of the time",
+                    "answerIndex": 4
+                }
+            ]
+        },
+        {
+            "header":"Have you EVER in your life (or since you last took this assessment) noticed",
+            "text": "I have more energy than usual",
+
+            "options": [
+                {
+                    "text": "Not at all",
+                    "answerIndex": 0
+                },
+                {
+                    "text": "Rarely",
+                    "answerIndex": 1
+                },
+                {
+                    "text": "Sometimes",
+                    "answerIndex": 2
+                },
+                {
+                    "text": "Often",
+                    "answerIndex": 3
+                },
+                {
+                    "text": "Most of the time",
+                    "answerIndex": 4
+                }
+            ]
+        },
+        {
+            "header":"Have you EVER in your life (or since you last took this assessment) noticed",
+            "text": "I have felt unusually irritable or angry",
+
+            "options": [
+                {
+                    "text": "Not at all",
+                    "answerIndex": 0
+                },
+                {
+                    "text": "Rarely",
+                    "answerIndex": 1
+                },
+                {
+                    "text": "Sometimes",
+                    "answerIndex": 2
+                },
+                {
+                    "text": "Often",
+                    "answerIndex": 3
+                },
+                {
+                    "text": "Most of the time",
+                    "answerIndex": 4
+                }
+            ]
+        },
+        {
+            "header":"Have you EVER in your life (or since you last took this assessment) noticed",
+            "text": "I have felt unusually excited, revved up or high",
+            "options": [
+                {
+                    "text": "Not at all",
+                    "answerIndex": 0
+                },
+                {
+                    "text": "Rarely",
+                    "answerIndex": 1
+                },
+                {
+                    "text": "Sometimes",
+                    "answerIndex": 2
+                },
+                {
+                    "text": "Often",
+                    "answerIndex": 3
+                },
+                {
+                    "text": "Most of the time",
+                    "answerIndex": 4
+                }
+            ]
+        },
+        {
+            "header":"Indicate whether any of the previous symptoms…",
+            "text": "I have needed less sleep than usual",
+            "options": [
+                {
+                    "text": "Not at all",
+                    "answerIndex": 0
+                },
+                {
+                    "text": "Rarely",
+                    "answerIndex": 1
+                },
+                {
+                    "text": "Sometimes",
+                    "answerIndex": 2
+                },
+                {
+                    "text": "Often",
+                    "answerIndex": 3
+                },
+                {
+                    "text": "Most of the time",
+                    "answerIndex": 4
+                }
+            ]
+        },
+        {
+            "header":"Indicate whether any of the previous symptoms…",
+            "text": "interferes with work or school",
+            "options": [
+                {
+                    "text": "Not at all",
+                    "answerIndex": 0
+                },
+                {
+                    "text": "Rarely",
+                    "answerIndex": 1
+                },
+                {
+                    "text": "Sometimes",
+                    "answerIndex": 2
+                },
+                {
+                    "text": "Often",
+                    "answerIndex": 3
+                },
+                {
+                    "text": "Most of the time",
+                    "answerIndex": 4
+                }
+            ]
+        },
+        {
+            "header":"Indicate whether any of the previous symptoms…",
+            "text": "affects my relationships with friends or family",
+            "options": [
+                {
+                    "text": "Not at all",
+                    "answerIndex": 0
+                },
+                {
+                    "text": "Rarely",
+                    "answerIndex": 1
+                },
+                {
+                    "text": "Sometimes",
+                    "answerIndex": 2
+                },
+                {
+                    "text": "Often",
+                    "answerIndex": 3
+                },
+                {
+                    "text": "Most of the time",
+                    "answerIndex": 4
+                }
+            ]
+        },
+        {
+            "header":"Indicate whether any of the previous symptoms…",
+            "text": "has led to my using alcohol to get by",
+            "options": [
+                {
+                    "text": "Not at all",
+                    "answerIndex": 0
+                },
+                {
+                    "text": "Rarely",
+                    "answerIndex": 1
+                },
+                {
+                    "text": "Sometimes",
+                    "answerIndex": 2
+                },
+                {
+                    "text": "Often",
+                    "answerIndex": 3
+                },
+                {
+                    "text": "Most of the time",
+                    "answerIndex": 4
+                }
+            ]
+        },
+        {
+            "header":"Over the past two weeks...",
+            "text": "has led to my using other substances",
+            "options": [
+                {
+                    "text": "Not at all",
+                    "answerIndex": 0
+                },
+                {
+                    "text": "Rarely",
+                    "answerIndex": 1
+                },
+                {
+                    "text": "Sometimes",
+                    "answerIndex": 2
+                },
+                {
+                    "text": "Often",
+                    "answerIndex": 3
+                },
+                {
+                    "text": "Most of the time",
+                    "answerIndex": 4
+                }
+            ]
+        }
+    ]
+}

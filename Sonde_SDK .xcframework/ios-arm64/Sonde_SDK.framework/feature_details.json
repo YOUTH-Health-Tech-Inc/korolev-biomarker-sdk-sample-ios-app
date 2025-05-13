@@ -1,0 +1,237 @@
+{
+  "type": "ACOUSTIC",
+  "voiceFeatures": [
+    {
+      "code": "jitter",
+      "name": "Smoothness",
+      "range": {
+        "min": 88,
+        "max": 100
+      },
+      "unit": "%",
+      "scoreCutoff": [
+        {
+          "score": 92,
+          "fitnessCategory": {
+            "type": "LOW"
+          }
+        },
+        {
+          "score": 96,
+          "fitnessCategory": {
+            "type": "MEDIUM"
+          }
+        },
+        {
+          "score": 100,
+          "fitnessCategory": {
+            "type": "HIGH"
+          }
+        }
+      ]
+    },
+    {
+      "code": "pitch_range",
+      "name": "Liveliness",
+      "range": {
+        "min": 0,
+        "max": 0.45
+      },
+      "unit": "octaves",
+      "scoreCutoff": [
+        {
+          "score": 0.1,
+          "fitnessCategory": {
+            "type": "LOW"
+          }
+        },
+        {
+          "score": 0.30,
+          "fitnessCategory": {
+            "type": "MEDIUM"
+          }
+        },
+        {
+          "score": 0.45,
+          "fitnessCategory": {
+            "type": "HIGH"
+          }
+        }
+      ]
+    },
+    {
+      "code": "shimmer",
+      "name": "Control",
+      "range": {
+        "min": 78,
+        "max": 93
+      },
+      "unit": "%",
+      "scoreCutoff": [
+        {
+          "score": 83,
+          "fitnessCategory": {
+            "type": "LOW"
+          }
+        },
+        {
+          "score": 88,
+          "fitnessCategory": {
+            "type": "MEDIUM"
+          }
+        },
+        {
+          "score": 93,
+          "fitnessCategory": {
+            "type": "HIGH"
+          }
+        }
+      ]
+    },
+    {
+      "code": "energy_range",
+      "name": "Energy Range",
+      "range": {
+        "min": 3,
+        "max": 12
+      },
+      "unit": "dB",
+      "scoreCutoff": [
+        {
+          "score": 6,
+          "fitnessCategory": {
+            "type": "LOW"
+          }
+        },
+        {
+          "score": 9,
+          "fitnessCategory": {
+            "type": "MEDIUM"
+          }
+        },
+        {
+          "score": 12,
+          "fitnessCategory": {
+            "type": "HIGH"
+          }
+        }
+      ]
+    },
+    {
+      "code": "vowel_space_area",
+      "name": "Clarity",
+      "range": {
+        "min": 0.20,
+        "max": 1.20
+      },
+      "unit": "kHz^2",
+      "scoreCutoff": [
+        {
+          "score": 0.32,
+          "fitnessCategory": {
+            "type": "LOW"
+          }
+        },
+        {
+          "score": 0.44,
+          "fitnessCategory": {
+            "type": "MEDIUM"
+          }
+        },
+        {
+          "score": 0.56,
+          "fitnessCategory": {
+            "type": "HIGH"
+          }
+        }
+      ]
+    },
+    {
+      "code": "phonation_duration",
+      "name": "Crispness",
+      "range": {
+        "min": 100,
+        "max": 400
+      },
+      "unit": "milliseconds",
+      "scoreCutoff": [
+        {
+          "score": 200,
+          "fitnessCategory": {
+            "type": "LOW"
+          }
+        },
+        {
+          "score": 300,
+          "fitnessCategory": {
+            "type": "MEDIUM"
+          }
+        },
+        {
+          "score": 400,
+          "fitnessCategory": {
+            "type": "HIGH"
+          }
+        }
+      ]
+    },
+    {
+      "code": "speech_rate",
+      "name": "Speech Rate",
+      "range": {
+        "min": 25,
+        "max": 220
+      },
+      "unit": "words/min",
+      "scoreCutoff": [
+        {
+          "score": 3 ,
+          "fitnessCategory": {
+            "type": "LOW"
+          }
+        },
+        {
+          "score": 6,
+          "fitnessCategory": {
+            "type": "Medium"
+          }
+        },
+        {
+          "score": 10,
+          "fitnessCategory": {
+            "type": "High"
+          }
+        }
+      ]
+    },
+     {
+      "code": "pause_duration",
+      "name": "Pause Duration",
+      "range": {
+        "min": 0.1,
+        "max": 1.0
+      },
+      "unit": "seconds",
+      "scoreCutoff": [
+        {
+          "score": 0.4,
+          "fitnessCategory": {
+            "type": "LOW"
+          }
+        },
+        {
+          "score": 0.7,
+          "fitnessCategory": {
+            "type": "MEDIUM"
+          }
+        },
+        {
+          "score": 1.0,
+          "fitnessCategory": {
+            "type": "HIGH"
+          }
+        }
+      ]
+    }
+  ]
+}

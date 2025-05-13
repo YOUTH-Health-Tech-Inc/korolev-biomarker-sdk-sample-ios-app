@@ -3,7 +3,9 @@ import Flutter
 
 @main
 struct test2appiospackageApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegateCustom.self) var appDelegate
     @State var flutterDependencies = FlutterDependencies()
+    
        var body: some Scene {
          WindowGroup {
              ContentView()

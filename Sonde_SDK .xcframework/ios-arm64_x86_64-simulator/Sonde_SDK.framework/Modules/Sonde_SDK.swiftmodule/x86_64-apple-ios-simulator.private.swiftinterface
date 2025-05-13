@@ -1,0 +1,207 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.10 (swiftlang-5.10.0.13 clang-1500.3.9.4)
+// swift-module-flags: -target x86_64-apple-ios14.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name Sonde_SDK
+import AVFoundation
+import CommonCrypto
+import CoreML
+import Darwin
+import Foundation
+import Security
+@_exported import Sonde_SDK
+import Swift
+import SystemConfiguration
+import UIKit
+import Vision
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+public enum HealthCheckType {
+  case MENTAL_FITNESS, RESPIRATORY_SYMPTOMS_RISK
+  public static func == (a: Sonde_SDK.HealthCheckType, b: Sonde_SDK.HealthCheckType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum Gender {
+  case male, female
+  public static func == (a: Sonde_SDK.Gender, b: Sonde_SDK.Gender) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct MetaData {
+  public var gender: Sonde_SDK.Gender
+  public var yearOfBirth: Swift.String
+  public var partnerId: Swift.String
+  public init(gender: Sonde_SDK.Gender, yearOfBirth: Swift.String, partnerId: Swift.String)
+}
+public struct VoiceFeatures : Swift.Codable {
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public class Score {
+  public var score: Swift.Double
+  public init(score: Swift.Double)
+  @objc deinit
+}
+public class VFScore : Sonde_SDK.Score {
+  public var code: Swift.String, name: Swift.String
+  public init(score: Swift.Double, code: Swift.String, name: Swift.String)
+  public init(vfScore: Swift.Double, featureDetails: Sonde_SDK.VoiceFeatures)
+  @objc deinit
+}
+public class VFFinalScore : Sonde_SDK.Score {
+  public var vfScores: [Sonde_SDK.VFScore]
+  public init(score: Swift.Double, vfScores: [Sonde_SDK.VFScore])
+  @objc deinit
+}
+public protocol Required {
+  init(clientId: Swift.String, clientSecret: Swift.String)
+}
+open class RequireSetup {
+  @objc required public init(clientId: Swift.String, clientSecret: Swift.String)
+  @objc deinit
+}
+open class M3Questionnaire {
+  public var metaData: Sonde_SDK.MetaData
+  required public init(metaData: Sonde_SDK.MetaData)
+  public class func getM3Questionnaire(errorHandler: @escaping ((Swift.String) -> Swift.Void), m3Questions: @escaping ((Sonde_SDK.M3Questions) -> Swift.Void))
+  public func getM3Score(m3answers: Sonde_SDK.M3Answers, scoreHandler: (_ score: Sonde_SDK.M3Score) -> Swift.Void, error: ((_ error: Sonde_SDK.InferenceError) -> Swift.Void))
+  @objc deinit
+}
+public enum InferenceError : Swift.Error, Swift.CustomStringConvertible, Foundation.LocalizedError {
+  case featureExtractionFailedError, high_noise_less_speechlenght, high_background_noise, insufficent_speech, audioFileNotFoundError, audioValidationFailed, notVaildPartnerId, notInitialized, notValidAnswer
+  public var description: Swift.String {
+    get
+  }
+  public var errorDescription: Swift.String? {
+    get
+  }
+  public static func == (a: Sonde_SDK.InferenceError, b: Sonde_SDK.InferenceError) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public class ElicitationExecutor {
+  public init()
+  public func executeELCK(audioFilePath: Swift.String) -> Swift.Bool
+  @objc deinit
+}
+public protocol Inference {
+  func inferScore(audioFilePath: Swift.String, healthCheckType: Sonde_SDK.HealthCheckType, scoreHandler: (_ score: Sonde_SDK.Score) -> Swift.Void, error: ((_ error: Sonde_SDK.InferenceError) -> Swift.Void))
+  init(metaData: Sonde_SDK.MetaData)
+}
+open class InferenceEngine : Sonde_SDK.Inference {
+  public var metaData: Sonde_SDK.MetaData
+  required public init(metaData: Sonde_SDK.MetaData)
+  public func inferScore(audioFilePath: Swift.String, healthCheckType: Sonde_SDK.HealthCheckType, scoreHandler: (_ score: Sonde_SDK.Score) -> Swift.Void, error: ((_ error: Sonde_SDK.InferenceError) -> Swift.Void))
+  @objc deinit
+}
+public struct FEOutput {
+  public var filePath: Swift.String
+  public var status: Swift.Bool
+  public var errorCode: Swift.Int
+}
+public class FeatureExtractor {
+  public init()
+  public func extractFeatures(audioFilePath: Swift.String, healthCheckType: Sonde_SDK.HealthCheckType = .MENTAL_FITNESS) -> Sonde_SDK.FEOutput
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class Reachability {
+  @objc deinit
+}
+public enum AudioError : Swift.Error, Swift.CustomStringConvertible, Foundation.LocalizedError {
+  case micPermissionNotGranted, audioInputPermissionError, audioInputUnexpectedError, invalidUser, notIntialized, invaildPartnerId, inActiveUser, inVaildScope
+  public var description: Swift.String {
+    get
+  }
+  public var errorDescription: Swift.String? {
+    get
+  }
+  public static func == (a: Sonde_SDK.AudioError, b: Sonde_SDK.AudioError) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public protocol RespiratoryModel {
+  func getScore(csvFilePath: Swift.String, metaData: Sonde_SDK.MetaData) -> Sonde_SDK.Score
+}
+public class RespiratoryScoreGenerator : Sonde_SDK.RespiratoryModel {
+  public init()
+  public func getScore(csvFilePath: Swift.String, metaData: Sonde_SDK.MetaData) -> Sonde_SDK.Score
+  @objc deinit
+}
+public protocol AggregatedScore {
+  func getAggregatedScore(acousticCSVFilePath: Swift.String) -> Sonde_SDK.VFFinalScore
+}
+public class AggregatedScoreGenerator : Sonde_SDK.AggregatedScore {
+  public init()
+  public func getAggregatedScore(acousticCSVFilePath: Swift.String) -> Sonde_SDK.VFFinalScore
+  @objc deinit
+}
+public struct M3Questions : Swift.Decodable {
+  public var m3questions: [Sonde_SDK.M3Question]
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct M3Question : Swift.Decodable {
+  public var header: Swift.String
+  public var text: Swift.String
+  public var options: [Sonde_SDK.M3Options]
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct M3Options : Swift.Decodable {
+  public var text: Swift.String
+  public var answerIndex: Swift.Int
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct M3Answers {
+  public var answers: [Swift.Int]
+  public init(answers: [Swift.Int])
+}
+public struct M3Score {
+  public var score: Sonde_SDK.M3Scores
+}
+public struct M3Scores {
+  public var finalScore: Swift.Int
+  public var subScores: [Sonde_SDK.SubScore]
+  public var questionResponses: [Sonde_SDK.QuestionResponse]
+  public var isSucidal: Swift.Bool
+  public var isFunctionalImpairment: Swift.Bool
+  public var severity: Swift.String
+}
+public struct SubScore {
+  public var disorderName: Swift.String
+  public var score: Swift.Int
+  public var severity: Swift.String
+}
+public struct QuestionResponse {
+  public var optionIndex: Swift.Int
+}
+public protocol SondeAudioRecorder : AnyObject {
+  var filePath: Swift.String { get set }
+  func startRecording()
+  func stopRecording()
+  func discardRecording()
+  func isRecording() -> Swift.Bool
+}
+open class AudioRecorder : Sonde_SDK.SondeAudioRecorder {
+  public var filePath: Swift.String
+  public init(lengthInSec: Swift.Int, errorHandler: @escaping ((Sonde_SDK.AudioError) -> Swift.Void), recordingHandler: @escaping ((AVFAudio.AVAudioPCMBuffer, AVFAudio.AVAudioTime) -> Swift.Void), recordingFinishedHandler: @escaping ((_ filePath: Swift.String) -> Swift.Void))
+  public func startRecording()
+  public func isRecording() -> Swift.Bool
+  public func stopRecording()
+  public func discardRecording()
+  @objc deinit
+}
+extension Sonde_SDK.HealthCheckType : Swift.Equatable {}
+extension Sonde_SDK.HealthCheckType : Swift.Hashable {}
+extension Sonde_SDK.Gender : Swift.Equatable {}
+extension Sonde_SDK.Gender : Swift.Hashable {}
+extension Sonde_SDK.InferenceError : Swift.Equatable {}
+extension Sonde_SDK.InferenceError : Swift.Hashable {}
+extension Sonde_SDK.AudioError : Swift.Equatable {}
+extension Sonde_SDK.AudioError : Swift.Hashable {}

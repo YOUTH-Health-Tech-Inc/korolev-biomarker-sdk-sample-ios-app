@@ -1,0 +1,7 @@
+code,name,score
+jitter,Smoothness,95
+pitch_range,Liveliness,0.2
+shimmer,Control,98
+energy_range,Energy Range,26
+vowel_space_area,Clarity,0.2
+phonation_duration,Crispness,143
