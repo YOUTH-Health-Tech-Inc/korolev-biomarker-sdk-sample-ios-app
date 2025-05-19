@@ -150,15 +150,15 @@ class FlutterViewControllerWrapper: FlutterViewController {
             )
 
             let styles: [String: String] = [
-                "video-top-info-bg-color": "#FFFFFF",
-                "video-bottom-info-bg-color": "#FFFFFF",
-                "video-top-info-text-color": "#7eca4d",
-                "video-bottom-info-text-color": "#ca4d4d",
-                "video-loading-screen-bg-color": "#a84dca",
-                "video-loading-screen-text-color": "#ffb3e2",
+                "video-top-info-bg-color": "#FF1493",
+                "video-bottom-info-bg-color": "#FFFF00",
+                "video-top-info-text-color": "#00FFFF",
+                "video-bottom-info-text-color": "##0000FF",
+                "video-loading-screen-bg-color": "#800000",
+                "video-loading-screen-text-color": "#000000",
                 "video-loading-screen-text": "custom text!!!",
                 "video-loading-screen-text-size": "31",
-                "video-loading-screen-text-font": "Roboto",   // only goole fonts names for now, without "-Medium" "-Small" types
+                "video-text-font": "Roboto",   // only goole fonts names for now, without "-Medium" "-Small" types
             ]
 
             videoChannel.invokeMethod("updateVideoStyles", arguments: styles) { result in
