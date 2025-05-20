@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		7F0D869E2DAC752800D0AEDF /* Sonde_SDK .xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F0D869C2DAC750900D0AEDF /* Sonde_SDK .xcframework */; };
 		7F0D869F2DAC752800D0AEDF /* Sonde_SDK .xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7F0D869C2DAC750900D0AEDF /* Sonde_SDK .xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		7F1E741F2DDADA9D0069A2ED /* youth-sdk-swift-pack in Frameworks */ = {isa = PBXBuildFile; productRef = 7F1E741E2DDADA9D0069A2ED /* youth-sdk-swift-pack */; };
+		7F1E74522DDB78910069A2ED /* youth-sdk-swift-pack in Frameworks */ = {isa = PBXBuildFile; productRef = 7F1E74512DDB78910069A2ED /* youth-sdk-swift-pack */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,7 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F1E741F2DDADA9D0069A2ED /* youth-sdk-swift-pack in Frameworks */,
+				7F1E74522DDB78910069A2ED /* youth-sdk-swift-pack in Frameworks */,
 				7F0D869E2DAC752800D0AEDF /* Sonde_SDK .xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -157,7 +157,7 @@
 			);
 			name = test2appiospackage;
 			packageProductDependencies = (
-				7F1E741E2DDADA9D0069A2ED /* youth-sdk-swift-pack */,
+				7F1E74512DDB78910069A2ED /* youth-sdk-swift-pack */,
 			);
 			productName = test2appiospackage;
 			productReference = 7F506D282D4048870044DBD4 /* test2appiospackage.app */;
@@ -242,7 +242,7 @@
 			mainGroup = 7F506D1F2D4048870044DBD4;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				7F1E741D2DDADA940069A2ED /* XCLocalSwiftPackageReference "../youth-sdk-swift-pack" */,
+				7F1E74502DDB787F0069A2ED /* XCLocalSwiftPackageReference "../youth-sdk-swift-pack" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 7F506D292D4048870044DBD4 /* Products */;
@@ -648,16 +648,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		7F1E741D2DDADA940069A2ED /* XCLocalSwiftPackageReference "../youth-sdk-swift-pack" */ = {
+		7F1E74502DDB787F0069A2ED /* XCLocalSwiftPackageReference "../youth-sdk-swift-pack" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = "../youth-sdk-swift-pack";
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		7F1E741E2DDADA9D0069A2ED /* youth-sdk-swift-pack */ = {
+		7F1E74512DDB78910069A2ED /* youth-sdk-swift-pack */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 7F1E741D2DDADA940069A2ED /* XCLocalSwiftPackageReference "../youth-sdk-swift-pack" */;
+			package = 7F1E74502DDB787F0069A2ED /* XCLocalSwiftPackageReference "../youth-sdk-swift-pack" */;
 			productName = "youth-sdk-swift-pack";
 		};
 /* End XCSwiftPackageProductDependency section */

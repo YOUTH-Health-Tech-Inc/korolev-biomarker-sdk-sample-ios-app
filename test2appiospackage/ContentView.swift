@@ -119,6 +119,10 @@ class FlutterViewControllerWrapper: FlutterViewController {
                 name: "youth.sample.app/photofacescan",
                 binaryMessenger: binaryMessenger
             )
+        
+        //please use valid hex colors with 6 or 8 signs
+        //please use size in format '${value}px'
+        //please use size in format '${value}px'
 
             let styles: [String: String] = [
                 "selfie-bg-color": "#F6A5C0",
@@ -149,16 +153,24 @@ class FlutterViewControllerWrapper: FlutterViewController {
                 binaryMessenger: binaryMessenger
             )
 
+        //please use valid hex colors with 6 or 8 signs
+        //please use size in format '${value}px'
+        //you can use standart IOS fonts and google fonts
+        //use valid numeric values between 100 and 900
+        //only valid values such as normal, italic etc. are supported
+        
             let styles: [String: String] = [
                 "video-top-info-bg-color": "#FF1493",
                 "video-bottom-info-bg-color": "#FFFF00",
                 "video-top-info-text-color": "#00FFFF",
-                "video-bottom-info-text-color": "##0000FF",
+                "video-bottom-info-text-color": "#0000FF",
                 "video-loading-screen-bg-color": "#800000",
                 "video-loading-screen-text-color": "#000000",
-                "video-loading-screen-text": "custom text!!!",
-                "video-loading-screen-text-size": "31",
-                "video-text-font": "Roboto",   // only goole fonts names for now, without "-Medium" "-Small" types
+                "video-loading-screen-text": "ANY_TEXT_YOU_WANT",
+                "video-loading-screen-text-size": "31px",
+                "video-text-font": "San Francisco",
+                "video-text-font-weight": "600",
+                "video-text-font-style": "normal"
             ]
 
             videoChannel.invokeMethod("updateVideoStyles", arguments: styles) { result in
