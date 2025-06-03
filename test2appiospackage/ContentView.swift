@@ -75,13 +75,53 @@ struct FlutterViewControllerRepresentable: UIViewControllerRepresentable {
         }
         // VIDEO --------------------- end
         
+        // AUDIO --------------------- start
+        
+        let audioChannel = FlutterMethodChannel(name: "youth.sample.app/audioscan", binaryMessenger: flutterViewController.binaryMessenger)
+        
+        audioChannel.setMethodCallHandler { (call, result) in
+            if call.method == "sendAudioScanData" {
+                if let arguments = call.arguments as? [String: Any], let data = arguments["audioScanData"] as? String {
+                    print("Audio data from Flutter: \(data)")
+                } else {
+                    print("INVALID_ARGUMENT")
+                }
+                flutterViewController.isDataProcessing = false
+                flutterViewController.engine.destroyContext()
+                
+            } else if call.method == "userTapToCloseScreen" {
+                flutterViewController.dismiss(animated: true, completion: nil)
+                flutterViewController.engine.destroyContext()
+                
+            } else if call.method == "processingOfAudioData" {
+                flutterViewController.isDataProcessing = true
+                print("audio data processing")                                        //------ here should be implementation of a loader on ios side
+                flutterViewController.dismiss(animated: true, completion: nil)
+            }
+            
+            else {
+                print("FlutterMethodNotImplemented")
+            }
+        }
+        
+        // AUDIO --------------------- end
+        
         return flutterViewController
     }
     
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
     
     private func getRoute() -> String {
-        return actionType == "ngVideo" ? "/videoScreening" : "/selfieScreening"
+        switch actionType {
+        case "ngVideo":
+            return "/videoScreening"
+        case "ngPhoto":
+            return "/selfieScreening"
+        case "ngAudio":
+            return "/audioScreening"
+        default:
+            return "/"
+        }
     }
 }
 
@@ -187,7 +227,6 @@ class FlutterViewControllerWrapper: FlutterViewController {
 
 struct ContentView: View {
     @State private var selectedActionType: String = ""
-    @State private var showVoiceScreening = false
 
     var body: some View {
            NavigationStack {
@@ -202,10 +241,10 @@ struct ContentView: View {
                    }
                    .font(.system(size: 24))
 
-                   Button("Run VOICE screening service") {
-                       showVoiceScreening = true
-                   }
-                   .font(.system(size: 24))
+//                   Button("Run VOICE screening service") {
+//                       selectedActionType = "ngAudio"
+//                   }
+//                   .font(.system(size: 24))
                }
                .padding()
            }
@@ -214,9 +253,6 @@ struct ContentView: View {
         }) {
             FlutterViewControllerRepresentable(actionType: selectedActionType)
                 .id(UUID())
-        }
-        .fullScreenCover(isPresented: $showVoiceScreening) {
-                VoiceView()
         }
     }
 }

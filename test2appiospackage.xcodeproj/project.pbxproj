@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7F0D869E2DAC752800D0AEDF /* Sonde_SDK .xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F0D869C2DAC750900D0AEDF /* Sonde_SDK .xcframework */; };
-		7F0D869F2DAC752800D0AEDF /* Sonde_SDK .xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7F0D869C2DAC750900D0AEDF /* Sonde_SDK .xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		7F1E74522DDB78910069A2ED /* youth-sdk-swift-pack in Frameworks */ = {isa = PBXBuildFile; productRef = 7F1E74512DDB78910069A2ED /* youth-sdk-swift-pack */; };
+		7FA524672DEB270B00ED600D /* youth-sdk-swift-pack in Frameworks */ = {isa = PBXBuildFile; productRef = 7FA524662DEB270B00ED600D /* youth-sdk-swift-pack */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +34,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				7F0D869F2DAC752800D0AEDF /* Sonde_SDK .xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -44,7 +41,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		7F0D869C2DAC750900D0AEDF /* Sonde_SDK .xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = "Sonde_SDK .xcframework"; sourceTree = "<group>"; };
 		7F506D282D4048870044DBD4 /* test2appiospackage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = test2appiospackage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F506D382D4048880044DBD4 /* test2appiospackageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = test2appiospackageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F506D422D4048880044DBD4 /* test2appiospackageUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = test2appiospackageUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,8 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F1E74522DDB78910069A2ED /* youth-sdk-swift-pack in Frameworks */,
-				7F0D869E2DAC752800D0AEDF /* Sonde_SDK .xcframework in Frameworks */,
+				7FA524672DEB270B00ED600D /* youth-sdk-swift-pack in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,7 +107,6 @@
 		7F31A9332D409F1600CBC25E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7F0D869C2DAC750900D0AEDF /* Sonde_SDK .xcframework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -157,7 +151,7 @@
 			);
 			name = test2appiospackage;
 			packageProductDependencies = (
-				7F1E74512DDB78910069A2ED /* youth-sdk-swift-pack */,
+				7FA524662DEB270B00ED600D /* youth-sdk-swift-pack */,
 			);
 			productName = test2appiospackage;
 			productReference = 7F506D282D4048870044DBD4 /* test2appiospackage.app */;
@@ -242,7 +236,7 @@
 			mainGroup = 7F506D1F2D4048870044DBD4;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				7F1E74502DDB787F0069A2ED /* XCLocalSwiftPackageReference "../youth-sdk-swift-pack" */,
+				7FA524652DEB26E500ED600D /* XCLocalSwiftPackageReference "../youth-sdk-swift-pack" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 7F506D292D4048870044DBD4 /* Products */;
@@ -648,16 +642,16 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		7F1E74502DDB787F0069A2ED /* XCLocalSwiftPackageReference "../youth-sdk-swift-pack" */ = {
+		7FA524652DEB26E500ED600D /* XCLocalSwiftPackageReference "../youth-sdk-swift-pack" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = "../youth-sdk-swift-pack";
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		7F1E74512DDB78910069A2ED /* youth-sdk-swift-pack */ = {
+		7FA524662DEB270B00ED600D /* youth-sdk-swift-pack */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 7F1E74502DDB787F0069A2ED /* XCLocalSwiftPackageReference "../youth-sdk-swift-pack" */;
+			package = 7FA524652DEB26E500ED600D /* XCLocalSwiftPackageReference "../youth-sdk-swift-pack" */;
 			productName = "youth-sdk-swift-pack";
 		};
 /* End XCSwiftPackageProductDependency section */

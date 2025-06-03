@@ -1,11 +1,9 @@
 import UIKit
-import Sonde_SDK
 
 class AppDelegateCustom: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
 
-        RequireSetup(clientId: "", clientSecret: "")
         return true
     }
 }

@@ -18,11 +18,14 @@ struct test2appiospackageApp: App {
 class FlutterDependencies {
  let flutterVideoEngine = FlutterEngine(name: "flutterVideoEngine")
     let flutterPhotoEngine = FlutterEngine(name: "flutterPhotoEngine")
+    let flutterVoiceEngine = FlutterEngine(name: "flutterVoiceEngine")
     
  init() {
      flutterVideoEngine.run(withEntrypoint: "main", initialRoute: "/videoScreening")
      flutterPhotoEngine.run(withEntrypoint: "main", initialRoute: "/selfieScreening")
+     flutterVoiceEngine.run(withEntrypoint: "main", initialRoute: "/voiceScreening")
      GeneratedPluginRegistrant.register(with: self.flutterVideoEngine);
      GeneratedPluginRegistrant.register(with: self.flutterPhotoEngine);
+     GeneratedPluginRegistrant.register(with: self.flutterVoiceEngine);
  }
 }
